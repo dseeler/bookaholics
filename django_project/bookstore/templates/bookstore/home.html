@@ -1,4 +1,15 @@
 {% extends "bookstore/base.html" %}
+{% load static %}
 {% block content %}
-    <h1>Home</h1>
+    <h1 class="title">Home</h1>
+    <h2>Books</h2>
+    {% for book in books %}
+        <div class="book">
+            <h4>{{ book.title }}</h4>
+            <h6>{{ book.author }}</h6>
+            <h6>{{ book.year }}</h6>
+            <img src="{{ book.image }}">
+            <p>{{ book.description }}</p>
+        </div>
+    {% endfor %}
 {% endblock content %}

@@ -1,3 +1,19 @@
 body{
     background-color: #B9EFE1;
 }
+
+.title{
+    text-align: center;
+}
+
+.book{
+    border: 2px solid black;
+    width: 400px;
+    text-align: center;
+    background-color: white;
+}
+
+.book img{
+    height: 200px;
+    width: 100px;
+}

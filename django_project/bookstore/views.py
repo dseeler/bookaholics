@@ -1,9 +1,9 @@
 from django.shortcuts import render
-
-# Create your views here.
+from .models import Book
 
 def home(request):
     data = {
-        'title': 'Home'
+        'title': 'Home',
+        'books': Book.objects.all()
     }
     return render(request, 'bookstore/home.html', data)

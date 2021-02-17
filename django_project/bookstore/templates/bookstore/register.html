@@ -1,0 +1,23 @@
+{% extends "bookstore/base.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- Add a new style block if you want to create a new stylesheet for a page-->
+    {% block style %}
+        <link rel="stylesheet" href="{% static 'bookstore/register.css' %}">
+    {% endblock style %}
+
+    <!-- Link to return to Home -->
+    <a href="/home">Home</a>
+
+    <!-- Form -->
+    <h1>Registration</h1>
+    <form method="POST">
+        {% csrf_token %}  <!-- Token used for security, must include w/ forms -->
+        <ul id="form_ul">
+            {{ form.as_ul }}  <!-- Entire form pre-generated from forms.py-->
+        </ul>
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock content %}

@@ -6,6 +6,8 @@
     float:left;
     width: 100%;
 }
-.reg{
-    align-self:left;
+aside {
+    float:left;
+    margin: 5em;
+    margin-left: 12em;
 }

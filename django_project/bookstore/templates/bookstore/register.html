@@ -10,9 +10,9 @@
     <!-- Form -->
     <h1>Registration</h1>
     <aside>
-    <form method="POST" class="reg">
+    <form method="POST">
         {% csrf_token %}  <!-- Token used for security, must include w/ forms -->
-        <ul id="form_ul">
+        <ul id="form_ul" style="text-align: right; margin-left: -65px;">
             {{ form.as_ul }}  <!-- Entire form pre-generated from forms.py-->
         </ul>
         <input type="submit" value="Submit" id="submitButton">

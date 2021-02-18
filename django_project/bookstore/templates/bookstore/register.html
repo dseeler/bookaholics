@@ -7,9 +7,7 @@
         <link rel="stylesheet" href="{% static 'bookstore/register.css' %}">
     {% endblock style %}
 
-    <!-- Link to return to Home -->
-    <a href="/home">Home</a>
-
+<body class="reg">
     <!-- Form -->
     <h1>Registration</h1>
     <form method="POST">
@@ -17,7 +15,8 @@
         <ul id="form_ul">
             {{ form.as_ul }}  <!-- Entire form pre-generated from forms.py-->
         </ul>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" id="submitButton">
     </form>
+</body>
 
 {% endblock content %}

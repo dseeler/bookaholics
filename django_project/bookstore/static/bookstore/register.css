@@ -4,4 +4,8 @@
     list-style-type: none;
     text-align: right;
     float:left;
+    width: 100%;
+}
+.reg{
+    align-self:left;
 }

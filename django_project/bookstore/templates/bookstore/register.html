@@ -7,16 +7,15 @@
         <link rel="stylesheet" href="{% static 'bookstore/register.css' %}">
     {% endblock style %}
 
-<body class="reg">
     <!-- Form -->
     <h1>Registration</h1>
-    <form method="POST">
+    <aside>
+    <form method="POST" class="reg">
         {% csrf_token %}  <!-- Token used for security, must include w/ forms -->
         <ul id="form_ul">
             {{ form.as_ul }}  <!-- Entire form pre-generated from forms.py-->
         </ul>
         <input type="submit" value="Submit" id="submitButton">
     </form>
-</body>
-
+    </aside>
 {% endblock content %}

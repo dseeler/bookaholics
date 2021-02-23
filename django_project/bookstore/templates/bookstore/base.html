@@ -8,8 +8,7 @@
 {% endblock style %}
     
     <!--Bootstrap NavBar-->  
-    <!-- Navbar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark " style="background-image: linear-gradient( black, darkslategrey);">
 
     <a class="navbar-brand" href="/home">
       <img src="https://www.pngrepo.com/png/51700/180/book.png" height="80" alt="mdb logo">
@@ -24,8 +23,8 @@
     <!-- Breadcrumbs -->
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a class="waves-effect" href="/home" style="color:black">Home</a></li>
-      <li class="breadcrumb-item"><a class="waves-effect" href="#!"style="color:black">Templates</a></li>
-      <li class="breadcrumb-item active"><a class="waves-effect" href="#!"style="color:black">E-commerce</a></li>
+      <li class="breadcrumb-item"><a class="waves-effect" href="#!"style="color:black">Books</a></li>
+      <li class="breadcrumb-item active"><a class="waves-effect" href="#!"style="color:black">Promotions</a></li>
     </ol>
     <!-- Breadcrumbs -->
   
@@ -36,13 +35,13 @@
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
           <a href="#!" class="nav-link navbar-link-2 waves-effect">
-            <i class="fas fa-shopping-cart pl-0"></i>
+            <b class="fas fa-shopping-cart pl-0">View Cart</b>
           </a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink3" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="true">
-            <i class="united kingdom flag m-0">More Options</i>
+            <b class="united kingdom flag m-0">More Options</b>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#!">Action</a>
@@ -50,24 +49,14 @@
             <a class="dropdown-item" href="#!">Something else here</a>
           </div>
         </li>
-        <li class="nav-item">
-          <a href="#!" class="nav-link waves-effect">
-            Shop
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#!" class="nav-link waves-effect">
-            Contact
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#!" class="nav-link waves-effect">
-            Sign in
-          </a>
-        </li>
+        
         <li class="nav-item pl-2 mb-2 mb-md-0">
           <a href="/register" type="button"
-            class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign up</a>
+            class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign Up</a>
+        </li>
+        <li class="nav-item pl-2 mb-2 mb-md-0">
+          <a href="/login" type="button"
+            class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign In</a>
         </li>
       </ul>
   
@@ -76,8 +65,6 @@
   
   </nav>
   <!-- Navbar -->
-
-
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -91,19 +78,33 @@
         {% endif %}
     </head>
 
-    <body style="margin-top: 0px; margin-left: 50px; margin-right: 50px; margin-bottom: 250px; box-shadow: 0px 0px 50px 15px darkred">
-        <div class="container">
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-            {% block content %}{% endblock %}
-        </div>
-    </body>
+<!--The body-->
+  <div class = "borders">
+      <body>
+          <div class="container">
+              {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-{{ message.tags }}">
+                          {{ message }}
+                      </div>
+                  {% endfor %}
+              {% endif %}
+              {% block content %}{% endblock %}
+          </div>
+      </body>
+    </div>
 
+    <footer style="text-align: center;">
+      <h6>
+        Software Engineering Spring 2021
+      </h6>
+    </footer>
+  </div>
+
+
+
+
+  <!--Javascript-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script>

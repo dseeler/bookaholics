@@ -1,13 +1,4 @@
-#form_ul{
-    margin: 3px;
-    padding: 3px;
+ul{
+    display: inline;
     list-style-type: none;
-    text-align: right;
-    float:left;
-    width: 100%;
-}
-aside {
-    float:left;
-    margin: 5em;
-    margin-left: 12em;
 }

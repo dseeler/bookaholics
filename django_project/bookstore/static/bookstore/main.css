@@ -4,7 +4,7 @@
     margin-top: 0px;
     margin-left: 50px;
     margin-right: 50px;
-    margin-bottom: 250px;
+    margin-bottom: 0px;
     box-shadow: 0px 0px 50px 15px darkred;
     background-size: auto;
 }
@@ -19,6 +19,8 @@
     text-align: center;
     align-self: center;
     background-color: white;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .book img{
@@ -26,4 +28,8 @@
     width: 100px;
 }
 
-
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

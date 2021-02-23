@@ -3,7 +3,7 @@ from .models import User
 
 class RegistrationForm(forms.ModelForm):
     username = forms.CharField(label="Username", max_length=20)
-    password = forms.CharField(label="Password", max_length=20)
+    password = forms.CharField(label="Password", max_length=20,  widget=forms.PasswordInput)
     email = forms.EmailField(label="Email")
     phone = forms.CharField(label="Phone", max_length=10)
     card_num = forms.CharField(label="Card number", max_length=16)

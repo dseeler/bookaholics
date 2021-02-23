@@ -21,3 +21,39 @@ def register(request):
     else:
         form = RegistrationForm()
     return render(request, 'bookstore/register.html', {'form': form})
+
+def confirm_registration(request):
+    context = {
+        'title' : 'Confirm Registration',
+    }
+    return render(request,'bookstore/confirm_registration.html',context)
+
+def login(request):
+    context = {
+        'title' : 'Login',
+    }
+    return render(request,'bookstore/login.html',context)
+
+def edit_profile(request):
+    context = {
+        'title': 'Edit Profile',
+    }
+    return render(request,'bookstore/edit_profile.html',context)
+
+def search(request):
+    context = {
+        'title': 'Search for Books',
+    }
+    return render(request,'bookstore/search.html',context)
+
+def checkout(request):
+    context = {
+        'title' : 'Checkout',
+    }
+    return render(request,'bookstore/checkout.html',context)
+
+def order_history(request):
+    context = {
+        'title' : 'Order History',
+    }
+    return render(request,'bookstore/order_history.html',context)

@@ -57,3 +57,9 @@ def order_history(request):
         'title' : 'Order History',
     }
     return render(request,'bookstore/order_history.html',context)
+
+def order_summary(request):
+    context = {
+        'title': 'Review Order Summary'
+    }
+    return render(request,'bookstore/order_summary.html',context)

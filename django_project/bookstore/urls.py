@@ -10,4 +10,5 @@ urlpatterns = [
     path('search',views.search, name='bookstore-search'),
     path('checkout',views.checkout,name='bookstore-checkout'),
     path('order_history',views.order_history,name='bookstore-order_history'),
+    path('order_summary',views.order_summary,name='bookstore-order_summary'),
 ]

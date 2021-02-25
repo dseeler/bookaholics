@@ -21,6 +21,20 @@
 </head>
 <body>
 
+<div style="margin-top: 25px;">
+  <h1>Explore Books</h1>
+    <div style="float:right; margin-top: -35px">
+      <label for="filter">Filter:</label>
+      <select id="filter">
+      <option value="">Filter...</option>
+      <option>Alphabetically</option>
+      <option>Best Seller</option>
+      <option>Newest Items</option>
+      <option>Price: High to Low</option>
+      <option>Price: Low to High</option>
+    </div>
+  </select>
+</div>
 
 <div class="flex-container">
 {% for book in books %}

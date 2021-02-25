@@ -43,6 +43,7 @@ def edit_profile(request):
 def search(request):
     context = {
         'title': 'Search for Books',
+        'books': Book.objects.all()
     }
     return render(request,'bookstore/search.html',context)
 

@@ -43,6 +43,7 @@ def edit_profile(request):
 def search(request):
     context = {
         'title': 'Search for Books',
+        'books': Book.objects.all()
     }
     return render(request,'bookstore/search.html',context)
 
@@ -63,3 +64,10 @@ def order_summary(request):
         'title': 'Review Order Summary'
     }
     return render(request,'bookstore/order_summary.html',context)
+
+def shopping_cart(request):
+    context = {
+        'title': 'Shopping Cart',
+        'books': Book.objects.all()
+    }
+    return render(request,'bookstore/shopping_cart.html',context)

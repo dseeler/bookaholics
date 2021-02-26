@@ -17,7 +17,7 @@ def register(request):
             form.save()
             username = form.cleaned_data['username']
             messages.success(request, f'Account created for {username}!')
-            return redirect('bookstore-home')
+            return redirect('bookstore-confirm_registration')
     else:
         form = RegistrationForm()
     return render(request, 'bookstore/register.html', {'form': form})

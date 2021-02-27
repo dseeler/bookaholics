@@ -19,11 +19,18 @@ def register(request):
             form.save()
             user = form.cleaned_data.get('username')
             messages.success(request, 'Account was created for ' + user)
-            return redirect('bookstore-signin')
+            return redirect('bookstore-confirm_registration')
     else:
         form = RegistrationForm()
 
     return render(request, 'bookstore/register.html', {'form': form})
+
+def confirm_registration(request):
+    context = {
+        'title': 'Confirmation',
+    }
+    return render(request, 'bookstore/confirm_registration.html', context)
+
 
 def signin(request):
     if request.user.is_authenticated:

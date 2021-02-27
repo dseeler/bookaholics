@@ -9,8 +9,6 @@
     <!-- Welcome sign (move or delete this) -->
     {% if request.user.is_authenticated %}
         <p>Welcome, {{ request.user }}!</p>
-    {% else %}
-        <p>Welcome!</p>
     {% endif %}
 
     <h1 style="text-align: center;">Promotions</h1>

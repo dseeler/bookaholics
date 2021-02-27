@@ -58,6 +58,13 @@ def signout(request):
     logout(request)
     return redirect('bookstore-signin')
 
+def book_detail(request, id):
+    context = {
+        'title': 'Book Detail',
+        'book': Book.objects.get(id=id)
+    }
+    return render(request, 'bookstore/book_detail.html', context)
+
 def edit_profile(request):
     context = {
         'title': 'Edit Profile',

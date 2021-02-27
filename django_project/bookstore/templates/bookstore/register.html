@@ -9,13 +9,15 @@
 <body>
     <!-- Form -->
     <h1>Registration</h1>
-    <p>Mandatory fields indicated by *<p>
+    <form method="POST">
     <form method="POST" style = "margin-right:810px">
         {% csrf_token %}  <!-- Token used for security, must include w/ forms -->
-        <ul id="form_ul" style="text-align: right; margin-left: 500px;">
-            {{ form.as_ul }}  <!-- Entire form pre-generated from forms.py-->
-        </ul>
+        {% for field in form %}
+            {{ field.label }}
+            {{ field }}
+        {% endfor %}
         <input type="submit" value="Submit" id="submitButton" style="margin-bottom: 15px; margin-left: 125px">
+        {{ form.errors }}
     </form>
 </body>
 {% endblock content %}

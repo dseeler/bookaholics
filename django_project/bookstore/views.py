@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from .models import Book
 from .forms import RegistrationForm
 
 def home(request):
     context = {
         'title': 'Home',
-        'books': Book.objects.all()
+        'books': Book.objects.all(),
     }
     return render(request, 'bookstore/home.html', context)
 
@@ -15,24 +17,39 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data['username']
-            messages.success(request, f'Account created for {username}!')
-            return redirect('bookstore-confirm_registration')
+            user = form.cleaned_data.get('username')
+            messages.success(request, 'Account was created for ' + user)
+            return redirect('bookstore-signin')
     else:
         form = RegistrationForm()
+
     return render(request, 'bookstore/register.html', {'form': form})
 
-def confirm_registration(request):
-    context = {
-        'title' : 'Confirm Registration',
-    }
-    return render(request,'bookstore/confirm_registration.html',context)
+def signin(request):
+    if request.user.is_authenticated:
+        return redirect('bookstore-home')
+    else:
 
-def login(request):
-    context = {
-        'title' : 'Login',
-    }
-    return render(request,'bookstore/login.html',context)
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('bookstore-home')
+            else:
+                messages.info(request, 'Username or password is incorrect')
+
+        context = {
+            'title': 'Login',
+        }
+        return render(request, 'bookstore/signin.html', context)
+
+def signout(request):
+    logout(request)
+    return redirect('bookstore-signin')
 
 def edit_profile(request):
     context = {

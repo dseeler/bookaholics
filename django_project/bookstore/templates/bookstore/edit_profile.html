@@ -9,11 +9,11 @@
 <body>
     <h1>Edit Profile</h1>
     <p>
-        <p>Username: sample</p>
+        <p>Username: {{ request.user }}</p>
         <button>Update username</button>
     </p>
     <p>
-        <p>Email: sample</p>
+        <p>Email: {{ request.user.email }}</p>
         <button>Update email</button>
     </p>
     <p>

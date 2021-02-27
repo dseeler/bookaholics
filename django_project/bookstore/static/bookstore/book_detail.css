@@ -1,0 +1,81 @@
+#book-title{
+    text-align: center;
+}
+
+#content{
+    padding-top: 20px;
+    width: 100%;
+}
+
+#book-image-div{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+}
+
+#book-image-div img{
+    height: 400px;
+    width: 275px;
+}
+
+#book-info-div{
+    float: right;
+    width: 50%;
+    height: 400px;
+    padding: -20px 10px 0 10px;
+}
+
+#book-info-div span{
+    text-align: center;
+}
+
+#separator{
+    margin-top: -10px;
+}
+
+#price-info{
+    margin-top: -20px;
+    height: 290px;
+    text-align: left;
+    width: 100%;
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+#price-info ul{
+    list-style-type: none;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 7px;
+}
+
+#price-info li{
+    float: left;
+}
+
+#price-info li button{
+    background: none;
+}
+
+#rating{
+    margin-bottom: 8px;
+}
+
+#price{
+    font-size: 40px;
+    margin-top: -25px;
+    margin-bottom: 0px;
+}
+
+#add-to-cart-div{
+    text-align: center;
+}
+
+#add-to-cart{
+    padding: 0px 30px 0px 30px;
+}
+
+#description-div{
+    padding: 25px 30px 0 30px;
+}

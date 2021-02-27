@@ -39,10 +39,14 @@
 <div class="flex-container">
 {% for book in books %}
   <div>
-  	<img src="{{ book.image }}" height="170">
-  	<p>{{ book.title }}</p>
-  	<p>{{ book.author }}</p>
-  </div> 
+    <a id="book-link" href={% url 'bookstore-book_detail' books.0.id %}> 
+      <img src="{{ book.image }}" height="170">
+      <p>{{ book.title }}</p>
+      <p>{{ book.author }}</p>
+      <p><b>$10.00</b></p>
+      <button>View Book</button>
+    </a>  
+  </div>
 {% endfor %}
 </div>
 

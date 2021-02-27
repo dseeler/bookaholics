@@ -67,3 +67,8 @@
     flex: 1;
   }
 }
+
+#book-link{
+  text-decoration: none;
+  color: black;
+}

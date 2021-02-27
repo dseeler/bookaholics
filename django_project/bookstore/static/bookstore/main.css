@@ -38,22 +38,3 @@
     flex-direction: row;
     align-items: center;
 }
-
-.carousel{
-    background-image: linear-gradient(white -100%, #636262 500%);
-    border: 2px solid black;
-    text-align: center;
-    padding-top: 20px;
-    padding-bottom: 50px;
-}
-
-.carousel-img{
-    width: 150px;
-    height: 200px;
-    box-shadow: 0px 0px 5px 1px black;
-}
-.display-img{
-    width: 175px;
-    height: 225x;
-    padding-top: 15px;
-}

@@ -15,10 +15,12 @@
                 <h2 id="book-title">{{ book.title }}</h2>
                 <h5 id="book-title">{{ book.author }}, {{ book.year }}</h5>
                 <div id="price-info">
-                    <span id="separator">_______________________________________</span>
+                    <div id="separator">
+                        <span>_______________________________________</span>
+                    </div>
                     <p id="rating">Rating: 4.8/5 (928 ratings)</p>
                     <p><b>Paperback</b></p>
-                    <p id="price"><b>$10.00</b></p>
+                    <p id="price"><b>${{ book.price }}</b></p>
 
                     <ul>
                         <li>

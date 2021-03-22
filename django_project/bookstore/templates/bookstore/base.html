@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{% static 'bookstore/main.css' %}">
+        <link rel="stylesheet" href="{% static 'bookstore/base.css' %}">
 
         {% if title %}
             <title>Bookstore - {{ title }}</title>
@@ -29,11 +29,11 @@
             <!-- Left -->
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home" id="home-tab">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/search">Explore</a>
+                        <a class="nav-link" href="/search" id="explore-tab">Explore</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Savings</a>
@@ -42,7 +42,7 @@
 
                 <!-- Search bar -->
                 <form class="d-flex justify-content-center" id="search-bar" action="/search">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="search-input">
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search title, author, genre, ISBN..." aria-label="Search" id="search-input">
                     <button id="search-button"><i class="fa fa-search"></i></button>
                 </form>
             </div>
@@ -54,7 +54,7 @@
 
                     {% if not request.user.is_authenticated %}
                     <li class="nav-item" id="cart">
-                        <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect">
+                        <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect" id="cart-tab">
                             <i class="fa fa-shopping-cart"></i><b>&nbsp;Cart</b>
                         </a>
                     </li>
@@ -70,7 +70,7 @@
                     <!-- Else show Edit Profile and Sign Out -->
                     {% else %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/edit_profile">
+                        <a class="nav-link dropdown-toggle" id="profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/edit_profile" id="profile-tab">
                             <i class="fa fa-user"></i><b>&nbsp;Profile</b>
                         </a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
@@ -80,7 +80,7 @@
                         </div>
                     </li>
                     <li class="nav-item" id="cart">
-                        <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect">
+                        <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect" id="cart-tab">
                             <i class="fa fa-shopping-cart"></i><b>&nbsp;Cart</b>
                         </a>
                     </li>

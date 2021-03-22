@@ -1,12 +1,20 @@
 #content{
-    height: 90vh;
+    min-height: 90%;
+    padding-top: 20px;
+}
+
+#book-content{
+    background: none;
+    width: 80%;
+    margin: 0px auto 0px auto;
+    background-color: white;
 }
 
 #book-title{
     text-align: center;
 }
 
-#book-content{
+#book-detail{
     padding-top: 30px;
     width: 100%;
     height: 100;
@@ -21,6 +29,7 @@
 #book-image-div img{
     height: 400px;
     width: 275px;
+    box-shadow: 0px 0px 5px 1px black;
 }
 
 #book-info-div{
@@ -84,5 +93,86 @@
 }
 
 #description-div{
-    padding: 25px 30px 0 30px;
+    height: 300px;
+    padding: 10px 30px 0 30px;
+    font-size: 15px;
+    margin-top: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#related-books ul{
+    list-style-type: none;
+    display: inline-block;
+    width: 100%;
+    height: 260px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+#related-books li{
+    display: inline-block;
+    margin-right: 10px;
+    width: 150px;
+    padding: 0 5px 0 5px;
+}
+
+#related-books a{
+    text-decoration: none;   
+    color: black;
+}
+
+#related-books img{
+    width: 120px;
+    height: 160px;
+    margin-bottom: 5px;
+}
+
+#related-books p{
+    display: block;/* Change it as per your requirement. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0px;
+}
+
+#related-books-title{
+    text-align: center;
+    padding: 15px 0 10px 0;
+}
+
+#back-button{
+    margin-left: -40px;
+    background: none;
+    border: none;
+    position: absolute;
+}
+
+#back-button:hover{
+    cursor: pointer;
+}
+
+#back-button:focus{
+    outline: none;
+}
+
+#back-button img{
+    height: 40px;
+    width: 40px;
+}
+
+#cart-tab, #home-tab, #profile-tab{
+    color: rgb(175, 175, 175);
+}
+
+#explore-tab{
+    color: white;
+}
+
+#home-tab:hover, #profile-tab:hover, #cart-tab:hover{
+    color: rgb(218, 218, 218);
 }

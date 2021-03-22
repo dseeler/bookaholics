@@ -8,36 +8,38 @@
 	
 	<div class="container-fluid" id="content">
 		<div class="container-fluid" id="content-left">
-			<p>Filter Results</p>
-			<form id="form2" method="POST">
-				<ul id="filterList">
+			<p id="content-left-title">Filter Results</p>
+			<form method="POST">
+				<p class="filter-category">Genre</p>
+				<ul class="filter-list">
 					<li>
 						<input type="radio" value="0" name="department" checked>
-						<label>None</label>
+						<label>Fiction</label>
 					</li>
 					<li>
 						<input type="radio" value="1" name="department">
-						<label>Fruit</label>
+						<label>Non-fiction</label>
 					</li>
 					<li>
 						<input type="radio" value="2" name="department">
-						<label>Vegetables</label>
+						<label>Sci-Fi</label>
 					</li>
 					<li>
 						<input type="radio" value="3" name="department">
-						<label>Meat</label>
+						<label>History</label>
 					</li>
 					<li>
 						<input type="radio" value="4" name="department">
-						<label>Seafood</label>
+						<label>Horror</label>
 					</li>
 					<li>
 						<input type="radio" value="5" name="department">
-						<label>Dairy and Eggs</label>
+						<label>Classics</label>
 					</li>
 				</ul>
-				<p class="filterCategory">Price Range</p>
-				<ul id="filterList">
+				<p class="separator">______________________________________</p>
+				<p class="filter-category">Price Range</p>
+				<ul class="filter-list">
 					<li>
 						<input type="radio" value="0" name="price-range" checked>
 						<label>None</label>
@@ -55,26 +57,23 @@
 						<label>$25+</label>
 					</li>
 				</ul>
-				<p class="filterCategory">Other</p>
-				<ul id="filterList">
+				<p class="separator">______________________________________</p>
+				<p class="filter-category">Other</p>
+				<ul class="filter-list">
 					<li>
 						<input type="checkbox" value="on-sale" name="other">
 						<label>On-Sale</label>
 					</li>
 					<li>
-						<input type="checkbox" value="holiday" name="other">
-						<label>Holiday</label>
-					</li>
-					<li>
-						<input type="checkbox" value="perishable" name="other">
-						<label>Perishable</label>
+						<input type="checkbox" value="stars" name="other">
+						<label>Five-Stars</label>
 					</li>
 				</ul>
 			</form>
 		</div>
 
 		<div class="container-fluid" id="content-right">
-			<h2>Select books to add to your cart</h2>
+			<h2 id="content-right-title">Select books to add to your cart</h2>
 			<table>
 				{% for book in books %}
 					{% if forloop.counter|divisibleby:5 %}

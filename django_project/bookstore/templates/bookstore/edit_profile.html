@@ -4,26 +4,30 @@
 
     <!-- Add a new style block if you want to create a new stylesheet for a page-->
     {% block style %}
-        <link rel="stylesheet" href="{% static 'bookstore/register.css' %}">
+        <link rel="stylesheet" href="{% static 'bookstore/edit_profile.css' %}">
     {% endblock style %}
-<body>
-    <h1>Edit Profile</h1>
-    <p>
-        <p>Username: {{ request.user }}</p>
-        <button>Update username</button>
-    </p>
-    <p>
-        <p>Email: {{ request.user.email }}</p>
-        <button>Update email</button>
-    </p>
-    <p>
-        <button>Update password</button>
-    </p>
-    <p>
-        <button>Update address information</button>
-    </p>
-    <p>
-        <button>Update payment information</button>
-    </p>
-</body>
+
+    <div class="container-fluid" id="content">
+        <div class="container-fluid" id="center-div">
+            <h1>Edit Profile</h1>
+            <p>
+                <p>Username: {{ request.user }}</p>
+                <button>Update username</button>
+            </p>
+            <p>
+                <p>Email: {{ request.user.email }}</p>
+                <button>Update email</button>
+            </p>
+            <p>
+                <button>Update password</button>
+            </p>
+            <p>
+                <button>Update address information</button>
+            </p>
+            <p>
+                <button>Update payment information</button>
+            </p>
+        </div>
+    </div>
+
 {% endblock content %}

@@ -2,111 +2,109 @@
 {% load static %}
 {% block content %}
 
+	{% block style %}
+  		<link rel="stylesheet" href="{% static 'bookstore/home.css' %}">
+  	{% endblock style %}
 
-  {% block style %}
-    <link rel="stylesheet" href="{% static 'bookstore/home.css' %}">
+  	<div class="container-fluid" id="content">
 
-    <!-- Home CSS should be in home.css file, organize later -->
-    <link rel="stylesheet" href="{% static 'bookstore/product.css' %}">
-  {% endblock style %}
-
-  <div class="container-fluid" id="content">
-
-  <!-- Welcome sign (move or delete this) -->
+  	<!-- Welcome sign (move or delete this) -->
     {% if request.user.is_authenticated %}
-    <h3>Welcome, {{ request.user }}!</h3>
-  {% endif %}
+    	<h3>Welcome, {{ request.user }}!</h3>
+  	{% endif %}
   
-  <h1 style="text-align: center;">Featured</h1>
+  	<h1 id="featured">Featured</h1>
   
-  <!-- Carousel -->
-  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" class="carousel">
+  	<!-- Carousel -->
+  	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" class="carousel">
     <!-- 5 image limit -->
-    <ol class="carousel-indicators">
-      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-      <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
-    </ol>
-    <div class="carousel-inner" style="align-items: center;">
-    <!-- First book starts as active item -->
-      <div class="carousel-item active">
-        <a href={% url 'bookstore-book_detail' books.0.id %}>
-          <img src="{{ books.0.image }}" class="carousel-img">
-        </a>  
-      </div>
+    	<ol class="carousel-indicators">
+      		<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      		<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+			<li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+    	</ol>
+
+    	<div class="carousel-inner" style="align-items: center;">
+    	<!-- First book starts as active item -->
+      		<div class="carousel-item active">
+        		<a href={% url 'bookstore-book_detail' books.0.id %}>
+          			<img src="{{ books.0.image }}" class="carousel-img">
+        		</a>  
+      		</div>
   
-      <!-- Add the rest (indices 1-4) -->
-      {% for book in books|slice:"1:5" %}
-        <div class="carousel-item">
-          <a href={% url 'bookstore-book_detail' book.id %}>
-            <img src="{{ book.image }}" class="carousel-img">
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+      		<!-- Add the rest (indices 1-4) -->
+      		{% for book in books|slice:"1:5" %}
+        	<div class="carousel-item">
+          		<a href={% url 'bookstore-book_detail' book.id %}>
+            		<img src="{{ book.image }}" class="carousel-img">
+          		</a>
+        	</div>
+
+      		{% endfor %}
+    	</div>
+
+    	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      		<span class="sr-only">Previous</span>
+    	</a>
+    	<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+      		<span class="sr-only">Next</span>
+    	</a>
+  	</div>
   
-  <div id="home-category">
-    <h3>Best Sellers</h3>
-    <ul>
-      {% for book in books %}
-        <li>
-          <!-- Pass book key through URL -->
-          <a href={% url 'bookstore-book_detail' book.id %}>
-            <img src="{{ book.image }}">
-            <p>{{ book.title }}</p>
-            <p>{{ book.author }}</p>
-            <p><b>${{ book.price }}</b></p>
-          </a>
-        </li>
-      {% endfor %}
-    </ul>
-  </div>
+  	<div id="home-category">
+    	<h3>Best Sellers</h3>
+    	<ul>
+      		{% for book in books %}
+        		<li>
+          			<!-- Pass book key through URL -->
+          			<a href={% url 'bookstore-book_detail' book.id %}>
+            			<img src="{{ book.image }}">
+						<p>{{ book.title }}</p>
+						<p>{{ book.author }}</p>
+						<p><b>${{ book.price }}</b></p>
+          			</a>
+        		</li>
+      		{% endfor %}
+    	</ul>
+  	</div>
   
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">Harry Potter and the Sorcerer's Stone</h2>
-        <p class="lead">He is the boy who lived...</p>
-      </div>
-      <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.0.image }}" class="display-img"></div>
-    </div>
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">The Great Gatsby</h2>
-        <p class="lead">What's so great about him anyways?</p>
-      </div>
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.1.image }}" class="display-img"></div>
-    </div>
-  </div>
+  	<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+    	<div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+      		<div class="my-3 py-3">
+        	<h2 class="display-5">Harry Potter and the Sorcerer's Stone</h2>
+        	<p class="lead">He is the boy who lived...</p>
+      	</div>
+      	<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.0.image }}" class="display-img"></div>
+    	</div>
+    	<div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+      		<div class="my-3 p-3">
+        		<h2 class="display-5">The Great Gatsby</h2>
+        		<p class="lead">What's so great about him anyways?</p>
+      		</div>
+      		<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.1.image }}" class="display-img"></div>
+    	</div>
+  	</div>
   
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
-    <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
-      <div class="my-3 p-3">
-        <h2 class="display-5">To Kill a Mockingbird</h2>
-        <p class="lead">A hunting book, or a book about racism in the south?</p>
-      </div>
-      <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.2.image }}" class="display-img"></div>
-    </div>
-    <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
-      <div class="my-3 py-3">
-        <h2 class="display-5">The Catcher in the Rye</h2>
-        <p class="lead">I honestly do not know why this is the title of this book.</p>
-      </div>
-      <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.3.image }}" class="display-img"></div>
-    </div>
-  </div>
-</div>
-  
+  	<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
+		<div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+      		<div class="my-3 p-3">
+        		<h2 class="display-5">To Kill a Mockingbird</h2>
+        		<p class="lead">A hunting book, or a book about racism in the south?</p>
+      		</div>
+      		<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.2.image }}" class="display-img"></div>
+    	</div>
+    	<div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+      		<div class="my-3 py-3">
+        		<h2 class="display-5">The Catcher in the Rye</h2>
+        		<p class="lead">I honestly do not know why this is the title of this book.</p>
+      		</div>
+      		<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.3.image }}" class="display-img"></div>
+    		</div>
+  		</div>
+	</div>
 
 {% endblock content %}

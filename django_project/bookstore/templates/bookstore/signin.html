@@ -8,20 +8,23 @@
 	{% endblock style %}
 
 	<div class="container-fluid" id="content">
-		<h1 id="title">Sign In</h1>
-		<form method="POST">
-			<label for="inputUsername" class="field-label">Username</label>
-			<input id="inputUsername" class="form-control" placeholder="Username" name="username"required autofocus>
-			<label for="inputPassword" class="field-label">Password</label>
-			<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-			<div class="checkbox mb-3">
-				<label>
-					<input type="checkbox" value="remember-me"> Remember me
-				</label>
-			</div>
-			<button class="w-100 btn btn-lg btn-primary bg-dark" type="submit" id="signin-button">Sign in</button>
-    		<h6><a href="/register" style="color:black">Forgot password?</a></h6>
-		</form>
+		<div class="container-fluid" id="center-div">
+			<h1 id="title">Sign In</h1>
+			<form method="POST">
+				{% csrf_token %}
+				<label for="inputUsername" class="field-label">Username</label>
+				<input id="inputUsername" class="form-control" placeholder="Username" name="username"required autofocus>
+				<label for="inputPassword" class="field-label">Password</label>
+				<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+				<div class="checkbox mb-3">
+					<label>
+						<input type="checkbox" value="remember-me"> Remember me
+					</label>
+				</div>
+				<button class="w-100 btn btn-lg btn-primary bg-dark" type="submit" id="signin-button">Sign in</button>
+				<h6><a href="/register" style="color:black">Forgot password?</a></h6>
+			</form>
+		</div>
 	</div>
 
 {% endblock content %}

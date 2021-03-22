@@ -1,9 +1,19 @@
 #content{
-    margin: 10% auto 0 auto;
+    height: 80%;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #center-div{
     border: 2px solid black;
     border-radius: 10px;
-    width: 700px;
-}
+    width: 800px;
+    height: 700px;
+    padding: 0 4% 0 4%;
+    background-color: white;
+  }
 
 ul{
     display: inline;
@@ -13,4 +23,8 @@ ul{
 #title{
     margin-top: 10px;
     text-align: center;
+}
+
+#home-tab:hover, #explore-tab:hover, #profile-tab:hover, #cart-tab:hover{
+    color: rgb(218, 218, 218);
 }

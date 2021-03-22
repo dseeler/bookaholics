@@ -1,9 +1,5 @@
-body {
-    background-color: #eeeeee
-}
-
-.footer-background {
-    background-color: rgb(204, 199, 199)
+#xyz{
+    background-color: red;
 }
 
 @media(max-width:991px) {
@@ -88,4 +84,16 @@ body {
     #heading {
         padding-top: 15px
     }
+}
+
+#home-tab, #explore-tab, #profile-tab{
+    color: rgb(175, 175, 175);
+}
+
+#cart-tab{
+    color: white;
+}
+
+#home-tab:hover, #explore-tab:hover, #profile-tab:hover{
+    color: rgb(218, 218, 218);
 }

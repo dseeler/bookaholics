@@ -6,10 +6,11 @@
     {% block style %}
         <link rel="stylesheet" href="{% static 'bookstore/register.css' %}">
     {% endblock style %}
-<body>
-    <!-- Form -->
-    <h1 style="text-align:center">A verification email has been sent to the email address associated with your account.</h1>
-    <button style="margin-left: 500px;"><a href="/home" style="color:black;">Home</a></button>
 
-</body>
+    <!-- Form -->
+    <div class="container-fluid" id="content">
+        <h1 style="text-align:center">A verification email has been sent to the email address associated with your account.</h1>
+        <button style="margin-left: 500px;"><a href="/home" style="color:black;">Home</a></button>
+    </div>  
+
 {% endblock content %}

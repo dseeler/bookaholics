@@ -1,4 +1,16 @@
+#content{
+    margin: 10% auto 0 auto;
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 700px;
+}
+
 ul{
     display: inline;
     list-style-type: none;
+}
+
+#title{
+    margin-top: 10px;
+    text-align: center;
 }

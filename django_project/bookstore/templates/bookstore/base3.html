@@ -1,0 +1,165 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Add a new style block if you want to create a new stylesheet for a page-->
+{% block style %}
+    <link rel="stylesheet" href="{% static 'bookstore/main.css' %}">
+{% endblock style %}
+
+    <!--Bootstrap NavBar-->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" id="navBar">
+
+    <a class="navbar-brand" href="/home">
+      <img src="https://www.pngrepo.com/png/51700/180/book.png" height="80" alt="mdb logo">
+    </a>
+
+    <!-- Collapse button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav1"
+      aria-controls="basicExampleNav1" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Breadcrumbs -->
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a class="waves-effect" href="/home" style="color:black">Home</a></li>
+      <li class="breadcrumb-item"><a class="waves-effect" href="/search"style="color:black">Explore Books</a></li>
+    </ol>
+    <!-- Breadcrumbs -->
+    <div class="topnav" style="margin-left: 150px;">
+      <form>
+        <input type="text" placeholder="Search...">
+        <button><a href="/search" style="color:black;">Search</a></button>
+      </form>
+    </div>
+
+    <!-- Links -->
+    <div class="collapse navbar-collapse" id="basicExampleNav1">
+
+      <!-- Right -->
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect">
+            <b class="fas fa-shopping-cart pl-0">View Cart</b>
+          </a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle waves-effect" id="navbarDropdownMenuLink3" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="true">
+            <b class="united kingdom flag m-0">More Options</b>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/checkout">Checkout</a>
+            <a class="dropdown-item" href="/admin">Administrator Login</a>
+            <a class="dropdown-item" href="/order_history">Order History</a>
+          </div>
+        </li>
+
+          <!-- If a user is not signed in, show Sign Up and Sign In buttons -->
+          {% if not request.user.is_authenticated %}
+            <li class="nav-item pl-2 mb-2 mb-md-0">
+                <a href="/register" type="button"
+                class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign Up</a>
+            </li>
+            <li class="nav-item pl-2 mb-2 mb-md-0">
+                <a href="/signin" type="button"
+                class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign In</a>
+            </li>
+          <!-- Else show Edit Profile and Sign Out -->
+          {% else %}
+            <li class="nav-item pl-2 mb-2 mb-md-0">
+                <a href="/edit_profile" type="button"
+                   class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Edit Profile</a>
+            </li>
+            <li class="nav-item pl-2 mb-2 mb-md-0">
+                <a href="/signout" type="button"
+                    class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign Out</a>
+            </li>
+          {% endif %}
+      </ul>
+  
+    </div>
+    <!-- Links -->
+  
+  </nav>
+  <!-- Navbar -->
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'bookstore/main.css' %}">
+
+        {% if title %}
+            <title>Bookstore - {{ title }}</title>
+        {% else %}
+            <title>Bookstore</title>
+        {% endif %}
+    </head>
+
+<!--The body-->
+  <div class="borders">
+      <body>
+          <div class="container">
+              {% if messages %}
+                  {% for message in messages %}
+                      <div class="alert alert-{{ message.tags }}">
+                          {{ message }}
+                      </div>
+                  {% endfor %}
+              {% endif %}
+              {% block content %}{% endblock %}
+          </div>
+      </body>
+    </div>
+
+    <footer style="text-align: center; margin-top: 15px;">
+      <h6>
+        Software Engineering Spring 2021
+      </h6>
+    </footer>
+  </div>
+
+  <!--Javascript-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function test(){
+            var tabsNewAnim = $('#navbarSupportedContent');
+            var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+            var activeItemNewAnim = tabsNewAnim.find('.active');
+            var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+            var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+            var itemPosNewAnimTop = activeItemNewAnim.position();
+            var itemPosNewAnimLeft = activeItemNewAnim.position();
+            $(".hori-selector").css({
+                "top":itemPosNewAnimTop.top + "px", 
+                "left":itemPosNewAnimLeft.left + "px",
+                "height": activeWidthNewAnimHeight + "px",
+                "width": activeWidthNewAnimWidth + "px"
+            });
+            $("#navbarSupportedContent").on("click","li",function(e){
+                $('#navbarSupportedContent ul li').removeClass("active");
+                $(this).addClass('active');
+                var activeWidthNewAnimHeight = $(this).innerHeight();
+                var activeWidthNewAnimWidth = $(this).innerWidth();
+                var itemPosNewAnimTop = $(this).position();
+                var itemPosNewAnimLeft = $(this).position();
+                $(".hori-selector").css({
+                "top":itemPosNewAnimTop.top + "px", 
+                "left":itemPosNewAnimLeft.left + "px",
+                "height": activeWidthNewAnimHeight + "px",
+                "width": activeWidthNewAnimWidth + "px"
+                });
+            });
+            }
+            $(document).ready(function(){
+            setTimeout(function(){ test(); });
+            });
+            $(window).on('resize', function(){
+            setTimeout(function(){ test(); }, 500);
+            });
+            $(".navbar-toggler").click(function(){
+            setTimeout(function(){ test(); });
+            });
+    </script>
+</html>

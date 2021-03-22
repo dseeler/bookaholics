@@ -1,54 +1,27 @@
 {% extends "bookstore/base.html" %}
 {% load static %}
 {% block content %}
+  
 
-  {% block style %}
-    <link rel="stylesheet" href="{% static 'bookstore/sign-in.css' %}">
-  {% endblock style %}
+	{% block style %}	
+		<link rel="stylesheet" href="{% static 'bookstore/signin.css' %}">
+	{% endblock style %}
 
+	<div class="container-fluid" id="content">
+		<h1 id="title">Sign In</h1>
+		<form method="POST">
+			<label for="inputUsername" class="field-label">Username</label>
+			<input id="inputUsername" class="form-control" placeholder="Username" name="username"required autofocus>
+			<label for="inputPassword" class="field-label">Password</label>
+			<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+			<div class="checkbox mb-3">
+				<label>
+					<input type="checkbox" value="remember-me"> Remember me
+				</label>
+			</div>
+			<button class="w-100 btn btn-lg btn-primary bg-dark" type="submit" id="signin-button">Sign in</button>
+    		<h6><a href="/register" style="color:black">Forgot password?</a></h6>
+		</form>
+	</div>
 
-    <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
-
-
-    <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
-  </head>
-  <body class="text-center">
-
-<main class="form-signin">
-  <form method="POST" action="">
-    {% csrf_token %}
-    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
-    <label for="inputUsername" class="visually-hidden">Username</label>
-    <input id="inputUsername" class="form-control" placeholder="Username" name="username"required autofocus>
-    <label for="inputPassword" class="visually-hidden">Password</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-    <div class="checkbox mb-3">
-      <label>
-        <input type="checkbox" value="remember-me"> Remember me
-      </label>
-    </div>
-    <button class="w-100 btn btn-lg btn-primary bg-dark" type="submit" style="margin-bottom:15px;">Sign in</button>
-    <h6><a href="/register" style="color:black">New? Create Account</a></h6>
-  </form>
-</main>
-
-
-
-  </body>
-</html>
 {% endblock content %}

@@ -1,0 +1,72 @@
+#content{
+    width: 100%;
+    height: 90vh;
+    margin: 0;
+    padding: 0;
+}
+
+#content-left{
+    display: inline-block;
+    text-align: center;
+    min-height: 100%;
+    width: 19%;
+    background-image: linear-gradient(white -100%, rgb(107, 118, 126) 200%);
+    border-right: 2px solid black;
+    float: left;
+}
+
+#content-right{
+    display: inline-block;
+    width: 81%;
+    min-height: 100%;
+    padding: 10px 0 0 20px;
+    padding-left: 20px;
+}
+
+#book-container{
+    background-color: white;
+    height: 300px;
+    max-width: 230px;
+    min-width: 230px;
+    border: 5px solid rgb(231, 230, 230);
+    text-align: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 10px 5px 0px 5px;
+}
+
+#book-container a{
+    text-decoration: none;   
+    color: black;
+}
+
+#book-image{
+    width: 160px;
+    height: 200px;
+    margin-bottom: 5px;
+}
+
+#book-title, #book-author, #book-price{
+    display: block;/* Change it as per your requirement. */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0px;
+}
+
+#filter{
+    padding-top: 45px;
+    text-decoration: underline;
+    margin-bottom: -5px;
+}
+
+#filterList{
+    list-style-type: none;
+}
+
+#filterList li{
+    text-align: left;
+    margin-left: -30px;
+    margin-bottom: 5px;
+    font-size: 14px;
+}

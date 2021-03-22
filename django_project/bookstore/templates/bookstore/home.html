@@ -2,6 +2,7 @@
 {% load static %}
 {% block content %}
 
+
   {% block style %}
     <link rel="stylesheet" href="{% static 'bookstore/home.css' %}">
 
@@ -9,13 +10,15 @@
     <link rel="stylesheet" href="{% static 'bookstore/product.css' %}">
   {% endblock style %}
 
+  <div class="container-fluid" id="content">
+
   <!-- Welcome sign (move or delete this) -->
-  {% if request.user.is_authenticated %}
+    {% if request.user.is_authenticated %}
     <h3>Welcome, {{ request.user }}!</h3>
   {% endif %}
-
+  
   <h1 style="text-align: center;">Featured</h1>
-
+  
   <!-- Carousel -->
   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" class="carousel">
     <!-- 5 image limit -->
@@ -33,7 +36,7 @@
           <img src="{{ books.0.image }}" class="carousel-img">
         </a>  
       </div>
-
+  
       <!-- Add the rest (indices 1-4) -->
       {% for book in books|slice:"1:5" %}
         <div class="carousel-item">
@@ -52,7 +55,7 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
-
+  
   <div id="home-category">
     <h3>Best Sellers</h3>
     <ul>
@@ -69,7 +72,7 @@
       {% endfor %}
     </ul>
   </div>
-
+  
   <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
     <div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
       <div class="my-3 py-3">
@@ -86,7 +89,7 @@
       <div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.1.image }}" class="display-img"></div>
     </div>
   </div>
-
+  
   <div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
     <div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
       <div class="my-3 p-3">
@@ -103,7 +106,7 @@
       <div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.3.image }}" class="display-img"></div>
     </div>
   </div>
-
-</main>
+</div>
+  
 
 {% endblock content %}

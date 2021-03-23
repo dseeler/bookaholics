@@ -1,49 +1,101 @@
 {% extends "bookstore/base.html" %}
 {% load static %}
 {% block content %}
-{% block style %}
-<link rel="stylesheet" href="{% static 'bookstore/product.css' %}">
-{% endblock style %}
-<!DOCTYPE html>
-<style>
-.flex-container {
-  display: flex;
-}
 
-.flex-container > div {
-  margin: 10px;
-  padding: 20px;
-  font-size: 12px;
-}
-</style>
+	{% block style %}
+		<link rel="stylesheet" href="{% static 'bookstore/search.css' %}">
+	{% endblock style %}
+	
+	<div class="container-fluid" id="content">
+		<div class="container-fluid" id="content-left">
+			<p id="content-left-title">Filter Results</p>
+			<form method="POST">
+				<p class="filter-category">Genre</p>
+				<ul class="filter-list">
+					<li>
+						<input type="radio" value="0" name="department" checked>
+						<label>Fiction</label>
+					</li>
+					<li>
+						<input type="radio" value="1" name="department">
+						<label>Non-fiction</label>
+					</li>
+					<li>
+						<input type="radio" value="2" name="department">
+						<label>Sci-Fi</label>
+					</li>
+					<li>
+						<input type="radio" value="3" name="department">
+						<label>History</label>
+					</li>
+					<li>
+						<input type="radio" value="4" name="department">
+						<label>Horror</label>
+					</li>
+					<li>
+						<input type="radio" value="5" name="department">
+						<label>Classics</label>
+					</li>
+				</ul>
+				<p class="separator">______________________________________</p>
+				<p class="filter-category">Price Range</p>
+				<ul class="filter-list">
+					<li>
+						<input type="radio" value="0" name="price-range" checked>
+						<label>None</label>
+					</li>
+					<li>
+						<input type="radio" value="<10" name="price-range">
+						<label>Less than $10</label>
+					</li>
+					<li>
+						<input type="radio" value="10-25" name="price-range">
+						<label>$10 - $25</label>
+					</li>
+					<li>
+						<input type="radio" value="25>" name="price-range">
+						<label>$25+</label>
+					</li>
+				</ul>
+				<p class="separator">______________________________________</p>
+				<p class="filter-category">Other</p>
+				<ul class="filter-list">
+					<li>
+						<input type="checkbox" value="on-sale" name="other">
+						<label>On-Sale</label>
+					</li>
+					<li>
+						<input type="checkbox" value="stars" name="other">
+						<label>Five-Stars</label>
+					</li>
+				</ul>
+			</form>
+		</div>
 
-<div style="margin-top: 25px;">
-  <h1>Explore Books</h1>
-    <div style="float:right; margin-top: -35px">
-      <label for="filter">Filter:</label>
-      <select id="filter">
-      <option value="">Filter...</option>
-      <option>Alphabetically</option>
-      <option>Best Seller</option>
-      <option>Newest Items</option>
-      <option>Price: High to Low</option>
-      <option>Price: Low to High</option>
-    </div>
-  </select>
-</div>
+		<div class="container-fluid" id="content-right">
+			<h2 id="content-right-title">Select books to add to your cart</h2>
+			<table>
+				{% for book in books %}
+					{% if forloop.counter|divisibleby:5 %}
+						<tr>
 
-<div class="flex-container">
-{% for book in books %}
-  <div>
-    <a id="book-link" href={% url 'bookstore-book_detail' book.id %}> 
-      <img src="{{ book.image }}" height="170">
-      <p>{{ book.title }}</p>
-      <p>{{ book.author }}</p>
-      <p><b>${{ book.price }}</b></p>
-      <button>View Book</button>
-    </a>  
-  </div>
-{% endfor %}
-</div>
+						</tr>
+					{% endif %}
+						<td>
+							<div id="book-container">
+								<a href={% url 'bookstore-book_detail' book.id %}>
+									<img src="{{ book.image }}" id="book-image">
+									<p id="book-title">{{ book.title }}</p>
+									<p id="book-author">{{ book.author }}</p>
+									<p id="book-price"><b>${{ book.price }}</b></p>
+								  </a>
+							</div>
+						</td>
+				{% endfor %}
+			</table>
+
+		</div>
+	</div>
+
 
 {% endblock content %}

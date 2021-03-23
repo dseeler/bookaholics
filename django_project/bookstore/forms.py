@@ -37,4 +37,16 @@ class RegistrationForm(UserCreationForm):
                                 widget=(forms.TextInput(attrs={'class': 'form-control'})))
     class Meta:
         model = User
+        fields = UserCreationForm.Meta.fields+()
         fields = ('username', 'password1', 'password2', 'email', 'phone', 'card_num', 'card_exp', 'card_code')
+
+    def save(self, commit=True):
+        user = super(RegistrationForm, self).save(commit=False)
+        user.email = cleaned_data['email']
+        user.phone = cleaned_data['phone']
+
+
+        if commit:
+            user.save()
+
+        return user

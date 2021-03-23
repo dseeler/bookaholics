@@ -60,8 +60,9 @@ def signout(request):
 
 def book_detail(request, id):
     context = {
-        'title': 'Book Detail',
-        'book': Book.objects.get(id=id)
+        'title': Book.objects.get(id=id).title,
+        'book': Book.objects.get(id=id),
+        'books': Book.objects.all()
     }
     return render(request, 'bookstore/book_detail.html', context)
 
@@ -73,7 +74,7 @@ def edit_profile(request):
 
 def search(request):
     context = {
-        'title': 'Search for Books',
+        'title': 'Explore',
         'books': Book.objects.all()
     }
     return render(request,'bookstore/search.html',context)
@@ -101,4 +102,4 @@ def shopping_cart(request):
         'title': 'Shopping Cart',
         'books': Book.objects.all()
     }
-    return render(request,'bookstore/shopping_cart.html',context)
+    return render(request,'bookstore/cart.html',context)

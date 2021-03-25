@@ -73,11 +73,20 @@
                         <a class="nav-link dropdown-toggle" id="profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="/edit_profile" id="profile-tab">
                             <i class="fa fa-user"></i><b>&nbsp;Profile</b>
                         </a>
+                        {% if user.is_superuser %}
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" href="/admin">Admin View</a>
+                            <a class="dropdown-item" href="/edit_profile">Edit Profile</a>
+                            <a class="dropdown-item" href="/order_history">Order History</a>
+                            <a class="dropdown-item" href="/signout">Sign Out</a>
+                        </div>
+                        {% else %}
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item" href="/edit_profile">Edit Profile</a>
                             <a class="dropdown-item" href="/order_history">Order History</a>
                             <a class="dropdown-item" href="/signout">Sign Out</a>
                         </div>
+                        {% endif %}
                     </li>
                     <li class="nav-item" id="cart">
                         <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect" id="cart-tab">

@@ -10,7 +10,7 @@
 
   	<!-- Welcome sign (move or delete this) -->
     {% if request.user.is_authenticated %}
-    	<h3>Welcome, {{ request.user }}!</h3>
+    	<h3>Welcome, {{ request.user.first_name }}!</h3>
   	{% endif %}
   
   	<h1 id="featured">Featured</h1>

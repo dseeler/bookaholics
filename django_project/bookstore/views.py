@@ -17,9 +17,10 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            user = form.cleaned_data.get('username')
-            messages.success(request, 'Account was created for ' + user)
+            email = form.cleaned_data.get('email')
             return redirect('bookstore-confirm_registration')
+        else:
+            messages.error(request, "Error")
     else:
         form = RegistrationForm()
 

@@ -1,0 +1,39 @@
+#content{
+    height: 80%;
+    background: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #center-div{
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 500px;
+    height: 460px;
+    padding: 0 4% 0 4%;
+    background-color: white;
+    text-align: center;
+  }
+
+  #title{
+    margin-top: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#text{
+    text-align: center;
+    font-size: 24px;
+}
+
+#subtext{
+    text-align: center;
+    font-size: 19px;
+}
+
+#check-icon{
+    height: 150px;
+    width: 150px;
+    margin: 15px auto 25px auto;
+}

@@ -4,13 +4,20 @@
 
     <!-- Add a new style block if you want to create a new stylesheet for a page-->
     {% block style %}
-        <link rel="stylesheet" href="{% static 'bookstore/register.css' %}">
+        <link rel="stylesheet" href="{% static 'bookstore/confirm_registration.css' %}">
     {% endblock style %}
 
-    <!-- Form -->
     <div class="container-fluid" id="content">
-        <h1 style="text-align:center">A verification email has been sent to the email address associated with your account.</h1>
-        <button style="margin-left: 500px;"><a href="/home" style="color:black;">Home</a></button>
+        <div class="container-fluid" id="center-div">
+            <h1 id="title">Complete Registration</h1>
+            <img id="check-icon" src="{% static 'bookstore/images/verification-icon.png' %}">
+            <p id="text">
+                <b>We've sent a verification email to: {{ email }}</b> 
+            </p>
+            <p id="subtext">
+                Please check your inbox and click the link in the email to verify your account. It could take up to 10 minutes to show up in your inbox.
+            </p>
+        </div>
     </div>  
 
 {% endblock content %}

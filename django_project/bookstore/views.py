@@ -3,13 +3,15 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Book, User
-from .forms import RegistrationForm
+from .forms import RegistrationForm, EditNameForm, EditPasswordForm, EditPhoneForm, EditAddressForm, EditCardForm
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 
 def home(request):
     context = {
@@ -105,11 +107,132 @@ def book_detail(request, id):
     }
     return render(request, 'bookstore/book_detail.html', context)
 
+@login_required
 def edit_profile(request):
     context = {
         'title': 'Edit Profile',
     }
-    return render(request,'bookstore/edit_profile.html',context)
+    return render(request, 'bookstore/edit_profile.html', context)
+
+@login_required
+def edit_name(request):
+    if request.method == "POST":
+        user = request.user
+        form = EditNameForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            messages.success = (request, "Name change successful")
+
+            # Send email notifying user of the change
+            send_mail(
+                'Bookstore account information changed',
+                'Your Bookstore account information has been changed.',
+                'csci4050.bookstore.app@gmail.com',
+                [request.user.email],
+                fail_silently=False,
+            )
+
+        else:
+            messages.error = (request, "Invalid name")
+    return redirect('bookstore-edit_profile')
+
+
+@login_required
+def edit_password(request):
+    if request.method == "POST":
+        user = request.user
+        form = EditPasswordForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            messages.success = (request, "Phone change successful")
+
+            # Send email notifying user of the change
+            send_mail(
+                'Bookstore account information changed',
+                'Your Bookstore account information has been changed.',
+                'csci4050.bookstore.app@gmail.com',
+                [request.user.email],
+                fail_silently=False,
+            )
+
+        else:
+            messages.error = (request, "Invalid password")
+    return redirect('bookstore-edit_profile')
+
+
+@login_required
+def edit_phone(request):
+    if request.method == "POST":
+        user = request.user
+        form = EditPhoneForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            messages.success = (request, "Password change successful")
+
+            # Send email notifying user of the change
+            send_mail(
+                'Bookstore account information changed',
+                'Your Bookstore account information has been changed.',
+                'csci4050.bookstore.app@gmail.com',
+                [request.user.email],
+                fail_silently=False,
+            )
+
+        else:
+            messages.error = (request, "Invalid password")
+    return redirect('bookstore-edit_profile')
+
+
+@login_required
+def edit_address(request):
+    if request.method == "POST":
+        user = request.user
+        form = EditAddressForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            messages.success = (request, "Password change successful")
+
+            # Send email notifying user of the change
+            send_mail(
+                'Bookstore account information changed',
+                'Your Bookstore account information has been changed.',
+                'csci4050.bookstore.app@gmail.com',
+                [request.user.email],
+                fail_silently=False,
+            )
+
+        else:
+            messages.error = (request, "Invalid password")
+    return redirect('bookstore-edit_profile')
+
+
+@login_required
+def edit_card(request):
+    if request.method == "POST":
+        user = request.user
+        form = EditCardForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            messages.success = (request, "Password change successful")
+
+            # Send email notifying user of the change
+            send_mail(
+                'Bookstore account information changed',
+                'Your Bookstore account information has been changed.',
+                'csci4050.bookstore.app@gmail.com',
+                [request.user.email],
+                fail_silently=False,
+            )
+
+        else:
+            messages.error = (request, "Invalid password")
+    return redirect('bookstore-edit_profile')
+
 
 def search(request):
     context = {

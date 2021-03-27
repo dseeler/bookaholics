@@ -9,25 +9,127 @@
 
     <div class="container-fluid" id="content">
         <div class="container-fluid" id="center-div">
-            <h1>Edit Profile</h1>
-            <p>
-                <p>Username: {{ request.user }}</p>
-                <button>Update username</button>
-            </p>
-            <p>
-                <p>Email: {{ request.user.email }}</p>
-                <button>Update email</button>
-            </p>
-            <p>
-                <button>Update password</button>
-            </p>
-            <p>
-                <button>Update address information</button>
-            </p>
-            <p>
-                <button>Update payment information</button>
-            </p>
+            <img id="account-icon" src="{% static 'bookstore/images/account-icon.png' %}">
+            <h3 id="email">{{ user.email }}</h3>
+            <ul id="list">
+                <li class="edit-option" id="edit-name-option">
+                    <div class="edit-div">
+                        <b>Name:</b><br>
+                        {{ user.first_name }} {{user.last_name }}
+                    </div>
+                    <button class="edit-button" id="edit-name-button" value=0 onclick="editName()">Edit</button>
+                    <div class="edit-form" id="edit-name-form">
+                        <form method="POST" action="/edit_name" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label>First Name:</label>
+                            <input type="text" name="first_name" max_length=20 value="{{ user.first_name }}"><br>
+                            <label>Last Name:</label>
+                            <input type="text" name="last_name" value="{{ user.last_name }}"><br>
+                            <input type="submit" class="submit-button">
+                        </form>
+                    </div>
+                </li>
+                <li class="edit-option" id="edit-password-option">
+                    <div class="edit-div">
+                        <b>Password:</b><br>
+                        ********
+                    </div>
+                    <button class="edit-button" value=0 id="edit-password-button" onclick="editPassword()">Edit</button>
+                    <div class="edit-form" id="edit-password-form">
+                        <form method="POST" action="/edit_password" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label>Password:</label>
+                            <input type="password" name="password" max_length=20><br>
+                            <label>Password Confirmation:</label>
+                            <input type="password"><br>
+                            <input type="submit" class="submit-button">
+                        </form>
+                    </div>
+                </li>
+                <li class="edit-option" id="edit-phone-option">
+                    <div class="edit-div">
+                        <b>Mobile Phone Number:</b><br> 
+                        {% if user.phone %}
+                            +1{{ user.phone }}
+                        {% else %}
+                            None
+                        {% endif %}
+                    </div>
+                    {% if user.phone %}
+                        <button class="edit-button" value=0 id="edit-phone-button" onclick="editPhone()">Edit</button>
+                    {% else %}
+                        <button class="edit-button" value=0 id="edit-phone-button" onclick="editPhone()">Add</button>
+                    {% endif %}
+                    <div class="edit-form" id="edit-phone-form">
+                        <form method="POST" action="/edit_phone" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label>Phone:</label>
+                            <input type="text" name="phone" max_length=20 value="{{ user.phone }}"><br>
+                            <input type="submit" class="submit-button">
+                        </form>
+                    </div>
+                </li>
+                <li class="edit-option" id="edit-address-option">
+                    <div class="edit-div">
+                        <b>Address:</b><br> 
+                        {% if user.street %}
+                            {{ user.street }}<br>
+                            {{ user.city }}, {{user.state}} {{user.zip_code}}
+                        {% else %}
+                            None
+                        {% endif %}
+                    </div>
+                    {% if user.street %}
+                        <button class="edit-button" value=0 id="edit-address-button" onclick="editAddress()">Edit</button>
+                    {% else %}
+                        <button class="edit-button" value=0 id="add-address-button" onclick="editAddress()">Add</button>
+                    {% endif %}
+                    <div class="edit-form" id="edit-address-form">
+                        <form method="POST" action="/edit_address" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label>Street:</label>
+                            <input type="text" name="street" max_length=20 value="{{ user.street }}"><br>
+                            <label>City:</label>
+                            <input type="text" name="city" max_length=20 value="{{ user.city }}"><br>
+                            <label>State:</label>
+                            <input type="text" name="state" max_length=20 value="{{ user.state }}"><br>
+                            <label>Zip Code:</label>
+                            <input type="text" name="zip_code" max_length=20 value="{{ user.zip_code }}"><br>
+                            <input type="submit" class="submit-button">
+                        </form>
+                    </div>
+                </li>
+                <li class="edit-option" id="edit-card-option">
+                    <div class="edit-div">
+                        <b>Credit Card:</b><br> 
+                        {% if user.card_num %}
+                            <img id="visa-icon" src="{% static 'bookstore/images/visa-icon.gif' %}"> ending in 
+                            {{ user.card_num|slice:":4" }}
+                        {% else %}
+                            None
+                        {% endif %}
+                    </div>
+                    {% if user.card_num %}
+                        <button class="edit-button" value=0 id="edit-card-button" onclick="editCard()">Edit</button>
+                    {% else %}
+                        <button class="edit-button" value=0 id="edit-card-button" onclick="editCard()">Add</button>
+                    {% endif %}
+                    <div class="edit-form" id="edit-card-form">
+                        <form method="POST" action="/edit_card" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label>Card Number:</label>
+                            <input type="text" name="card_num" max_length=20 value="{{ user.card_num }}"><br>
+                            <label>Expiration Date:</label>
+                            <input type="text" name="card_exp" max_length=20 value="{{ user.card_exp }}"><br>
+                            <label>Security Code:</label>
+                            <input type="text" name="card_code" max_length=20 value="{{ user.card_code }}"><br>
+                            <input type="submit" class="submit-button">
+                        </form>
+                    </div>
+                </li>
+            </ul>
         </div>
+        <script src="../../static/bookstore/js/edit_profile.js"></script>
     </div>
 
 {% endblock content %}

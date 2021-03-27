@@ -10,8 +10,8 @@
     border: 2px solid black;
     border-radius: 10px;
     width: 500px;
-    height: 460px;
-    padding: 0 4% 0 4%;
+    height: 470px;
+    padding: 0 40px 0 40px;
     background-color: white;
     text-align: center;
   }
@@ -35,5 +35,5 @@
 #check-icon{
     height: 150px;
     width: 150px;
-    margin: 15px auto 25px auto;
+    margin: 15px auto 30px auto;
 }

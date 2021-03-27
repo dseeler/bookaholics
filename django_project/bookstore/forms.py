@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import User
 from django.contrib.auth import password_validation
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.forms import ModelForm
 
 username_validator = UnicodeUsernameValidator()
 
@@ -30,3 +31,30 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'password1', 'password2')
+
+
+class EditNameForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')
+
+
+class EditPasswordForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('password',)
+
+class EditPhoneForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('phone',)
+
+class EditAddressForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('street', 'city', 'state', 'zip_code')
+
+class EditCardForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('card_num', 'card_exp', 'card_code')

@@ -19,13 +19,15 @@
                     </div>
                     <button class="edit-button" id="edit-name-button" value=0 onclick="editName()">Edit</button>
                     <div class="edit-form" id="edit-name-form">
-                        <form method="POST" action="/edit_name" enctype="multipart/form-data">
+                        <form method="POST" action="/edit_name" enctype="multipart/form-data" id="name-form">
                             {% csrf_token %}
                             <label>First Name:</label>
-                            <input type="text" name="first_name" max_length=20 value="{{ user.first_name }}"><br>
+                            <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" onclick="clearFirstName()">
+                            <span class="error-msg" id="first-name-error"></span><br>
                             <label>Last Name:</label>
-                            <input type="text" name="last_name" value="{{ user.last_name }}"><br>
-                            <input type="submit" class="submit-button" value="Save Changes">
+                            <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" onclick="clearLastName()">
+                            <span class="error-msg" id="last-name-error"></span><br>
+                            <button type="button" class="submit-button" onclick="validateName()">Save Changes</button>
                         </form>
                     </div>
                 </li>
@@ -36,13 +38,15 @@
                     </div>
                     <button class="edit-button" value=0 id="edit-password-button" onclick="editPassword()">Edit</button>
                     <div class="edit-form" id="edit-password-form">
-                        <form method="POST" action="/edit_password" enctype="multipart/form-data">
+                        <form method="POST" action="/edit_password" enctype="multipart/form-data" id="password-form">
                             {% csrf_token %}
                             <label>Password:</label>
-                            <input type="password" name="password" max_length=20><br>
+                            <input type="password" name="password" id="password" onclick="clearPassword()">
+                            <span class="error-msg" id="password-error"></span><br>
                             <label>Password Confirmation:</label>
-                            <input type="password"><br>
-                            <input type="submit" class="submit-button" value="Save Changes">
+                            <input type="password" id="password_confirmation">
+                            <span class="error-msg" id="password-confirmation-error"></span><br>
+                            <button type="button" class="submit-button" onclick="validatePassword()">Save Changes</button>
                         </form>
                     </div>
                 </li>
@@ -50,7 +54,7 @@
                     <div class="edit-div">
                         <b>Mobile Phone Number:</b><br> 
                         {% if user.phone %}
-                            +1{{ user.phone }}
+                            +1 ({{ user.phone|slice:":3" }}) {{ user.phone|slice:"3:6" }}-{{ user.phone|slice:"6:10" }}  
                         {% else %}
                             None
                         {% endif %}
@@ -61,11 +65,12 @@
                         <button class="edit-button" value=0 id="edit-phone-button" onclick="editPhone()">Add</button>
                     {% endif %}
                     <div class="edit-form" id="edit-phone-form">
-                        <form method="POST" action="/edit_phone" enctype="multipart/form-data">
+                        <form method="POST" action="/edit_phone" enctype="multipart/form-data" id="phone-form">
                             {% csrf_token %}
                             <label>Phone:</label>
-                            <input type="text" name="phone" max_length=20 value="{{ user.phone }}"><br>
-                            <input type="submit" class="submit-button" value="Save Changes">
+                            <input type="text" id="phone" name="phone" value="{{ user.phone }}" onclick="clearPhone()">
+                            <span class="error-msg" id="phone-error"></span><br>
+                            <button type="button" class="submit-button" onclick="validatePhone()">Save Changes</button>
                         </form>
                     </div>
                 </li>
@@ -85,17 +90,21 @@
                         <button class="edit-button" value=0 id="edit-address-button" onclick="editAddress()">Add</button>
                     {% endif %}
                     <div class="edit-form" id="edit-address-form">
-                        <form method="POST" action="/edit_address" enctype="multipart/form-data">
+                        <form method="POST" action="/edit_address" enctype="multipart/form-data" id="address-form">
                             {% csrf_token %}
                             <label>Street:</label>
-                            <input type="text" name="street" max_length=20 value="{{ user.street }}"><br>
+                            <input type="text" id="street" name="street" value="{{ user.street }}" onclick="clearStreet()">
+                            <span class="error-msg" id="street-error"></span><br>
                             <label>City:</label>
-                            <input type="text" name="city" max_length=20 value="{{ user.city }}"><br>
+                            <input type="text" id="city" name="city" value="{{ user.city }}" onclick="clearCity()">
+                            <span class="error-msg" id="city-error"></span><br>
                             <label>State:</label>
-                            <input type="text" name="state" max_length=20 value="{{ user.state }}"><br>
+                            <input type="text" id="state" name="state" value="{{ user.state }}" onclick="clearState()">
+                            <span class="error-msg" id="state-error"></span><br>
                             <label>Zip Code:</label>
-                            <input type="text" name="zip_code" max_length=20 value="{{ user.zip_code }}"><br>
-                            <input type="submit" class="submit-button" value="Save Changes">
+                            <input type="text" id="zip_code" name="zip_code" value="{{ user.zip_code }}" onclick="clearZipCode()">
+                            <span class="error-msg" id="zip-code-error"></span><br>
+                            <button type="button" class="submit-button" onclick="validateAddress()">Save Changes</button>
                         </form>
                     </div>
                 </li>
@@ -115,15 +124,18 @@
                         <button class="edit-button" value=0 id="edit-card-button" onclick="editCard()">Add</button>
                     {% endif %}
                     <div class="edit-form" id="edit-card-form">
-                        <form method="POST" action="/edit_card" enctype="multipart/form-data">
+                        <form method="POST" action="/edit_card" enctype="multipart/form-data" id="card-form">
                             {% csrf_token %}
                             <label>Card Number:</label>
-                            <input type="text" name="card_num" max_length=20 value="{{ user.card_num }}"><br>
+                            <input type="text" id="card_num" name="card_num" value="{{ user.card_num }}" onclick="clearCardNum()">
+                            <span class="error-msg" id="card-num-error"></span><br>
                             <label>Expiration Date:</label>
-                            <input type="text" name="card_exp" max_length=20 value="{{ user.card_exp }}"><br>
+                            <input type="text" id="card_exp" name="card_exp" value="{{ user.card_exp }}" onclick="clearCardExp()">
+                            <span class="error-msg" id="card-exp-error"></span><br>
                             <label>Security Code:</label>
-                            <input type="text" name="card_code" max_length=20 value="{{ user.card_code }}"><br>
-                            <input type="submit" class="submit-button" value="Save Changes">
+                            <input type="text" id="card_code" name="card_code" value="{{ user.card_code }}" onclick="clearCardCode()">
+                            <span class="error-msg" id="card-code-error"></span><br>
+                            <button type="button" class="submit-button" onclick="validateCard()">Save Changes</button>
                         </form>
                     </div>
                 </li>

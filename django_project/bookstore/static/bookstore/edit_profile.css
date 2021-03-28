@@ -10,7 +10,7 @@
     border: 2px solid black;
     border-radius: 10px;
     width: 650px;
-    min-height: 76%;
+    min-height: 680px;
     padding: 0 0 0 0;
     background-color: white;
     text-align: center;
@@ -76,17 +76,23 @@
     margin-top: 70px;
 }
 
-#edit-address-form{
-    margin-top: 90px;
-}
-
 .edit-form{
     text-align: right;
     padding-right: 185px;
 }
 
 .submit-button{
-    margin-right: 45px;
+    margin-right: 18px;
     margin-top: 10px;
     padding: 0 20px 0 20px;
+    opacity: .8;
+}
+
+.submit-button:hover{
+    cursor: pointer;
+    opacity: 1;
+}
+
+#profile{
+    color: white;
 }

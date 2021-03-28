@@ -62,7 +62,7 @@ function editAddress(){
     if ($("#edit-address-button").val() == 0){
         closeOtherTabs("address");
         $("#edit-address-option").animate({
-            height: "290px"
+            height: "272px"
         });
         $("#edit-address-form").show();
         $("#edit-address-button").html("Cancel");

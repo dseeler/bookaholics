@@ -12,6 +12,7 @@ from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
+from django.contrib.auth import update_session_auth_hash
 
 def home(request):
     context = {
@@ -122,7 +123,7 @@ def edit_name(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            messages.success = (request, "Name change successful")
+            messages.success(request, "Name change successful!")
 
             # Send email notifying user of the change
             send_mail(
@@ -134,7 +135,7 @@ def edit_name(request):
             )
 
         else:
-            messages.error = (request, "Invalid name")
+            messages.error(request, "Invalid name")
     return redirect('bookstore-edit_profile')
 
 
@@ -144,9 +145,11 @@ def edit_password(request):
         user = request.user
         form = EditPasswordForm(data=request.POST, instance=request.user)
         if form.is_valid():
-            user = form.save(commit=False)
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
             user.save()
-            messages.success = (request, "Phone change successful")
+            update_session_auth_hash(request, user)
+            messages.success(request, "Password change successful!")
 
             # Send email notifying user of the change
             send_mail(
@@ -158,7 +161,7 @@ def edit_password(request):
             )
 
         else:
-            messages.error = (request, "Invalid password")
+            messages.error(request, "Invalid password")
     return redirect('bookstore-edit_profile')
 
 
@@ -170,7 +173,7 @@ def edit_phone(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            messages.success = (request, "Password change successful")
+            messages.success(request, "Phone change successful!")
 
             # Send email notifying user of the change
             send_mail(
@@ -182,7 +185,7 @@ def edit_phone(request):
             )
 
         else:
-            messages.error = (request, "Invalid password")
+            messages.error(request, "Invalid phone number")
     return redirect('bookstore-edit_profile')
 
 
@@ -194,7 +197,7 @@ def edit_address(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            messages.success = (request, "Password change successful")
+            messages.success(request, "Address change successful!")
 
             # Send email notifying user of the change
             send_mail(
@@ -206,7 +209,7 @@ def edit_address(request):
             )
 
         else:
-            messages.error = (request, "Invalid password")
+            messages.error(request, "Invalid address")
     return redirect('bookstore-edit_profile')
 
 
@@ -218,7 +221,7 @@ def edit_card(request):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            messages.success = (request, "Password change successful")
+            messages.success(request, "Credit card change successful!")
 
             # Send email notifying user of the change
             send_mail(
@@ -230,7 +233,7 @@ def edit_card(request):
             )
 
         else:
-            messages.error = (request, "Invalid password")
+            messages.error = (request, "Invalid credit card")
     return redirect('bookstore-edit_profile')
 
 

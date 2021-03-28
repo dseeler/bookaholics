@@ -9,7 +9,7 @@
 
     <div class="container-fluid" id="content">
         <div class="container-fluid" id="center-div">
-            <img id="account-icon" src="{% static 'bookstore/images/account-icon.png' %}">
+            <img id="account-icon" src="{% static 'bookstore/images/account-icon.png' %}">        
             <h3 id="email">{{ user.email }}</h3>
             <ul id="list">
                 <li class="edit-option" id="edit-name-option">
@@ -25,7 +25,7 @@
                             <input type="text" name="first_name" max_length=20 value="{{ user.first_name }}"><br>
                             <label>Last Name:</label>
                             <input type="text" name="last_name" value="{{ user.last_name }}"><br>
-                            <input type="submit" class="submit-button">
+                            <input type="submit" class="submit-button" value="Save Changes">
                         </form>
                     </div>
                 </li>
@@ -42,7 +42,7 @@
                             <input type="password" name="password" max_length=20><br>
                             <label>Password Confirmation:</label>
                             <input type="password"><br>
-                            <input type="submit" class="submit-button">
+                            <input type="submit" class="submit-button" value="Save Changes">
                         </form>
                     </div>
                 </li>
@@ -65,7 +65,7 @@
                             {% csrf_token %}
                             <label>Phone:</label>
                             <input type="text" name="phone" max_length=20 value="{{ user.phone }}"><br>
-                            <input type="submit" class="submit-button">
+                            <input type="submit" class="submit-button" value="Save Changes">
                         </form>
                     </div>
                 </li>
@@ -82,7 +82,7 @@
                     {% if user.street %}
                         <button class="edit-button" value=0 id="edit-address-button" onclick="editAddress()">Edit</button>
                     {% else %}
-                        <button class="edit-button" value=0 id="add-address-button" onclick="editAddress()">Add</button>
+                        <button class="edit-button" value=0 id="edit-address-button" onclick="editAddress()">Add</button>
                     {% endif %}
                     <div class="edit-form" id="edit-address-form">
                         <form method="POST" action="/edit_address" enctype="multipart/form-data">
@@ -95,7 +95,7 @@
                             <input type="text" name="state" max_length=20 value="{{ user.state }}"><br>
                             <label>Zip Code:</label>
                             <input type="text" name="zip_code" max_length=20 value="{{ user.zip_code }}"><br>
-                            <input type="submit" class="submit-button">
+                            <input type="submit" class="submit-button" value="Save Changes">
                         </form>
                     </div>
                 </li>
@@ -104,7 +104,7 @@
                         <b>Credit Card:</b><br> 
                         {% if user.card_num %}
                             <img id="visa-icon" src="{% static 'bookstore/images/visa-icon.gif' %}"> ending in 
-                            {{ user.card_num|slice:":4" }}
+                            {{ user.card_num|slice:"12:" }}
                         {% else %}
                             None
                         {% endif %}
@@ -123,7 +123,7 @@
                             <input type="text" name="card_exp" max_length=20 value="{{ user.card_exp }}"><br>
                             <label>Security Code:</label>
                             <input type="text" name="card_code" max_length=20 value="{{ user.card_code }}"><br>
-                            <input type="submit" class="submit-button">
+                            <input type="submit" class="submit-button" value="Save Changes">
                         </form>
                     </div>
                 </li>

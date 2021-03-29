@@ -1,15 +1,15 @@
 function validateName(){
     let valid = true;
 
-    if ($("#first_name").val().length < 3){
+    if ($("#first_name").val().length < 1){
         $("#first_name").attr("style", "border: 1px solid red");
-        $("#first-name-error").html("Must be >=3 characters");
+        $("#first-name-error").html("Can't be empty!");
         valid = false;
     }
 
     if ($("#last_name").val().length < 1){
         $("#last_name").attr("style", "border: 1px solid red");
-        $("#last-name-error").html("Must be >=3 characters");
+        $("#last-name-error").html("Can't be empty!");
         valid = false;
     }
 
@@ -22,18 +22,6 @@ function validateName(){
     if ($("#last_name").val().length > 20){
         $("#last_name").attr("style", "border: 1px solid red");
         $("#last-name-error").html("Must be <=20 characters");
-        valid = false;
-    }
-
-    if (/[^a-zA-Z]/.test($("#first_name").val())){
-        $("#first_name").attr("style", "border: 1px solid red");
-        $("#first-name-error").html("Only letters allowed");
-        valid = false;
-    }
-
-    if (/[^a-zA-Z]/.test($("#last_name").val())){
-        $("#last_name").attr("style", "border: 1px solid red");
-        $("#last-name-error").html("Only letters allowed");
         valid = false;
     }
 
@@ -267,7 +255,7 @@ function editPassword(){
     if ($("#edit-password-button").val() == 0){
         closeOtherTabs("password");
         $("#edit-password-option").animate({
-            height: "200px"
+            height: "150px"
         });
         $("#edit-password-form").show();
         $("#edit-password-button").html("Cancel");

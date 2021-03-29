@@ -4,29 +4,30 @@ from .models import User
 from django.contrib.auth import password_validation
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.forms import ModelForm
+from django.core.validators import RegexValidator
 
 username_validator = UnicodeUsernameValidator()
 
 class RegistrationForm(UserCreationForm):
-    email = forms.EmailField(label='Email', max_length=60, 
-                            help_text='Required - add help text',
+    email = forms.EmailField(label='Email',
+                            help_text='Required - Must be in proper email format',
                             widget=(forms.TextInput(attrs={'class': 'form-control'})))
 
-    first_name = forms.CharField(label='First Name', max_length=255,
-                            help_text='Required - add help text',
+    first_name = forms.CharField(label='First Name', max_length=20,
+                            help_text='Required - Must be less than 20 characters ',
                             widget=(forms.TextInput(attrs={'class': 'form-control'})))
 
-    last_name = forms.CharField(label='Last Name', max_length=255,
-                            help_text='Required - add help text',
+    last_name = forms.CharField(label='Last Name', max_length=20,
+                            help_text='Required - Must be less than 20 characters',
                             widget=(forms.TextInput(attrs={'class': 'form-control'})))
 
     password1 = forms.CharField(label='Password',
                                 widget=(forms.PasswordInput(attrs={'class': 'form-control'})),
-                                help_text="Required - add help text")
+                                help_text="Required - Must contain letters and digits")
 
     password2 = forms.CharField(label='Password Confirmation',
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}),
-                                help_text='Required - add help text')
+                                help_text='Required - Must be the same as password')
 
     class Meta:
         model = User
@@ -37,12 +38,6 @@ class EditNameForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name')
-
-
-class EditPasswordForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('password',)
 
 class EditPhoneForm(forms.ModelForm):
     class Meta:

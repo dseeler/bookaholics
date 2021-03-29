@@ -12,6 +12,15 @@
             <img id="account-icon" src="{% static 'bookstore/images/account-icon.png' %}">        
             <h3 id="email">{{ user.email }}</h3>
             <ul id="list">
+                <li class="edit-option" id="edit-password-option">
+                    <div class="edit-div">
+                        <b>Password:</b><br>
+                        <i>Encrypted</i>
+                    </div>
+                    <a href="{% url 'change-password' %}">
+                        <button class="edit-button" value=0 id="edit-password-button">Change</button>
+                    </a>
+                </li>
                 <li class="edit-option" id="edit-name-option">
                     <div class="edit-div">
                         <b>Name:</b><br>
@@ -28,25 +37,6 @@
                             <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" onclick="clearLastName()">
                             <span class="error-msg" id="last-name-error"></span><br>
                             <button type="button" class="submit-button" onclick="validateName()">Save Changes</button>
-                        </form>
-                    </div>
-                </li>
-                <li class="edit-option" id="edit-password-option">
-                    <div class="edit-div">
-                        <b>Password:</b><br>
-                        ********
-                    </div>
-                    <button class="edit-button" value=0 id="edit-password-button" onclick="editPassword()">Edit</button>
-                    <div class="edit-form" id="edit-password-form">
-                        <form method="POST" action="/edit_password" enctype="multipart/form-data" id="password-form">
-                            {% csrf_token %}
-                            <label>Password:</label>
-                            <input type="password" name="password" id="password" onclick="clearPassword()">
-                            <span class="error-msg" id="password-error"></span><br>
-                            <label>Password Confirmation:</label>
-                            <input type="password" id="password_confirmation">
-                            <span class="error-msg" id="password-confirmation-error"></span><br>
-                            <button type="button" class="submit-button" onclick="validatePassword()">Save Changes</button>
                         </form>
                     </div>
                 </li>

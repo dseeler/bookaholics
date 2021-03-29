@@ -1,5 +1,5 @@
 #content{
-    height: 80%;
+    height: 84.5%;
     background: none;
     display: flex;
     justify-content: center;
@@ -10,7 +10,7 @@
     border: 2px solid black;
     border-radius: 10px;
     width: 500px;
-    height: 640px;
+    min-height: 635px;
     padding: 0 4% 0 4%;
     background-color: white;
     text-align: center;
@@ -49,4 +49,5 @@ input#id_first_name.form-control, input#id_last_name.form-control, input#id_emai
 #submit-button{
   margin-top: 10px;
   width: 300px;
+  margin-bottom: 30px;
 }

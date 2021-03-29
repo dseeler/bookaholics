@@ -1,3 +1,248 @@
+function validateName(){
+    let valid = true;
+
+    if ($("#first_name").val().length < 3){
+        $("#first_name").attr("style", "border: 1px solid red");
+        $("#first-name-error").html("Must be >=3 characters");
+        valid = false;
+    }
+
+    if ($("#last_name").val().length < 1){
+        $("#last_name").attr("style", "border: 1px solid red");
+        $("#last-name-error").html("Must be >=3 characters");
+        valid = false;
+    }
+
+    if ($("#first_name").val().length > 20){
+        $("#first_name").attr("style", "border: 1px solid red");
+        $("#first-name-error").html("Must be <=20 characters");
+        valid = false;
+    }
+
+    if ($("#last_name").val().length > 20){
+        $("#last_name").attr("style", "border: 1px solid red");
+        $("#last-name-error").html("Must be <=20 characters");
+        valid = false;
+    }
+
+    if (/[^a-zA-Z]/.test($("#first_name").val())){
+        $("#first_name").attr("style", "border: 1px solid red");
+        $("#first-name-error").html("Only letters allowed");
+        valid = false;
+    }
+
+    if (/[^a-zA-Z]/.test($("#last_name").val())){
+        $("#last_name").attr("style", "border: 1px solid red");
+        $("#last-name-error").html("Only letters allowed");
+        valid = false;
+    }
+
+    if (valid){
+        $("#name-form").submit();
+    }
+}
+
+function clearFirstName(){
+    $("#first_name").attr("style", "border: 1px solid black");
+    $("#first-name-error").html("");
+}
+
+
+function clearLastName(){
+    $("#last_name").attr("style", "border: 1px solid black");
+    $("#last-name-error").html("");
+}
+
+function validatePassword(){
+    let valid = true;
+
+    if ($("#password").val().length < 8){
+        $("#password").attr("style", "border: 1px solid red");
+        $("#password-error").html("Must be >= 8 characters");
+        valid = false;
+    }
+
+    if ($("#password").val().length > 20){
+        $("#password").attr("style", "border: 1px solid red");
+        $("#password-error").html("Must be <= 20 characters");
+        valid = false;
+    }
+
+    if (!/[^a-zA-Z]/.test($("#password").val()) && !/\d/.test($("#password").val())){
+        $("#password").attr("style", "border: 1px solid red");
+        $("#password-error").html("Needs letters and digits");
+        valid = false;
+    }
+
+    if ($("#password").val() != $("#password_confirmation").val()){
+        $("#password").attr("style", "border: 1px solid red");
+        $("#password_confirmation").attr("style", "border: 1px solid red");
+        $("#password-error").html("Passwords do not match");
+        valid = false;
+    }
+
+    if (valid){
+        $("#password-form").submit();
+    }
+}
+
+function clearPassword(){
+    $("#password").attr("style", "border: 1px solid black");
+    $("#password_confirmation").attr("style", "border: 1px solid black");
+    $("#password-error").html("");
+}
+
+function validatePhone(){
+    let valid = true;
+
+    if ($("#phone").val().length != 10){
+        $("#phone").attr("style", "border: 1px solid red");
+        $("#phone-error").html("Must be 10 characters");
+        valid = false;
+    }
+
+    if (/\D/.test($("#phone").val())){
+        $("#phone").attr("style", "border: 1px solid red");
+        $("#phone-error").html("Only digits allowed");
+        valid = false;
+    }
+
+    if (valid){
+        $("#phone-form").submit();
+    }
+}
+
+function clearPhone(){
+    $("#phone").attr("style", "border: 1px solid black");
+    $("#phone-error").html("");
+}
+
+function validateAddress(){
+    let valid = true;
+
+    if ($("#street").val().length < 1){
+        $("#street").attr("style", "border: 1px solid red");
+        $("#street-error").html("Can't be empty");
+        valid = false;
+    }
+
+    if ($("#city").val().length < 1){
+        $("#city").attr("style", "border: 1px solid red");
+        $("#city-error").html("Can't be empty");
+        valid = false;
+    }
+
+    if ($("#state").val().length != 2){
+        $("#state").attr("style", "border: 1px solid red");
+        $("#state-error").html("Must be an abbreviation");
+        valid = false;
+    }
+
+    if ($("#zip_code").val().length != 5){
+        $("#zip_code").attr("style", "border: 1px solid red");
+        $("#zip-code-error").html("Must be 5 characters");
+        valid = false;
+    }
+
+    if (/[^a-zA-Z]/.test($("#city").val())){
+        $("#city").attr("style", "border: 1px solid red");
+        $("#city-error").html("Only letters allowed");
+        valid = false;
+    }
+
+
+    if (/[^a-zA-Z]/.test($("#state").val())){
+        $("#state").attr("style", "border: 1px solid red");
+        $("#state-error").html("Only letters allowed");
+        valid = false;
+    }
+
+    if (/\D/.test($("#zip_code").val())){
+        $("#zip_code").attr("style", "border: 1px solid red");
+        $("#zip-code-error").html("Only digits allowed");
+        valid = false;
+    }
+
+    if (valid){
+        $("#address-form").submit();
+    }
+}
+
+function clearStreet(){
+    $("#street").attr("style", "border: 1px solid black");
+    $("#street-error").html("");
+}
+
+
+function clearCity(){
+    $("#city").attr("style", "border: 1px solid black");
+    $("#city-error").html("");
+}
+
+function clearState(){
+    $("#state").attr("style", "border: 1px solid black");
+    $("#state-error").html("");
+}
+
+function clearZipCode(){
+    $("#zip_code").attr("style", "border: 1px solid black");
+    $("#zip-code-error").html("");
+}
+
+function validateCard(){
+    let valid = true;
+
+    if ($("#card_num").val().length != 16){
+        $("#card_num").attr("style", "border: 1px solid red");
+        $("#card-num-error").html("Must be 16 characters");
+        valid = false;
+    }
+
+    if ($("#card_exp").val().length != 5){
+        $("#card_exp").attr("style", "border: 1px solid red");
+        $("#card-exp-error").html("Must be in MM/YY format");
+        valid = false;
+    }
+
+    if ($("#card_code").val().length != 3){
+        $("#card_code").attr("style", "border: 1px solid red");
+        $("#card-code-error").html("Must be 3 characters");
+        valid = false;
+    }
+
+    if (/\D/.test($("#card_num").val())){
+        $("#card_num").attr("style", "border: 1px solid red");
+        $("#card-num-error").html("Only digits allowed");
+        valid = false;
+    }
+
+    if (/\D/.test($("#card_code").val())){
+        $("#card_code").attr("style", "border: 1px solid red");
+        $("#card-code-error").html("Only digits allowed");
+        valid = false;
+    }
+
+    if (valid){
+        $("#card-form").submit();
+    }
+}
+
+function clearCardNum(){
+    $("#card_num").attr("style", "border: 1px solid black");
+    $("#card-num-error").html("");
+}
+
+
+function clearCardExp(){
+    $("#card_exp").attr("style", "border: 1px solid black");
+    $("#card-exp-error").html("");
+}
+
+function clearCardCode(){
+    $("#card_code").attr("style", "border: 1px solid black");
+    $("#card-code-error").html("");
+}
+
 function editName(){
     if ($("#edit-name-button").val() == 0){
         closeOtherTabs("name");

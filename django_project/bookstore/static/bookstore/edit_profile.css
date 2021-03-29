@@ -1,5 +1,5 @@
 #content{
-    height: 80%;
+    height: 84.5%;
     background: none;
     display: flex;
     justify-content: center;
@@ -95,4 +95,11 @@
 
 #profile{
     color: white;
+}
+
+.error-msg{
+    position: absolute;
+    margin-left: 5px;
+    margin-top: 2px;
+    color: red;
 }

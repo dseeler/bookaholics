@@ -1,40 +1,19 @@
 {% extends "bookstore/base.html" %}
 {% load static %}
 {% block content %}
+{% load crispy_forms_tags %}
 
     <!-- Add a new style block if you want to create a new stylesheet for a page-->
     {% block style %}
         <link rel="stylesheet" href="{% static 'bookstore/register.css' %}">
     {% endblock style %}
 
-    {% if form.errors %}
-        {% for field in form %}
-            {% for error in field.errors %}
-                <div class="alert alert-danger">
-                    <strong>{{ error|escape }}</strong>
-                </div>
-            {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-            <div class="alert alert-danger">
-                <strong>{{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endif %}
-
     <div class="container-fluid" id="content">
         <div class="container-fluid" id="center-div">
             <h1 id="title">Sign Up</h1>
             <form method="POST">
                 {% csrf_token %}  <!-- Token used for security, must include w/ forms -->
-                {% for field in form %}
-                    <div class="input-container">
-                        <span class="input-label">{{ field.label }}</span>
-                        {{ field }}
-                        <span class="help-text">{{ field.help_text }}</span>
-                    </div>
-                    <br>
-                {% endfor %}
+                {{ form|crispy }}
                 <input class="w-46 btn btn-lg btn-primary bg-dark" type="submit" value="Register" id="submit-button">
             </form>
         </div>

@@ -8,13 +8,36 @@
 
   	<div class="container-fluid" id="content">
 
-  	<!-- Welcome sign (move or delete this) -->
-    {% if request.user.is_authenticated %}
-    	<h3>Welcome, {{ request.user.first_name }}!</h3>
-  	{% endif %}
-  
-  	<h1 id="featured">Featured</h1>
-  
+		<ul id="category-list">
+			<li class="category">
+				<a class="category-link" href="#">FICTION</a>
+			</li>
+			<li class="category">
+				<a class="category-link" href="#">SCI-FI</a>
+			</li>
+			<li class="category">
+				<a class="category-link" href="#">HORROR</a>
+			</li>
+			<li class="category">
+				<a class="category-link" href="#">MANGA</a>
+			</li>
+			<li class="category">
+				<a class="category-link" href="#">FANTASY</a>
+			</li>
+			<li class="category">
+				<a class="category-link" href="#">MYSTERY</a>
+			</li>
+			<li class="category">
+				<a class="category-link" href="#">NOVEL</a>
+			</li>
+			<li class="category" id="last-category">
+				<a class="category-link" href="#">SALE</a>
+			</li>
+		</ul>
+
+
+	<span id="water-mark">Source: Books-A-Million</span>
+
   	<!-- Carousel -->
   	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" class="carousel">
     <!-- 5 image limit -->
@@ -26,23 +49,24 @@
 			<li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
     	</ol>
 
-    	<div class="carousel-inner" style="align-items: center;">
+    	<div class="carousel-inner">
     	<!-- First book starts as active item -->
       		<div class="carousel-item active">
-        		<a href={% url 'bookstore-book_detail' books.0.id %}>
-          			<img src="{{ books.0.image }}" class="carousel-img">
-        		</a>  
+          		<img src="../../static/bookstore/images/promo1.png" class="carousel-img">
       		</div>
-  
-      		<!-- Add the rest (indices 1-4) -->
-      		{% for book in books|slice:"1:5" %}
-        	<div class="carousel-item">
-          		<a href={% url 'bookstore-book_detail' book.id %}>
-            		<img src="{{ book.image }}" class="carousel-img">
-          		</a>
-        	</div>
 
-      		{% endfor %}
+        	<div class="carousel-item">
+            	<img src="../../static/bookstore/images/promo2.png" class="carousel-img">
+        	</div>
+			<div class="carousel-item">
+            	<img src="../../static/bookstore/images/promo3.png" class="carousel-img">
+        	</div>
+			<div class="carousel-item">
+            	<img src="../../static/bookstore/images/promo4.png" class="carousel-img">
+        	</div>
+			<div class="carousel-item">
+            	<img src="../../static/bookstore/images/promo5.png" class="carousel-img">
+        	</div>
     	</div>
 
     	<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -54,23 +78,45 @@
       		<span class="sr-only">Next</span>
     	</a>
   	</div>
-  
+
   	<div id="home-category">
-    	<h3>Best Sellers</h3>
+    	<h3><b>Best Sellers</b></h3>
     	<ul>
       		{% for book in books %}
         		<li>
           			<!-- Pass book key through URL -->
-          			<a href={% url 'bookstore-book_detail' book.id %}>
-            			<img src="{{ book.image }}">
-						<p>{{ book.title }}</p>
-						<p>{{ book.author }}</p>
-						<p><b>${{ book.price }}</b></p>
-          			</a>
+					<div class="book">
+						<a href={% url 'bookstore-book_detail' book.id %}>
+							<img src="{{ book.image }}">
+							<p>{{ book.title }}</p>
+							<p>{{ book.author }}</p>
+							<p><b>${{ book.price }}</b></p>
+							<button id="add-to-cart">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+						  </a>
+					</div>
         		</li>
       		{% endfor %}
     	</ul>
   	</div>
+
+	<div id="home-category">
+    	<h3><b>New Arrivals</b></h3>
+    	<ul>
+      		{% for book in books reversed %}
+        		<li>
+					<div class="book">
+						<a href={% url 'bookstore-book_detail' book.id %}>
+							<img src="{{ book.image }}">
+							<p>{{ book.title }}</p>
+							<p>{{ book.author }}</p>
+							<p><b>${{ book.price }}</b></p>
+							<button id="add-to-cart">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+						  </a>
+					</div>
+        		</li>
+      		{% endfor %}
+    	</ul>
+  	</div>  
   
   	<div class="d-md-flex flex-md-equal w-100 my-md-3 ps-md-3">
     	<div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">

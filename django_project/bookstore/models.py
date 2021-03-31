@@ -10,6 +10,8 @@ class Book(models.Model):
     year = models.CharField(max_length=4)
     price = models.DecimalField(max_digits=4, decimal_places=2, default=10.00)
     isbn = models.CharField(max_length=13)
+    genre = models.CharField(max_length=20, default="Fiction")
+    rating = models.IntegerField(default=4)
 
     def __str__(self):
         return self.title

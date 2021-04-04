@@ -74,14 +74,10 @@
 
 		<div class="container-fluid" id="content-right">
 			<h2 id="content-right-title">Select books to add to your cart</h2>
-			<table>
-				{% for book in books %}
-					{% if forloop.counter|divisibleby:5 %}
-						<tr>
 
-						</tr>
-					{% endif %}
-						<td>
+				{% for book in books %}
+
+
 							<div id="book-container">
 								<a href={% url 'bookstore-book_detail' book.id %}>
 									<img src="{{ book.image }}" id="book-image">
@@ -90,9 +86,9 @@
 									<p id="book-price"><b>${{ book.price }}</b></p>
 								  </a>
 							</div>
-						</td>
+					
 				{% endfor %}
-			</table>
+
 
 		</div>
 	</div>

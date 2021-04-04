@@ -10,6 +10,7 @@
     text-align: center;
     min-height: 100%;
     width: 15%;
+    max-width: 250px; 
     background-image: linear-gradient(white -100%, rgb(107, 118, 126) 200%);
     border-right: 2px solid black;
     float: left;
@@ -33,6 +34,12 @@
     margin-left: 20px;
     margin-bottom: 20px;
     padding: 10px 5px 0px 5px;
+    transition: 0.15s;
+    display: inline-block;
+}
+
+#book-container:hover {
+    transform: scale(1.05);
 }
 
 #book-container a{
@@ -47,7 +54,7 @@
 }
 
 #book-title, #book-author, #book-price{
-    display: block;/* Change it as per your requirement. */
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

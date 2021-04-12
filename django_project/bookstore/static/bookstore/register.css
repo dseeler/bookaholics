@@ -47,7 +47,7 @@ input#id_first_name.form-control, input#id_last_name.form-control, input#id_emai
 }
 
 #submit-button{
-  margin-top: 10px;
+  margin-top: 5px;
   width: 300px;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }

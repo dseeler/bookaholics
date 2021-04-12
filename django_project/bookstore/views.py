@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from .models import Book, User
-from .forms import RegistrationForm, EditNameForm, EditPhoneForm, EditAddressForm, EditCardForm
+from .forms import *
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
 from django.core.mail import EmailMessage
@@ -228,6 +228,34 @@ def edit_card(request):
             messages.error = (request, "Invalid credit card")
     return redirect('bookstore-edit_profile')
 
+
+@login_required
+def edit_subscribe(request):
+    if request.method == "POST":
+        user = request.user
+        form = EditSubscribeForm(data=request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+
+            if request.POST['is_subscribed'] == "True":
+                messages.success(request, "You are now subscribed to our promotions list!")
+            elif request.POST['is_subscribed'] == "False":
+                messages.success(request, "You are now unsubscribed to our promotions list")
+
+            # Send email notifying user of the change
+            send_mail(
+                'Bookstore account information changed',
+                'Your Bookstore account information has been changed.',
+                'csci4050.bookstore.app@gmail.com',
+                [request.user.email],
+                fail_silently=False,
+            )
+
+            
+        else:
+            messages.error(request, "Invalid input")
+    return redirect('bookstore-edit_profile')
 
 def password_reset_complete(request):
     messages.success(request, "Password change successful")

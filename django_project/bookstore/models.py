@@ -41,7 +41,8 @@ def email_promotion(sender, instance, **kwargs):
 
     # Add users who are subscribed to promotions
     for user in User.objects.all():
-        recipients.append(user.email) 
+        if user.is_subscribed:
+            recipients.append(user.email) 
 
     messages = [(subject, message, sender, [recipient]) for recipient in recipients]
 
@@ -51,18 +52,18 @@ def email_promotion(sender, instance, **kwargs):
 
 class UserAccountManager(BaseUserManager):
 
-    def create_user(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, **other_feilds):
+    def create_user(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, is_subscribed, **other_feilds):
 
         if not email:
             raise ValueError(_('You must provide an email address'))
 
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name, last_name=last_name, phone=phone, street=street, city=city, 
-        state=state, zip_code=zip_code, card_num=card_num, card_exp=card_exp, card_code=card_code, **other_feilds)
+        state=state, zip_code=zip_code, card_num=card_num, card_exp=card_exp, card_code=card_code, is_subscribed=is_subscribed, **other_feilds)
         user.set_password(password)
         user.save()
 
-    def create_superuser(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, **other_fields):
+    def create_superuser(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, is_subscribed, **other_fields):
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
@@ -89,11 +90,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_suspended = models.BooleanField(default=False)
+    is_subscribed = models.BooleanField(default=False)
 
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'street', 'city', 'state', 'zip_code', 'card_num', 'card_exp', 'card_code', 'is_staff', 'is_active', 'is_suspended']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'street', 'city', 'state', 'zip_code', 'card_num', 'card_exp', 'card_code', 'is_staff', 'is_active', 'is_suspended', 'is_subscribed']
 
     def __str__(self):
         return self.email

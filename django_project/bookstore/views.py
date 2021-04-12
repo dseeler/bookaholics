@@ -86,8 +86,11 @@ def signin(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                login(request, user)
-                return redirect('bookstore-home')
+                if user.is_suspended:
+                    return render(request, 'bookstore/suspended.html')
+                else:
+                    login(request, user)
+                    return redirect('bookstore-home')
             else:
                 messages.info(request, 'Username or password is incorrect')
 

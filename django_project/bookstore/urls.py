@@ -14,6 +14,7 @@ urlpatterns = [
     path('edit_phone', views.edit_phone, name="bookstore-edit_phone"),
     path('edit_address', views.edit_address, name="bookstore-edit_address"),
     path('edit_card', views.edit_card, name="bookstore-edit_card"),
+    path('edit_subscribe', views.edit_subscribe, name="bookstore-edit_subscribe"),
     path('search', views.search, name='bookstore-search'),
     path('book_detail/<int:id>/', views.book_detail, name='bookstore-book_detail'),
     path('checkout', views.checkout, name='bookstore-checkout'),

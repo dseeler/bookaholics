@@ -117,17 +117,41 @@
                         <form method="POST" action="/edit_card" enctype="multipart/form-data" id="card-form">
                             {% csrf_token %}
                             <label>Card Number:</label>
-                            <input type="text" id="card_num" name="card_num" value="{{ user.card_num }}" onclick="clearCardNum()">
+                            <input type="text" id="card_num" name="card_num" onclick="clearCardNum()">
                             <span class="error-msg" id="card-num-error"></span><br>
                             <label>Expiration Date:</label>
-                            <input type="text" id="card_exp" name="card_exp" value="{{ user.card_exp }}" onclick="clearCardExp()">
+                            <input type="text" id="card_exp" name="card_exp" onclick="clearCardExp()">
                             <span class="error-msg" id="card-exp-error"></span><br>
                             <label>Security Code:</label>
-                            <input type="text" id="card_code" name="card_code" value="{{ user.card_code }}" onclick="clearCardCode()">
+                            <input type="text" id="card_code" name="card_code" onclick="clearCardCode()">
                             <span class="error-msg" id="card-code-error"></span><br>
                             <button type="button" class="submit-button" onclick="validateCard()">Save Changes</button>
                         </form>
                     </div>
+                </li>
+                <li class="edit-option" id="edit-subscribe-option">
+                    <div class="edit-div">
+                        <b>Promotions list:</b><br>
+                        {% if not user.is_subscribed %}
+                            You are not subscribed
+                        {% else %}
+                            You are subscribed
+                        {% endif %}
+                    </div>
+                    {% if not user.is_subscribed %}
+                        <form method="POST" action="/edit_subscribe" enctype="multipart/form-data" id="subscribe-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="is_subscribed" value=True>
+                            <button type="submit" class="edit-button" id="edit-subscribe-button">Subscribe</button>
+                        </form>
+                        
+                    {% else %}
+                        <form method="POST" action="/edit_subscribe" enctype="multipart/form-data" id="subscribe-form">
+                            {% csrf_token %}
+                            <input type="hidden" name="is_subscribed" value=False>
+                            <button type="submit" class="edit-button" id="edit-subscribe-button">Unsubscribe</button>
+                        </form>
+                    {% endif %}
                 </li>
             </ul>
         </div>

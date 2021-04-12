@@ -29,9 +29,11 @@ class RegistrationForm(UserCreationForm):
                                 widget=forms.PasswordInput(attrs={'class': 'form-control'}),
                                 help_text='Must be the same as password')
 
+
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'password1', 'password2')
+        fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'is_subscribed')
+        labels = {"is_subscribed": "Subscribe to our promotions list? "}
 
 
 class EditNameForm(forms.ModelForm):
@@ -53,3 +55,8 @@ class EditCardForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('card_num', 'card_exp', 'card_code')
+
+class EditSubscribeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('is_subscribed',)

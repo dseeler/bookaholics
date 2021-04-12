@@ -11,6 +11,7 @@ class UserAdminConfig(UserAdmin):
         ('Address', {'fields': ('street', 'city', 'state', 'zip_code')}),
         ('Payment', {'fields': ('card_num', 'card_exp', 'card_code')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
+        ('Promotions', {'fields': ('is_subscribed',)}),
         ('Status', {'fields': ('is_suspended',)})
     )
 
@@ -19,6 +20,7 @@ class UserAdminConfig(UserAdmin):
         ('Address', {'fields': ('street', 'city', 'state', 'zip_code')}),
         ('Payment', {'fields': ('card_num', 'card_exp', 'card_code')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
+        ('Promotions', {'fields': ('is_subscribed',)}),
         ('Status', {'fields': ('is_suspended',)})
     )
 

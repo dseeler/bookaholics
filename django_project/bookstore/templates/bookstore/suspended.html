@@ -1,0 +1,20 @@
+{% extends "bookstore/base.html" %}
+{% load static %}
+{% block content %}
+
+    {% block style %}
+    	<link rel="stylesheet" href="{% static 'bookstore/suspended.css' %}">
+  	{% endblock style %}
+    
+    <div class="container-fluid" id="content">
+        <div class="container-fluid" id="center-div">
+            <h1 id="title">Unable to login</h1>
+            <img id="check-icon" src="{% static 'bookstore/images/suspended-icon.png' %}">
+            <p id="text">
+                You cannot login with this account because it is suspended. Please contact support for further assistance.
+            </p>
+            <a href="/home">Return Home</a>
+        </div>
+    </div>
+
+{% endblock content%}

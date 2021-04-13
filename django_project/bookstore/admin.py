@@ -26,6 +26,14 @@ class UserAdminConfig(UserAdmin):
 
     ordering = ('email',)
 
+    # Add custom js and css to User model in admin view
+    class Media:
+        js = (
+            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'admin/js/user.js',
+            )
+        css = {'all': ('admin/css/user.css', )}  
+
 class BookAdmin(admin.ModelAdmin):
     list_display = ("title", "author", "genre", "year", "rating", "price")
 

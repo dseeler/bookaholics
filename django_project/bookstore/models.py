@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -27,6 +28,11 @@ class Promotion(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     description = models.TextField()
+
+    def clean(self):
+        # Verify start date is before end date
+        if self.start_date is not None and self.end_date is not None and self.end_date < self.start_date:
+            raise ValidationError("End date should be greater than start date")
 
     def __str__(self):
         return self.code

@@ -32,11 +32,21 @@ class BookAdmin(admin.ModelAdmin):
 class PromotionAdmin(admin.ModelAdmin):
     list_display = ("code", "percentage", "start_date", "end_date")
 
+    # Disable delete permissions for Promotion
     def has_delete_permission(self, request, obj=None):
         return False
     
+    # Disable edit permissions for Promotion
     def has_change_permission(self, request, obj=None):
         return False
+
+    # Add custom js and css to Promotion model in admin view
+    class Media:
+        js = (
+            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'admin/js/promotion.js',
+            )
+        css = {'all': ('admin/css/promotion.css', )}  
 
 admin.site.register(User, UserAdminConfig)
 admin.site.register(Book, BookAdmin)

@@ -241,7 +241,7 @@ def edit_subscribe(request):
             if request.POST['is_subscribed'] == "True":
                 messages.success(request, "You are now subscribed to our promotions list!")
             elif request.POST['is_subscribed'] == "False":
-                messages.success(request, "You are now unsubscribed to our promotions list")
+                messages.success(request, "You have unsubscribed from our promotions list")
 
             # Send email notifying user of the change
             send_mail(
@@ -252,7 +252,6 @@ def edit_subscribe(request):
                 fail_silently=False,
             )
 
-            
         else:
             messages.error(request, "Invalid input")
     return redirect('bookstore-edit_profile')

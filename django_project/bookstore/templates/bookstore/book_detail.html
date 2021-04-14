@@ -7,13 +7,11 @@
     {% endblock style %}
 
     <div class="container-fluid" id="content">
-
-        <form method="POST" action="/search">
-            {% csrf_token %}
-            <button id="back-button">
-                <img src="{% static 'bookstore/images/back-icon.png' %}">
-            </button>    
-        </form>
+       
+        <button id="back-button" onclick="javascript:history.go(-1);">
+            <img src="{% static 'bookstore/images/back-icon.png' %}">
+        </button>    
+       
 
         <div class="container-fluid" id="book-content">
             <div id="book-detail" class="row no-gutters">

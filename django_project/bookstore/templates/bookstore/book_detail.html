@@ -18,18 +18,21 @@
             </div>
             <div id="right-box">
                 <h1 id="book-title">{{ book.title }}</h1>
-                <h4>By <a href="#">{{ book.author }}</a></h4>
+                <h5>By <a href="#">{{ book.author }}</a></h5>               
 
-                <span id="book-rating" value="{{ book.rating }}">{{ book.rating }}</span>
-                <span class="fa fa-star" id="star1"></span>
-                <span class="fa fa-star" id="star2"></span>
-                <span class="fa fa-star" id="star3"></span>
-                <span class="fa fa-star" id="star4"></span>
-                <span class="fa fa-star" id="star5"></span>
-                <span id="num-ratings"></span>
+                <div id="ratings">
+                    <span id="book-rating" value="{{ book.rating }}">{{ book.rating }}</span>
+                    <span class="fa fa-star" id="star1"></span>
+                    <span class="fa fa-star" id="star2"></span>
+                    <span class="fa fa-star" id="star3"></span>
+                    <span class="fa fa-star" id="star4"></span>
+                    <span class="fa fa-star" id="star5"></span>
+                    <span id="num-ratings"></span>
+                </div>
 
                 <p id="separator">_________________________________________________________________________________________</p>
-                <h5><b>Paperback</b></h5>
+                <h4><b>Paperback</b></h4>
+                <h1><b>${{ book.price }}</b></h1>
                 <ul id="book-type-list">
                     <li>
                         <button id="paperback">
@@ -49,8 +52,48 @@
                             <span><b>${{ book.price }}</b></span>
                         </button>
                     </li>
+                    <li>
+                        <button id="audiobook" disabled>
+                            <span>Audiobook</span><br>
+                            <span><b>${{ book.price }}</b></span>
+                        </button>
+                    </li>
                 </ul>
+                <br>
+
+                <button id="add-to-cart" class="w-100 btn btn-lg btn-primary bg-dark">ADD TO CART</button>
         
+            </div>
+            <div class="container-fluid" id="book-overview">
+                <h2 id="overview">Overview</h2>
+                <div id="book-description">{{ book.description }}</div><br>
+                <h2 id="book-details">Book Details</h2>
+                <span><b>Author</b>: {{ book.author }}</span><br>
+                <span><b>Publish Year</b>: {{ book.year }}</span><br>
+                <span><b>Genre</b>: {{ book.genre }}</span><br>
+                <span><b>ISBN-13</b>: {{ book.isbn }}</span><br>
+                <span><b>Page Count</b>: <span id="page-count"></span></span><br>
+                <span><b>Dimensions</b>: 8.1 x 5.4 x 1.1 inches</span><br>
+                <span><b>Shipping Weight</b>: <span id="shipping-weight"></span></span>
+            </div>
+
+            <div class="container-fluid" id="other-books">
+                <h2>Other books like {{ book.title }}:</h2>
+                <ul>
+                    {% for book in books %}
+                        <li>
+                            <div class="other-book">
+                                <a href={% url 'bookstore-book_detail' book.id %}>
+                                    <img src="{{ book.image }}">
+                                    <p>{{ book.title }}</p>
+                                    <p>{{ book.author }}</p>
+                                    <p><b>${{ book.price }}</b></p>
+                                    <button>Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                                  </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
 
         </div>

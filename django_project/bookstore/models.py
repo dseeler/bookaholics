@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mass_mail
 import datetime
+from django_cryptography.fields import encrypt
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
@@ -79,7 +80,7 @@ class UserAccountManager(BaseUserManager):
         if other_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must be assigned to is_superuser=True.')
 
-        return self.create_user(email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, **other_fields)
+        return self.create_user(email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, is_subscribed, **other_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
@@ -90,9 +91,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     zip_code = models.CharField(max_length=5, null=True, blank=True)
-    card_num = models.CharField(max_length=16, null=True, blank=True)
-    card_exp = models.CharField(max_length=5, null=True, blank=True)
-    card_code = models.CharField(max_length=3, null=True, blank=True)
+    card_num = encrypt(models.CharField(max_length=16, null=True, blank=True))
+    card_exp = encrypt(models.CharField(max_length=5, null=True, blank=True))
+    card_code = encrypt(models.CharField(max_length=3, null=True, blank=True))
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_suspended = models.BooleanField(default=False)

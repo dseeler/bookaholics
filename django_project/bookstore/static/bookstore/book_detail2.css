@@ -1,0 +1,105 @@
+#content{
+    width: 1500px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    padding-top: 5px;
+}
+
+#book-content{
+    /*border: 1px solid black;*/
+    margin-top: 100px;
+    padding: 0;
+    height: 500px;
+}
+
+#left-box, #right-box{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+#left-box{
+    /*background-color: red;*/
+    text-align: center;
+}
+
+#right-box{
+    /*background-color: blue;*/
+}
+
+#book-image{
+    height: 500px;
+    width: 350px;
+    box-shadow: 0px 0px 5px 1px black;
+}
+
+#book-title{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 48px;
+    text-align: left;
+}
+
+#book-author{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#book-rating{
+    display: none;
+}
+
+.checked {
+    color: orange;
+}
+
+#book-type-list{
+    margin-left: -40px;
+    list-style-type: none;
+    display: inline-block;
+}
+
+#book-type-list li{
+    display: inline-block;
+}
+
+#book-type-list li button{
+    border: 1px solid silver;
+    width: 140px;
+    text-align: center;
+    /*background-color: red;*/
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#back-button{
+    margin-top: 20px;
+    margin-left: -40px;
+    background: none;
+    border: none;
+    position: absolute;
+}
+
+#back-button:hover{
+    cursor: pointer;
+}
+
+#back-button:focus{
+    outline: none;
+}
+
+#back-button img{
+    height: 40px;
+    width: 40px;
+}
+
+#cart-tab, #home-tab, #profile-tab{
+    color: rgb(175, 175, 175);
+}
+
+#explore-tab{
+    color: white;
+}
+
+#home-tab:hover, #profile-tab:hover, #cart-tab:hover{
+    color: rgb(218, 218, 218);
+}

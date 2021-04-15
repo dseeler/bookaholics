@@ -12,6 +12,21 @@ html, body{
     margin-left: auto;
 }
 
+nav{
+    height: 80px;
+}
+
+#logo{
+    height: 65px;
+    margin-top: -12px;
+    position: absolute;
+}
+
+#bookaholics{
+    font-size: 23px;
+    font-family: "Rock Salt", cursive;
+}
+
 #brand-title{
     margin-top: 10px;
 }

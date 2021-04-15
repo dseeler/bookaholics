@@ -7,75 +7,109 @@
     {% endblock style %}
 
     <div class="container-fluid" id="content">
-
-        <form method="POST" action="/search">
-            {% csrf_token %}
-            <button id="back-button">
-                <img src="{% static 'bookstore/images/back-icon.png' %}">
-            </button>    
-        </form>
-
+       
+        <button id="back-button" onclick="javascript:history.go(-1);">
+            <img src="{% static 'bookstore/images/back-icon.png' %}">
+        </button>    
+       
         <div class="container-fluid" id="book-content">
-            <div id="book-detail" class="row no-gutters">
-                <div id="book-image-div">
-                    <img src="{{ book.image }}">
-                </div>
-                <div id="book-info-div">
-                    <h2 id="book-title">{{ book.title }}</h2>
-                    <h5 id="book-title">{{ book.author }}, {{ book.year }}</h5>
-                    <div id="price-info">
-                        <div id="separator">
-                            <span>_______________________________________</span>
-                        </div>
-                        <p id="rating">Rating: 4.8/5 (928 ratings)</p>
-                        <p><b>Paperback</b></p>
-                        <p id="price"><b>${{ book.price }}</b></p>
-    
-                        <ul>
-                            <li>
-                               <button>Paperback</button> 
-                            </li>
-                            <li>
-                                <button>Hardcover</button>
-                            </li>
-                            <li>
-                                <button>E-book</button>
-                            </li>
-                        </ul>
-                        
-                        <br>
-                        <input type="radio" id="ship">
-                        <label for="ship">Ship this Item</label><br>
-                        <input type="radio" id="ship">
-                        <label for="ship">Pick up in store</label><br>
-                        <div id="add-to-cart-div">
-                            <button id="add-to-cart">Add to Cart</button>
-                        </div>
-                    </div>  
-                </div>
-                <div id="description-div">
-                    <p>{{ book.description }}</p>
-                </div>
+            <div id="left-box">
+                <img id="book-image" src="{{ book.image }}">
             </div>
+            <div id="right-box">
+                <h1 id="book-title">{{ book.title }}</h1>
+                <h5>By <a href="#">{{ book.author }}</a></h5>               
+
+                <div id="ratings">
+                    <span id="book-rating" value="{{ book.rating }}">{{ book.rating }}</span>
+                    <span class="fa fa-star" id="star1"></span>
+                    <span class="fa fa-star" id="star2"></span>
+                    <span class="fa fa-star" id="star3"></span>
+                    <span class="fa fa-star" id="star4"></span>
+                    <span class="fa fa-star" id="star5"></span>
+                    <span id="num-ratings"></span>
+                </div>
+
+                <p id="separator">________________________________________________________________________________________</p>
+                <h4><b>Paperback</b></h4>
+                <h1><b>${{ book.price }}</b></h1>
+                <ul id="book-type-list">
+                    <li>
+                        <button id="paperback">
+                            <span>Paperback</span><br>
+                            <span id="book-type-price"><b>${{ book.price }}</b></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="hardcover" disabled>
+                            <span>Hardcover</span><br>
+                            <span id="hardcover-price"><b>$24.99</b></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="nookbook" disabled>
+                            <span>NOOK Book</span><br>
+                            <span><b>${{ book.price }}</b></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button id="audiobook" disabled>
+                            <span>Audiobook</span><br>
+                            <span><b>${{ book.price }}</b></span>
+                        </button>
+                    </li>
+                </ul>
+                <br>
+
+                <div id="in-stock">In Stock.</div>
+                <div id="quantity-div">
+                    <span>Qty: </span>
+                    <select>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                </div>
+                
+                <button id="add-to-cart" class="w-100 btn btn-lg btn-primary bg-dark">ADD TO CART</button>
+        
+            </div>
+            <div class="container-fluid" id="book-overview">
+                <h2 id="overview">Overview</h2>
+                <div id="book-description">{{ book.description }}</div><br>
+                <h2 id="book-details">Book Details</h2>
+                <span><b>Author</b>: {{ book.author }}</span><br>
+                <span><b>Publish Year</b>: {{ book.year }}</span><br>
+                <span><b>Genre</b>: {{ book.genre }}</span><br>
+                <span><b>ISBN-13</b>: {{ book.isbn }}</span><br>
+                <span><b>Page Count</b>: <span id="page-count"></span></span><br>
+                <span><b>Dimensions</b>: 8.1 x 5.4 x 1.1 inches</span><br>
+                <span><b>Shipping Weight</b>: <span id="shipping-weight"></span></span>
+            </div>
+
+            <div class="container-fluid" id="other-books">
+                <h2>Other books like {{ book.title }}:</h2>
+                <ul>
+                    {% for book in books %}
+                        <li>
+                            <div class="other-book">
+                                <a href={% url 'bookstore-book_detail' book.id %}>
+                                    <img src="{{ book.image }}">
+                                    <p>{{ book.title }}</p>
+                                    <p>{{ book.author }}</p>
+                                    <p><b>${{ book.price }}</b></p>
+                                    <button>Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                                  </a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
         </div>
         
-        <div id="related-books">
-            <h3 id="related-books-title">Other books like {{book.title}}</h3>
-            <ul>
-              {% for book in books %}
-                <li>
-                  <!-- Pass book key through URL -->
-                  <a href={% url 'bookstore-book_detail' book.id %}>
-                    <img src="{{ book.image }}">
-                    <p>{{ book.title }}</p>
-                    <p>{{ book.author }}</p>
-                    <p><b>${{ book.price }}</b></p>
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        <!-- Add "similar books"-->
+            
+        <script src="../../static/bookstore/js/book_detail.js"></script>
     </div>
 
 {% endblock content%}

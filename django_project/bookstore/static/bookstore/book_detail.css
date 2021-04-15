@@ -1,138 +1,182 @@
 #content{
-    min-height: 90%;
-    padding-top: 20px;
-}
-
-#book-content{
-    background: none;
-    width: 80%;
-    margin: 0px auto 0px auto;
+    width: 1500px;
+    min-height: 102%;
+    margin-left: auto;
+    margin-right: auto;
     background-color: white;
-}
-
-#book-title{
-    text-align: center;
-}
-
-#book-detail{
-    padding-top: 30px;
-    width: 100%;
-    height: 100;
-}
-
-#book-image-div{
-    width: 50%;
-    height: 100%;
-    text-align: center;
-}
-
-#book-image-div img{
-    height: 400px;
-    width: 275px;
-    box-shadow: 0px 0px 5px 1px black;
-}
-
-#book-info-div{
-    float: right;
-    width: 50%;
-    height: 400px;
-    padding: -20px 10px 0 10px;
-}
-
-#book-info-div span{
-    text-align: center;
-}
-
-#separator{
-    text-align: center;
-    margin-top: -10px;
-    margin-bottom: 5px;
-}
-
-#price-info{
-    margin-top: -20px;
-    height: 290px;
-    text-align: left;
-    width: 100%;
-    font-size: 20px;
     padding-top: 5px;
 }
 
-#price-info ul{
-    list-style-type: none;
-    display: inline-block;
-    margin: 0;
+#book-content{
+    margin-top: 30px;
     padding: 0;
-    margin-bottom: 7px;
+    height: 100%;
 }
 
-#price-info li{
+#left-box, #right-box{
+    width: 50%;
+    height: 100%;
     float: left;
 }
 
-#price-info li button{
-    background: none;
+#left-box{
+    text-align: center;
 }
 
-#rating{
+#book-image{
+    height: 500px;
+    width: 350px;
+    box-shadow: 0px 0px 5px 1px black;
+}
+
+#book-title{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 48px;
+    text-align: left;
+}
+
+#book-author{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#ratings{
+    margin-top: 14px;
+}
+
+#book-rating{
+    display: none;
+}
+
+.checked {
+    color: orange;
+}
+
+#book-type-list{
+    margin-left: -40px;
+    list-style-type: none;
+    display: inline-block;
+}
+
+#book-type-list li{
+    display: inline-block;
+}
+
+#book-type-list li button{
+    border: 1px solid silver;
+    width: 140px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-right: 10px;
+}
+
+#paperback{
+    outline: 2px solid black;
+}
+
+#quantity-div{
+    margin-top: 7.5px;
+    font-size: 20px;
     margin-bottom: 8px;
 }
 
-#price{
-    font-size: 40px;
-    margin-top: -25px;
-    margin-bottom: 0px;
+#quantity-div span{
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 3px 0px 3px 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
-#add-to-cart-div{
-    text-align: center;
+#quantity-div select{
+    border-color: black;
+    border-left: none;
+    padding: 3px 5px 3px 0px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+
+#quantity-div select:focus{
+    outline: none;
+}
+
+#in-stock{
+    margin-top: 3px;
+    color: rgb(0, 168, 0);
+    font-size: 28px;
 }
 
 #add-to-cart{
-    padding: 0px 30px 0px 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+    margin-top: 13px;
 }
 
-#description-div{
-    height: 300px;
-    padding: 10px 30px 0 30px;
-    font-size: 15px;
-    margin-top: 20px;
-    overflow: hidden;
-    text-overflow: ellipsis;
+#book-overview{
+    clear: both;
+    padding-top: 30px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-#related-books ul{
+#book-description{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+#book-overview span{
+    font-size: 20px;
+}
+
+#other-books{
+    padding-bottom: 60px;
+    margin-top: 40px;
+}
+
+#other-books h2{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#other-books ul{
     list-style-type: none;
     display: inline-block;
     width: 100%;
-    height: 260px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+    height: 430px;
     white-space: nowrap;
     overflow-x: scroll;
     overflow-y: hidden;
+    padding: 0;
+    border-top: 3px solid black;
+    padding-top: 20px;
 }
 
-#related-books li{
+#other-books ul li{
     display: inline-block;
-    margin-right: 10px;
-    width: 150px;
+    margin-right: 30px;
+    width: 200px;
     padding: 0 5px 0 5px;
+    
 }
 
-#related-books a{
+.other-book{
+    text-align: center;
+}
+
+.other-book a{
     text-decoration: none;   
     color: black;
 }
 
-#related-books img{
-    width: 120px;
-    height: 160px;
+.other-book img{
+    width: 200px;
+    height: 270px;
     margin-bottom: 5px;
 }
 
-#related-books p{
+.other-book p{
     display: block;/* Change it as per your requirement. */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -140,13 +184,9 @@
     margin-bottom: 0px;
 }
 
-#related-books-title{
-    text-align: center;
-    padding: 15px 0 10px 0;
-}
-
 #back-button{
-    margin-left: -40px;
+    margin-top: 20px;
+    margin-left: -50px;
     background: none;
     border: none;
     position: absolute;

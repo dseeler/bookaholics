@@ -22,22 +22,31 @@
                     <div class="px-lg-5 ml-lg-1" id="quantity">QUANTITY</div>
                     <div class="px-lg-5 ml-lg-3" id="total">TOTAL</div>
                 </div>
-                
-                {% for index in cartBooks %}
+                {% for item in cart.values %}
                     <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
                         <div class="d-flex flex-row align-items-center">
-                            <div><img src="{{ index.book.image }}" width="150" height="200" alt="" id="image"></div>
+                            <div><img src="{{ item.book.image }}" width="150" height="200" alt="" id="image"></div>
                             <div class="d-flex flex-column pl-md-3 pl-1">
                                 <div>
-                                    <h6>{{ index.book.title }}</h6>
+                                    <h6>{{ item.book.title }}</h6>
                                 </div>
                             </div>
                         </div>
-                        <div class="pl-md-0 pl-1"><b>{{ index.book.price }}</b></div>
-                        <div class="pl-md-0 pl-2"> <span class="fa fa-minus-square text-secondary"></span><span class="px-md-3 px-1"><input type=number min=1 max=99 value="{{ index.quantity }}"></span><span class="fa fa-plus-square text-secondary"></span> </div>
-                        <div class="pl-md-0 pl-1"><b>{{ index.book.price }}</b></div>
+                        <div class="pl-md-0 pl-1">
+                            <b>${{ item.book.price }}</b>
+                        </div>
+                        <div class="pl-md-0 pl-2">
+                            <span class="fa fa-minus-square text-secondary"></span>
+                            <span class="px-md-3 px-1">
+                                <input type=number min=1 max=99 value="{{ item.quantity }}"></span><span class="fa fa-plus-square text-secondary">
+                            </span>
+                        </div>
+                        <div class="pl-md-0 pl-1">
+                            <b>${{ item.total }}</b>
+                        </div>
                         <div class="close">&times;</div>
                     </div>
+
                 {% endfor %}
 
             </div>
@@ -48,7 +57,7 @@
             <div class="col-lg-10 col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <button class="btn btn-sm bg-light border border-dark"><a href="/home" style="color:black">Home Page</a></button> </div>
-                    <div class="px-md-0 px-1" id="footer-font"> <b class="pl-md-4">Subtotal<span class="pl-md-4">$44.82</span></b> </div>
+                    <div class="px-md-0 px-1" id="footer-font"> <b class="pl-md-4">Subtotal<span class="pl-md-4">${{ subtotal }}</span></b> </div>
                     <div> <button class="btn btn-sm bg-dark text-white px-lg-5 px-3"><a href="/checkout" style="color: white">Checkout</a></button> </div>
                 </div>
             </div>

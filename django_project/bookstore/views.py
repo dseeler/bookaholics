@@ -321,10 +321,25 @@ def order_summary(request):
     return render(request,'bookstore/order_summary.html',context)
 
 def shopping_cart(request):
+    cart = CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
+
+    items = {}
+    subtotal = 0
+
+    for item in cart:
+        total = item.book.price * item.quantity
+        items[item] = {
+            'book': item.book,
+            'quantity': item.quantity,
+            'total': total,
+        }
+        subtotal += total
+
     context = {
         'title': 'Shopping Cart',
         'cartCount': getCartCount(request),
-        'cartBooks': CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
+        'cart': items,
+        'subtotal': subtotal,
     }
     return render(request,'bookstore/cart.html',context)
 

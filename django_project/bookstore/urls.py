@@ -18,6 +18,7 @@ urlpatterns = [
     path('edit_subscribe', views.edit_subscribe, name="bookstore-edit_subscribe"),
     path('search', views.search, name='bookstore-search'),
     path('book_detail/<int:id>/', views.book_detail, name='bookstore-book_detail'),
+    path('add_to_cart', views.add_to_cart, name='bookstore-add_to_cart'),
     path('checkout', views.checkout, name='bookstore-checkout'),
     path('order_history', views.order_history, name='bookstore-order_history'),
     path('order_summary', views.order_summary, name='bookstore-order_summary'),

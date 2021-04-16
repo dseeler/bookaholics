@@ -16,4 +16,11 @@ window.onload = (event) => {
     // Add random weight
     const weight = Math.floor((Math.random() * (9 - 7) + 7));
     $("#shipping-weight").html("0." + weight + " pounds");
+
+    const originalPrice = $("#original-price").val();
+
+    $("#quantity").change(() => {
+        $("#price").html("<b>$" + ($("#quantity").val() * originalPrice)  + "</b>");
+    });
 }
+

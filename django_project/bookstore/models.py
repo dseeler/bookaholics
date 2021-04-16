@@ -106,3 +106,35 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+
+class CartManager(models.Manager):
+    def create_cart(self, user):
+        cart = self.create(user=user)
+        return cart
+
+
+class Cart(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    objects = CartManager()
+
+    def __str__(self):
+        return str(self.id)
+
+class CartItemManager(models.Manager):
+    def add_cart_item(self, cart, book, quantity):
+        cart_item = self.create(cart=cart, book=book, quantity=quantity)
+        return cart_item
+
+class CartItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+    objects = CartItemManager()
+
+    def __str__(self):
+        return str(self.id)

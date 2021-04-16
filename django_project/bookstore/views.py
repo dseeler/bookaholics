@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import Book, User
+from .models import *
 from .forms import *
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
@@ -13,11 +13,15 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.contrib.auth import update_session_auth_hash
+from django.http import HttpResponseRedirect
+from django.db.models import Sum
 
 def home(request):
+    print(getCartCount(request))
     context = {
         'title': 'Home',
         'books': Book.objects.all(),
+        'cartCount': getCartCount(request),
     }
     return render(request, 'bookstore/home.html', context)
 
@@ -32,6 +36,9 @@ def register(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
+
+            cart = Cart.objects.create_cart(user)
+
             current_site = get_current_site(request)
             mail_subject = 'Activate your Bookstore account'
             message = render_to_string('bookstore/acc_active_email.html', {
@@ -107,7 +114,8 @@ def book_detail(request, id):
     context = {
         'title': Book.objects.get(id=id).title,
         'book': Book.objects.get(id=id),
-        'books': Book.objects.all()
+        'books': Book.objects.all(),
+        'cartCount': getCartCount(request),
     }
     return render(request, 'bookstore/book_detail.html', context)
 
@@ -115,6 +123,7 @@ def book_detail(request, id):
 def edit_profile(request):
     context = {
         'title': 'Edit Profile',
+        'cartCount': getCartCount(request),
     }
     return render(request, 'bookstore/edit_profile.html', context)
 
@@ -263,31 +272,64 @@ def password_reset_complete(request):
 def search(request):
     context = {
         'title': 'Explore',
-        'books': Book.objects.all()
+        'books': Book.objects.all(),
+        'cartCount': getCartCount(request),
     }
     return render(request,'bookstore/search.html',context)
+
+def add_to_cart(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            cart_id = Cart.objects.get(user=request.user.id)
+            book = Book.objects.get(id=request.POST.get('book-id'))
+            quantity = request.POST.get('quantity')
+
+            # Update the quantity if the item is already in the cart
+            if (CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book)):
+                newQuantity = CartItem.objects.get(cart=Cart.objects.get(user=request.user.id), book=book).quantity + int(quantity)
+                CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book).update(quantity=newQuantity)
+            else:
+                cart_item = CartItem.objects.add_cart_item(cart_id, book, quantity)
+
+            messages.success(request, "{} ({}) added to cart".format(book.title, quantity))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        else:
+            messages.info(request, "Sign in to add books to your cart")
+            return redirect('bookstore-signin')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def checkout(request):
     context = {
         'title' : 'Checkout',
+        'cartCount': getCartCount(request),
     }
     return render(request,'bookstore/checkout.html',context)
 
 def order_history(request):
     context = {
         'title' : 'Order History',
+        'cartCount': getCartCount(request),
     }
     return render(request,'bookstore/order_history.html',context)
 
 def order_summary(request):
     context = {
-        'title': 'Review Order Summary'
+        'title': 'Review Order Summary',
+        'cartCount': getCartCount(request),
     }
     return render(request,'bookstore/order_summary.html',context)
 
 def shopping_cart(request):
     context = {
         'title': 'Shopping Cart',
-        'books': Book.objects.all()
+        'cartCount': getCartCount(request),
+        'cartBooks': CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
     }
     return render(request,'bookstore/cart.html',context)
+
+def getCartCount(request):
+    if request.user.is_authenticated:
+        return CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id)).aggregate(Sum('quantity'))['quantity__sum']
+    else:
+        return ''

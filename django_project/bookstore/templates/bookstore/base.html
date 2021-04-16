@@ -27,7 +27,6 @@
                 <span id="brand-title">
                     <img src="../../static/bookstore/images/logo.png" id="logo">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    
                     <span id="bookaholics">Bookaholics</span>
                 </span>
             </a>
@@ -59,11 +58,6 @@
                 <ul class="navbar-nav ml-auto">
 
                     {% if not request.user.is_authenticated %}
-                    <li class="nav-item" id="cart">
-                        <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect" id="cart-tab">
-                            <i class="fa fa-shopping-cart"></i><b>&nbsp;Cart</b>
-                        </a>
-                    </li>
                     <li class="nav-item pl-2 mb-2 mb-md-0">
                         <a href="/register" type="button"
                         class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign Up</a>
@@ -97,6 +91,9 @@
                     <li class="nav-item" id="cart">
                         <a href="/shopping_cart" class="nav-link navbar-link-2 waves-effect" id="cart-tab">
                             <i class="fa fa-shopping-cart"></i><b>&nbsp;Cart</b>
+                            {% if cartCount %}
+                                <span id="cart-count">({{ cartCount }})</span>
+                            {% endif %}
                         </a>
                     </li>
                     {% endif %}

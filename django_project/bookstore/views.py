@@ -15,6 +15,7 @@ from django.core.mail import send_mail
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
 from django.db.models import Sum
+from django.http import JsonResponse
 
 def home(request):
     print(getCartCount(request))
@@ -278,26 +279,30 @@ def search(request):
     return render(request,'bookstore/search.html',context)
 
 def add_to_cart(request):
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            cart_id = Cart.objects.get(user=request.user.id)
-            book = Book.objects.get(id=request.POST.get('book-id'))
-            quantity = request.POST.get('quantity')
+    try:
+        if request.method == 'POST':
+            if request.user.is_authenticated:
+                cart_id = Cart.objects.get(user=request.user.id)
+                book = Book.objects.get(id=request.POST.get('book-id'))
+                quantity = request.POST.get('quantity')
 
-            # Update the quantity if the item is already in the cart
-            if (CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book)):
-                newQuantity = CartItem.objects.get(cart=Cart.objects.get(user=request.user.id), book=book).quantity + int(quantity)
-                CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book).update(quantity=newQuantity)
+                # Update the quantity if the item is already in the cart
+                if (CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book)):
+                    newQuantity = CartItem.objects.get(cart=Cart.objects.get(user=request.user.id), book=book).quantity + int(quantity)
+                    CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book).update(quantity=newQuantity)
+                else:
+                    cart_item = CartItem.objects.add_cart_item(cart_id, book, quantity)
+
+                messages.success(request, "{} ({}) added to cart".format(book.title, quantity))
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
             else:
-                cart_item = CartItem.objects.add_cart_item(cart_id, book, quantity)
-
-            messages.success(request, "{} ({}) added to cart".format(book.title, quantity))
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-        else:
-            messages.info(request, "Sign in to add books to your cart")
-            return redirect('bookstore-signin')
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+                messages.info(request, "Sign in to add books to your cart")
+                return redirect('bookstore-signin')
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    except:
+        messages.error(request, "Something went wrong")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def checkout(request):
     context = {
@@ -332,6 +337,7 @@ def shopping_cart(request):
             'book': item.book,
             'quantity': item.quantity,
             'total': total,
+            'cart': item.cart
         }
         subtotal += total
 
@@ -342,6 +348,28 @@ def shopping_cart(request):
         'subtotal': subtotal,
     }
     return render(request,'bookstore/cart.html',context)
+
+# Ajax quantity update request
+def change_quantity(request):
+    try:
+        if request.method == 'POST' and request.is_ajax():
+            book = request.POST.get('book_id')
+            cart = request.POST.get('cart_id')
+            quantity = request.POST.get('quantity')
+                        
+            # Delete item and refresh page if quantity is changed to 0
+            if int(quantity) == 0:
+                CartItem.objects.filter(cart=cart, book=book).delete()
+                return JsonResponse(["refresh"], safe=False)
+            else:
+                CartItem.objects.filter(cart=cart, book=book).update(quantity=quantity)
+            
+            # Send JsonResponse with updated data
+            data = [{'book': book, 'quantity': quantity, 'cartCount': getCartCount(request)}]
+            return JsonResponse(data, safe=False)
+    except:
+        messages.error(request, "Something went wrong")
+        return redirect('bookstore-shopping_cart')
 
 def getCartCount(request):
     if request.user.is_authenticated:

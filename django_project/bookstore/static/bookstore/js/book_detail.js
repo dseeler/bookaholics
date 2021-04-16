@@ -20,7 +20,7 @@ window.onload = (event) => {
     const originalPrice = $("#original-price").val();
 
     $("#quantity").change(() => {
-        $("#price").html("<b>$" + ($("#quantity").val() * originalPrice)  + "</b>");
+        $("#price").html("<b>$" + ($("#quantity").val() * originalPrice).toFixed(2)  + "</b>");
     });
 }
 

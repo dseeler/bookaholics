@@ -4,6 +4,7 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'bookstore/css/cart.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
 {% endblock style %}
 
 <div class="container-fluid" id="content">
@@ -33,18 +34,25 @@
                             </div>
                         </div>
                         <div class="pl-md-0 pl-1">
-                            <b>${{ item.book.price }}</b>
+                            <b>$<span id="item-{{ item.book.id }}-price" value="{{ item.book.price }}">{{ item.book.price }}</span></b>
                         </div>
                         <div class="pl-md-0 pl-2">
-                            <span class="fa fa-minus-square text-secondary"></span>
-                            <span class="px-md-3 px-1">
-                                <input type=number min=1 max=99 value="{{ item.quantity }}"></span><span class="fa fa-plus-square text-secondary">
-                            </span>
+
+                        <span class="fa fa-minus-square text-secondary" id="decrement-button"
+                        onclick="changeQuantity('decrement', {{ item.book.id }}, {{ item.cart }})">
+                    </span>
+                        <span class="px-md-3 px-1">
+                            <input id="item-{{ item.book.id }}" type=number min=1 max=99 value="{{ item.quantity }}" disabled>
+                        </span>
+                        <span class="fa fa-plus-square text-secondary" id="increment-button" 
+                        onclick="changeQuantity('increment', {{ item.book.id }}, {{ item.cart }})">
+                    </span>
+
                         </div>
                         <div class="pl-md-0 pl-1">
-                            <b>${{ item.total }}</b>
+                            <b>$<span id="item-{{ item.book.id }}-total" value="{{ item.total }}">{{ item.total }}</span></b>
                         </div>
-                        <div class="close">&times;</div>
+                        <div class="close" onclick="changeQuantity('remove', {{ item.book.id }}, {{ item.cart }})">&times;</div>
                     </div>
 
                 {% endfor %}
@@ -57,11 +65,13 @@
             <div class="col-lg-10 col-12">
                 <div class="d-flex justify-content-between align-items-center">
                     <div> <button class="btn btn-sm bg-light border border-dark"><a href="/home" style="color:black">Home Page</a></button> </div>
-                    <div class="px-md-0 px-1" id="footer-font"> <b class="pl-md-4">Subtotal<span class="pl-md-4">${{ subtotal }}</span></b> </div>
+                    <div class="px-md-0 px-1" id="footer-font"> <b class="pl-md-4">Subtotal<span class="pl-md-4">$
+                        <span id="subtotal" value="{{ subtotal }}">{{ subtotal }}</span></span></b> </div>
                     <div> <button class="btn btn-sm bg-dark text-white px-lg-5 px-3"><a href="/checkout" style="color: white">Checkout</a></button> </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="../../static/bookstore/js/cart.js"></script>
 </div>
 {% endblock content %}

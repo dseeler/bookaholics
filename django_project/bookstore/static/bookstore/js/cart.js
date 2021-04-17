@@ -84,7 +84,6 @@ function changeQuantity(action, bookID, cartID){
     });
 }  
 
-
 function lockButtons(){
     $("#decrement-button").attr("disabled", "true");
     $("#increment-button").attr("disabled", "true");

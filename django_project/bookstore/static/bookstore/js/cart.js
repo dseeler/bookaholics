@@ -61,12 +61,14 @@ function changeQuantity(action, bookID, cartID){
                         const newSubtotal = (parseFloat($("#subtotal").html()) - parseFloat(price)).toFixed(2);
                         $("#item-" + book + "-total").html(newTotal);
                         $("#subtotal").html(newSubtotal);
+                        $("#num-items").html(parseInt($("#num-items").html()) - 1);
                     }
                     else if (action === "increment"){
                         const newTotal = (parseFloat($("#item-" + book + "-total").html()) + parseFloat(price)).toFixed(2);
                         const newSubtotal = (parseFloat($("#subtotal").html()) + parseFloat(price)).toFixed(2);
                         $("#item-" + book + "-total").html(newTotal);
                         $("#subtotal").html(newSubtotal);
+                        $("#num-items").html(parseInt($("#num-items").html()) + 1);
                     }
                 
                     // Update cart item count

@@ -1,15 +1,97 @@
 #content{
     min-height: 100%;
-    width: 1500px;
+    width: 1500px;  
 }
 
-#book-title{
+#cart-content{
+    width: 100%;
+    min-height: 100%;
+}
 
+#cart-title{    
+    font-weight: normal;
+    padding-top: 25px;
+    margin-bottom: 25px;
+}
+
+
+
+#cart-title-empty-div{
+    height: 100%;
+    position: absolute;
+    left: 45%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#cart-title-empty{
+    text-align: center;
+    margin-top: -70px;
+}
+
+table{
+    height: 100%;
+    width: 100%;
+}
+
+td{
+    padding: 20px 0 20px 0;
+}
+
+#th-image{
+    width: 20%;
+}
+
+.td-image{
+    text-align: center;
+}
+
+#th-products{
+    text-align: center;
+    width: 20%;
+}
+
+#th-price, .td-price{
+    width: 15%;
+    text-align: center;
+}
+
+#th-quantity, .td-quantity{
+    width: 15%;
+    text-align: center;
+}
+
+#th-total, .td-total{
+    width: 15%;
+    text-align: center;
+}
+
+#th-remove, .td-remove{
+    width: 10%;
+    text-align: center;
+    padding-right: 15px;
 }
 
 #book-image{
     width: 150px;
     height: 200px;
+}
+
+#total-row{
+    padding: 10px 0 30px 0;
+    text-align: center;
+}
+
+#subtotal-container{
+    margin: 0 100px 0 80px;
+    font-size: 26px;
+}
+
+#keep-shopping-button, #checkout-button{
+    text-align: center;
+    width: 150px;
 }
 
 #increment-button:hover, #decrement-button:hover{

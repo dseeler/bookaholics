@@ -59,12 +59,12 @@
 
                     {% if not request.user.is_authenticated %}
                     <li class="nav-item pl-2 mb-2 mb-md-0">
-                        <a href="/register" type="button"
-                        class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign Up</a>
-                    </li>
-                    <li class="nav-item pl-2 mb-2 mb-md-0">
                         <a href="/signin" type="button"
                         class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign In</a>
+                    </li>
+                    <li class="nav-item pl-2 mb-2 mb-md-0">
+                        <a href="/register" type="button"
+                        class="btn btn-outline-info btn-md btn-rounded btn-navbar waves-effect waves-light">Sign Up</a>
                     </li>
 
                     <!-- Else show Edit Profile and Sign Out -->

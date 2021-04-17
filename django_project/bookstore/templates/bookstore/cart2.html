@@ -1,0 +1,86 @@
+{% extends "bookstore/base.html" %}
+{% load static %}
+{% block content %} 
+
+    {%block style %}
+        <link rel="stylesheet" href="{% static 'bookstore/css/cart.css' %}" />
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
+    {% endblock style %}
+
+    <div class="container-fluid" id="content">
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-10 col-12 pt-3">
+                <div class="d-flex flex-column pt-4">
+                    <div>
+                        <h3 class="font-weight-normal">YOUR CART - {{ cartCount }} item(s)</h3>
+                    </div>
+                </div>
+                <br>
+
+                <div class="d-flex flex-row px-lg-5 mx-lg-5 mobile" id="heading">
+                    <div class="px-lg-5 mr-lg-5" id="produc"><b>PRODUCTS</b></div>
+                    <div class="px-lg-5 ml-lg-5" id="prc"><b>PRICE</b></div>
+                    <div class="px-lg-5 ml-lg-1" id="quantity"><b>QUANTITY</b></div>
+                    <div class="px-lg-5 ml-lg-3" id="total"><b>TOTAL</b></div>
+                </div>
+                {% for item in cart.values %}
+                    <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
+                        <div class="d-flex flex-row align-items-center">
+                            <div>
+                                <img src="{{ item.book.image }}" id="book-image"/>
+                            </div>
+                            <div class="d-flex flex-column pl-md-3 pl-1" id="book-title">
+                                <div>
+                                    <h6>{{ item.book.title }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pl-md-0 pl-1">
+                            <b>$<span id="item-{{ item.book.id }}-price">{{ item.book.price }}</span></b>
+                        </div>
+                        <div class="pl-md-0 pl-2">
+                            <span class="fa fa-minus-square text-secondary" id="decrement-button" onclick="changeQuantity('decrement', {{ item.book.id }}, {{ item.cart }})"></span>
+                            <span class="px-md-3 px-1">
+                                <input id="item-{{ item.book.id }}" class="quantity" type="number" min="1" max="99" value="{{ item.quantity }}" disabled/>
+                            </span>
+                            <span class="fa fa-plus-square text-secondary" id="increment-button" onclick="changeQuantity('increment', {{ item.book.id }}, {{ item.cart }})"></span>
+                        </div>
+                        <div class="pl-md-0 pl-1">
+                            <b>$<span id="item-{{ item.book.id }}-total">{{ item.total }}</span></b>
+                        </div>
+                        <div class="close" onclick="changeQuantity('remove', {{ item.book.id }}, {{ item.cart }})">&times;</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-10 col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <button class="btn btn-sm bg-light border border-dark">
+                            <a href="/home" style="color: black">Home Page</a>
+                        </button>
+                    </div>
+                    <div class="px-md-0 px-1" id="footer-font">
+                        <b class="pl-md-4"
+                            >Subtotal<span class="pl-md-4"
+                                >$
+                                <span id="subtotal" value="{{ subtotal }}"
+                                    >{{ subtotal }}</span
+                                ></span
+                            ></b
+                        >
+                    </div>
+                    <div>
+                        <button class="btn btn-sm bg-dark text-white px-lg-5 px-3">
+                            <a href="/checkout" style="color: white">Checkout</a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../static/bookstore/js/cart.js"></script>
+    </div>
+{% endblock content %}

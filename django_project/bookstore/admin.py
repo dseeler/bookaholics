@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Book, User, Promotion
+from .models import *
 from django.forms import TextInput, Textarea
 
 class UserAdminConfig(UserAdmin):
@@ -37,6 +37,16 @@ class UserAdminConfig(UserAdmin):
 class BookAdmin(admin.ModelAdmin):
     list_display = ("title", "author", "genre", "year", "rating", "price")
 
+class CartAdmin(admin.ModelAdmin):
+    list_display = ("id", "user")
+
+    # Disable edit permissions for Promotion
+    def has_change_permission(self, request, obj=None):
+        return False
+
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ("id", "cart", "book", "quantity")
+
 class PromotionAdmin(admin.ModelAdmin):
     list_display = ("code", "percentage", "start_date", "end_date")
 
@@ -58,4 +68,6 @@ class PromotionAdmin(admin.ModelAdmin):
 
 admin.site.register(User, UserAdminConfig)
 admin.site.register(Book, BookAdmin)
+admin.site.register(Cart, CartAdmin)
+admin.site.register(CartItem, CartItemAdmin)
 admin.site.register(Promotion, PromotionAdmin)

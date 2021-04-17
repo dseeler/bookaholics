@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import *
 from django.contrib.auth import password_validation
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.forms import ModelForm
@@ -34,6 +34,11 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ('email', 'first_name', 'last_name', 'password1', 'password2', 'is_subscribed')
         labels = {"is_subscribed": "Subscribe to our promotions list? "}
+
+class CartForm(forms.ModelForm):
+    class Meta:
+        model = Cart
+        fields = ('id', 'user')
 
 
 class EditNameForm(forms.ModelForm):

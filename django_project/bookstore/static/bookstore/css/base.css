@@ -31,6 +31,13 @@ nav{
     margin-top: 10px;
 }
 
+#cart-count{
+    position: absolute;
+    font-size: 15px;
+    margin-top: -1.5px;
+    margin-left: 2px;
+}
+
 #search-input{
     border-left: 1px solid silver;
     border-radius: 0;

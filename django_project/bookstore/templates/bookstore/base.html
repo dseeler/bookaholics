@@ -46,8 +46,15 @@
                 </ul>
 
                 <!-- Search bar -->
-                <form class="d-flex justify-content-center" id="search-bar" action="/search">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search title, author, genre, ISBN..." aria-label="Search" id="search-input">
+                <form class="d-flex justify-content-center" method="GET" id="query" action="/search">
+                    <select id="search-select" name="category" id="category" form="query">
+                        <option selected>Title</option>
+                        <option id="genre-option">Genre</option>
+                        <option>Author</option>
+                        <option>ISBN</option>
+                        <option>Year</option>
+                    </select>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search title, author, genre, ISBN..." aria-label="Search" id="input" name="input">
                     <button id="search-button"><i class="fa fa-search"></i></button>
                 </form>
             </div>
@@ -120,4 +127,5 @@
         &copy; 2021 Bookaholics
     </footer>
 
+    <script src="../../static/bookstore/js/base.js"></script>
 </html>

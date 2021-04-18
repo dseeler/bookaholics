@@ -42,11 +42,16 @@ nav{
     margin-left: 2px;
 }
 
-#search-input{
-    border-left: 1px solid silver;
-    border-radius: 0;
+#search-select{
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    border: none;
+    border-right: 1px solid silver;
+}
+
+#search-input{
+    border-radius: 0;
+    border: none;
 }
 
 #search-button{
@@ -57,7 +62,7 @@ nav{
     width: 60px;
 }
 
-#search-input:focus, #search-button:focus{
+#search-input:focus, #search-button:focus, #search-select{
     outline: none;
 }
 

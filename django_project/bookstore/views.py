@@ -271,12 +271,37 @@ def password_reset_complete(request):
     return redirect('bookstore-signin')
 
 def search(request):
+    # If accessing search page without providing query
+    books = Book.objects.all()
+    header = 'Select books to add to your cart'
+
+    # If query is provided
+    if request.method == 'POST':
+        category = request.POST.get('category')
+        input = request.POST.get('search-input')
+
+        if input != '':
+            if category == 'Title':
+                books = Book.objects.filter(title__contains=input)
+            elif category == 'Genre':
+                books = Book.objects.filter(genre__contains=input)
+            elif category == 'Author':
+                books = Book.objects.filter(author__contains=input)
+            elif category == 'ISBN':
+                books = Book.objects.filter(isbn=input)
+            elif category == 'Year':
+                books = Book.objects.filter(year=input)
+
+            header = str(len(books)) + " results found for '" + input + "'"
+
     context = {
         'title': 'Explore',
-        'books': Book.objects.all(),
+        'header': header,
+        'books': books,
         'cartCount': getCartCount(request),
     }
-    return render(request,'bookstore/search.html',context)
+
+    return render(request, 'bookstore/search.html', context)
 
 def add_to_cart(request):
     try:

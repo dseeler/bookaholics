@@ -46,8 +46,16 @@
                 </ul>
 
                 <!-- Search bar -->
-                <form class="d-flex justify-content-center" id="search-bar" action="/search">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search title, author, genre, ISBN..." aria-label="Search" id="search-input">
+                <form class="d-flex justify-content-center" method="POST" id="search-bar" action="/search">
+                    {% csrf_token %}
+                    <select id="search-select" name="category" id="category" form="search-bar">
+                        <option selected>Title</option>
+                        <option>Genre</option>
+                        <option>Author</option>
+                        <option>ISBN</option>
+                        <option>Year</option>
+                    </select>
+                    <input class="form-control mr-sm-2" type="text" placeholder="Search title, author, genre, ISBN..." aria-label="Search" id="search-input" name="search-input">
                     <button id="search-button"><i class="fa fa-search"></i></button>
                 </form>
             </div>

@@ -73,22 +73,18 @@
 		</div>
 
 		<div class="container-fluid" id="content-right">
-			<h2 id="content-right-title">Select books to add to your cart</h2>
+			<h2 id="content-right-title">{{ header }}</h2>
 
-				{% for book in books %}
-
-
-							<div id="book-container">
-								<a href={% url 'bookstore-book_detail' book.id %}>
-									<img src="{{ book.image }}" id="book-image">
-									<p id="book-title">{{ book.title }}</p>
-									<p id="book-author">{{ book.author }}</p>
-									<p id="book-price"><b>${{ book.price }}</b></p>
-								  </a>
-							</div>
-					
-				{% endfor %}
-
+			{% for book in books %}
+				<div id="book-container">
+					<a href={% url 'bookstore-book_detail' book.id %}>
+						<img src="{{ book.image }}" id="book-image">
+						<p id="book-title">{{ book.title }}</p>
+						<p id="book-author">{{ book.author }}</p>
+						<p id="book-price"><b>${{ book.price }}</b></p>
+					</a>
+				</div>					
+			{% endfor %}
 
 		</div>
 	</div>

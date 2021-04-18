@@ -102,6 +102,10 @@
     margin-top: -10px;
 }
 
+.checked {
+    color: orange;
+}
+
 #cart-tab, #home-tab, #profile-tab{
     color: rgb(175, 175, 175);
 }

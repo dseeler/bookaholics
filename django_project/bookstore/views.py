@@ -275,10 +275,10 @@ def search(request):
     books = Book.objects.all()
     header = 'Select books to add to your cart'
 
-    # If query is provided
-    if request.method == 'POST':
-        category = request.POST.get('category')
-        input = request.POST.get('search-input')
+    # If query is provided (or clicking a genre link on Home page)
+    if request.method == 'GET':
+        category = request.GET.get('category')
+        input = request.GET.get('input')
 
         if input != '':
             if category == 'Title':

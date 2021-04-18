@@ -17,14 +17,15 @@ from django.http import HttpResponseRedirect
 from django.db.models import Sum
 from django.http import JsonResponse
 
+
 def home(request):
-    print(getCartCount(request))
     context = {
         'title': 'Home',
         'books': Book.objects.all(),
         'cartCount': getCartCount(request),
     }
     return render(request, 'bookstore/home.html', context)
+
 
 def register(request):
     context = {
@@ -45,12 +46,12 @@ def register(request):
             message = render_to_string('bookstore/acc_active_email.html', {
                 'user': user,
                 'domain': current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                'token':account_activation_token.make_token(user),
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
             })
             to_email = form.cleaned_data.get('email')
             email = EmailMessage(
-                        mail_subject, message, to=[to_email]
+                mail_subject, message, to=[to_email]
             )
             email.send()
             context['email'] = to_email
@@ -59,6 +60,7 @@ def register(request):
         form = RegistrationForm()
 
     return render(request, 'bookstore/register.html', {'form': form})
+
 
 def activate(request, uidb64, token):
     try:
@@ -70,10 +72,12 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        messages.success(request, 'Account verification successful! You can now login into your account.')
+        messages.success(
+            request, 'Account verification successful! You can now login into your account.')
     else:
         messages.error(request, 'Account link is invalid!')
     return redirect('bookstore-signin')
+
 
 def confirm_registration(request):
     context = {
@@ -107,9 +111,11 @@ def signin(request):
         }
         return render(request, 'bookstore/signin.html', context)
 
+
 def signout(request):
     logout(request)
     return redirect('bookstore-signin')
+
 
 def book_detail(request, id):
     context = {
@@ -120,6 +126,7 @@ def book_detail(request, id):
     }
     return render(request, 'bookstore/book_detail.html', context)
 
+
 @login_required
 def edit_profile(request):
     context = {
@@ -127,6 +134,7 @@ def edit_profile(request):
         'cartCount': getCartCount(request),
     }
     return render(request, 'bookstore/edit_profile.html', context)
+
 
 @login_required
 def edit_name(request):
@@ -154,7 +162,7 @@ def edit_name(request):
 
 @login_required
 def password_change_complete(request):
-     # Send email notifying user of the change
+    # Send email notifying user of the change
     send_mail(
         'Bookstore account information changed',
         'Your Bookstore account information has been changed.',
@@ -249,9 +257,11 @@ def edit_subscribe(request):
             user.save()
 
             if request.POST['is_subscribed'] == "True":
-                messages.success(request, "You are now subscribed to our promotions list!")
+                messages.success(
+                    request, "You are now subscribed to our promotions list!")
             elif request.POST['is_subscribed'] == "False":
-                messages.success(request, "You have unsubscribed from our promotions list")
+                messages.success(
+                    request, "You have unsubscribed from our promotions list")
 
             # Send email notifying user of the change
             send_mail(
@@ -266,9 +276,11 @@ def edit_subscribe(request):
             messages.error(request, "Invalid input")
     return redirect('bookstore-edit_profile')
 
+
 def password_reset_complete(request):
     messages.success(request, "Password change successful")
     return redirect('bookstore-signin')
+
 
 def search(request):
     # If accessing search page without providing query
@@ -279,6 +291,11 @@ def search(request):
     if request.method == 'GET':
         category = request.GET.get('category')
         input = request.GET.get('input')
+
+        # If query is requested from the Search page (filtered)
+        genre = request.GET.get('genre')
+        price_range = request.GET.get('price-range')
+        rating = request.GET.get('rating')
 
         if input != '':
             if category == 'Title':
@@ -292,6 +309,24 @@ def search(request):
             elif category == 'Year':
                 books = Book.objects.filter(year=input)
 
+            # Filter genre
+            if genre is not None:            
+                print(genre)
+                books = books.filter(genre=genre)
+            
+            # Filter rating
+            if rating is not None:
+                books = books.filter(rating=rating)
+
+            # Filter price
+            if price_range is not None:
+                if price_range == '<10':
+                    books = books.filter(price__lt=10)
+                elif price_range == '10-20':
+                    books = books.filter(price__gte=10, price__lt=20)
+                elif price_range == '20>':
+                    books = books.filter(price__gte=20)
+
             header = str(len(books)) + " results found for '" + input + "'"
 
     context = {
@@ -303,6 +338,7 @@ def search(request):
 
     return render(request, 'bookstore/search.html', context)
 
+
 def add_to_cart(request):
     try:
         if request.method == 'POST':
@@ -313,12 +349,16 @@ def add_to_cart(request):
 
                 # Update the quantity if the item is already in the cart
                 if (CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book)):
-                    newQuantity = CartItem.objects.get(cart=Cart.objects.get(user=request.user.id), book=book).quantity + int(quantity)
-                    CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book).update(quantity=newQuantity)
+                    newQuantity = CartItem.objects.get(cart=Cart.objects.get(
+                        user=request.user.id), book=book).quantity + int(quantity)
+                    CartItem.objects.filter(cart=Cart.objects.get(
+                        user=request.user.id), book=book).update(quantity=newQuantity)
                 else:
-                    cart_item = CartItem.objects.add_cart_item(cart_id, book, quantity)
+                    cart_item = CartItem.objects.add_cart_item(
+                        cart_id, book, quantity)
 
-                messages.success(request, "{} ({}) added to cart".format(book.title, quantity))
+                messages.success(
+                    request, "{} ({}) added to cart".format(book.title, quantity))
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
             else:
@@ -329,26 +369,30 @@ def add_to_cart(request):
         messages.error(request, "Something went wrong")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+
 def checkout(request):
     context = {
-        'title' : 'Checkout',
+        'title': 'Checkout',
         'cartCount': getCartCount(request),
     }
-    return render(request,'bookstore/checkout.html',context)
+    return render(request, 'bookstore/checkout.html', context)
+
 
 def order_history(request):
     context = {
-        'title' : 'Order History',
+        'title': 'Order History',
         'cartCount': getCartCount(request),
     }
-    return render(request,'bookstore/order_history.html',context)
+    return render(request, 'bookstore/order_history.html', context)
+
 
 def order_summary(request):
     context = {
         'title': 'Review Order Summary',
         'cartCount': getCartCount(request),
     }
-    return render(request,'bookstore/order_summary.html',context)
+    return render(request, 'bookstore/order_summary.html', context)
+
 
 def shopping_cart(request):
     cart = CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
@@ -372,29 +416,34 @@ def shopping_cart(request):
         'cart': items,
         'subtotal': subtotal,
     }
-    return render(request,'bookstore/cart.html',context)
+    return render(request, 'bookstore/cart.html', context)
 
 # Ajax quantity update request
+
+
 def change_quantity(request):
     try:
         if request.method == 'POST' and request.is_ajax():
             book = request.POST.get('book_id')
             cart = request.POST.get('cart_id')
             quantity = request.POST.get('quantity')
-                        
+
             # Delete item and refresh page if quantity is changed to 0
             if int(quantity) == 0:
                 CartItem.objects.filter(cart=cart, book=book).delete()
                 return JsonResponse(["refresh"], safe=False)
             else:
-                CartItem.objects.filter(cart=cart, book=book).update(quantity=quantity)
-            
+                CartItem.objects.filter(
+                    cart=cart, book=book).update(quantity=quantity)
+
             # Send JsonResponse with updated data
-            data = [{'book': book, 'quantity': quantity, 'cartCount': getCartCount(request)}]
+            data = [{'book': book, 'quantity': quantity,
+                     'cartCount': getCartCount(request)}]
             return JsonResponse(data, safe=False)
     except:
         messages.error(request, "Something went wrong")
         return redirect('bookstore-shopping_cart')
+
 
 def getCartCount(request):
     if request.user.is_authenticated:

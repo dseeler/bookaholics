@@ -295,12 +295,12 @@ def search(request):
             category = request.GET.get('category')
             input = request.GET.get('input')
 
-            # If query is requested from the Search page (filtered)
-            genre = request.GET.get('genre')
-            price_range = request.GET.get('price-range')
-            rating = request.GET.get('rating')
+            if category is not None:
+                # If query is requested from the Search page (filtered)
+                genre = request.GET.get('genre')
+                price_range = request.GET.get('price-range')
+                rating = request.GET.get('rating')
 
-            if input != '':
                 if category == 'Title':
                     books = Book.objects.filter(title__contains=input)
                 elif category == 'Genre':
@@ -314,9 +314,8 @@ def search(request):
 
                 # Filter genre
                 if genre is not None:            
-                    print(genre)
                     books = books.filter(genre=genre)
-                
+                    
                 # Filter rating
                 if rating is not None:
                     books = books.filter(rating=rating)

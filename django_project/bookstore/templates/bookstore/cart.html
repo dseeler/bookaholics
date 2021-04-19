@@ -28,7 +28,9 @@
                     {% for item in cart.values %}
                         <tr>
                             <td class="td-image">
-                                <img src="{{ item.book.image }}" id="book-image"/>
+                                <a href={% url 'bookstore-book_detail' item.book.id %}>
+                                    <img src="{{ item.book.image }}" id="book-image"/>
+                                </a>
                             </td>
                             <td class="td-products">
                                 <h6>{{ item.book.title }}</h6>

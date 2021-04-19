@@ -16,6 +16,8 @@ from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
 from django.db.models import Sum
 from django.http import JsonResponse
+from datetime import date
+import json
 
 
 def home(request):
@@ -283,60 +285,65 @@ def password_reset_complete(request):
 
 
 def search(request):
-    # If accessing search page without providing query
-    books = Book.objects.all()
-    header = 'Select books to add to your cart'
+    try:
+        # If accessing search page without providing query
+        books = Book.objects.all()
+        header = 'Select books to add to your cart'
 
-    # If query is provided (or clicking a genre link on Home page)
-    if request.method == 'GET':
-        category = request.GET.get('category')
-        input = request.GET.get('input')
+        # If query is provided (or clicking a genre link on Home page)
+        if request.method == 'GET':
+            category = request.GET.get('category')
+            input = request.GET.get('input')
 
-        # If query is requested from the Search page (filtered)
-        genre = request.GET.get('genre')
-        price_range = request.GET.get('price-range')
-        rating = request.GET.get('rating')
+            # If query is requested from the Search page (filtered)
+            genre = request.GET.get('genre')
+            price_range = request.GET.get('price-range')
+            rating = request.GET.get('rating')
 
-        if input != '':
-            if category == 'Title':
-                books = Book.objects.filter(title__contains=input)
-            elif category == 'Genre':
-                books = Book.objects.filter(genre__contains=input)
-            elif category == 'Author':
-                books = Book.objects.filter(author__contains=input)
-            elif category == 'ISBN':
-                books = Book.objects.filter(isbn=input)
-            elif category == 'Year':
-                books = Book.objects.filter(year=input)
+            if input != '':
+                if category == 'Title':
+                    books = Book.objects.filter(title__contains=input)
+                elif category == 'Genre':
+                    books = Book.objects.filter(genre__contains=input)
+                elif category == 'Author':
+                    books = Book.objects.filter(author__contains=input)
+                elif category == 'ISBN':
+                    books = Book.objects.filter(isbn=input)
+                elif category == 'Year':
+                    books = Book.objects.filter(year=input)
 
-            # Filter genre
-            if genre is not None:            
-                print(genre)
-                books = books.filter(genre=genre)
-            
-            # Filter rating
-            if rating is not None:
-                books = books.filter(rating=rating)
+                # Filter genre
+                if genre is not None:            
+                    print(genre)
+                    books = books.filter(genre=genre)
+                
+                # Filter rating
+                if rating is not None:
+                    books = books.filter(rating=rating)
 
-            # Filter price
-            if price_range is not None:
-                if price_range == '<10':
-                    books = books.filter(price__lt=10)
-                elif price_range == '10-20':
-                    books = books.filter(price__gte=10, price__lt=20)
-                elif price_range == '20>':
-                    books = books.filter(price__gte=20)
+                # Filter price
+                if price_range is not None:
+                    if price_range == '<10':
+                        books = books.filter(price__lt=10)
+                    elif price_range == '10-20':
+                        books = books.filter(price__gte=10, price__lt=20)
+                    elif price_range == '20>':
+                        books = books.filter(price__gte=20)
 
-            header = str(len(books)) + " results found for '" + input + "'"
+                header = str(len(books)) + " results found for '" + input + "'"
 
-    context = {
-        'title': 'Explore',
-        'header': header,
-        'books': books,
-        'cartCount': getCartCount(request),
-    }
+        context = {
+            'title': 'Explore',
+            'header': header,
+            'books': books,
+            'cartCount': getCartCount(request),
+        }
+        return render(request, 'bookstore/search.html', context)
 
-    return render(request, 'bookstore/search.html', context)
+    except:
+        return redirect('bookstore-search')
+
+   
 
 
 def add_to_cart(request):
@@ -371,9 +378,26 @@ def add_to_cart(request):
 
 
 def checkout(request):
+    cart = CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
+
+    items = {}
+    subtotal = 0
+
+    for item in cart:
+        total = item.book.price * item.quantity
+        items[item] = {
+            'book': item.book,
+            'quantity': item.quantity,
+            'total': total,
+            'cart': item.cart
+        }
+        subtotal += total
+
     context = {
-        'title': 'Checkout',
+        'title': 'Shopping Cart',
         'cartCount': getCartCount(request),
+        'cart': items,
+        'subtotal': subtotal,
     }
     return render(request, 'bookstore/checkout.html', context)
 
@@ -443,6 +467,29 @@ def change_quantity(request):
     except:
         messages.error(request, "Something went wrong")
         return redirect('bookstore-shopping_cart')
+
+def redeem_promo(request):
+    try:
+        if request.method == 'POST' and request.is_ajax():
+            code = request.POST.get('promo_code').replace("\"", "")
+            
+            promotion = Promotion.objects.filter(code=code)            
+
+            today = date.today()     
+ 
+            if len(promotion) == 0:
+                return JsonResponse(['Invalid code'], safe=False)
+            else:
+                if today > promotion[0].end_date:
+                    return JsonResponse(['This code expired on {}'.format(promotion[0].end_date)], safe=False) 
+                elif today < promotion[0].start_date:
+                    print('hi')
+                    return JsonResponse(['This promotion starts on {}'.format(promotion[0].start_date)], safe=False)
+                else:
+                    return JsonResponse([promotion[0].percentage], safe=False)
+    
+    except:
+        return redirect('bookstore-checkout')
 
 
 def getCartCount(request):

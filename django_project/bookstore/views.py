@@ -490,6 +490,45 @@ def redeem_promo(request):
     except:
         return redirect('bookstore-checkout')
 
+def place_order(request):
+    if request.method == 'POST':
+        user = request.user
+        total = request.POST.get('total-input')
+        promo_code = request.POST.get('promo-input')
+        today = date.today()
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        street = request.POST.get('street')
+        city = request.POST.get('city')
+        state = request.POST.get('state')
+        zip_code = request.POST.get('zip_code')
+        card_name = request.POST.get('card_name')
+        card_num = request.POST.get('card_num')
+        card_exp = request.POST.get('card_exp')
+        card_code = request.POST.get('card_code')
+
+        order = Order.objects.create_order(user, total, today, first_name, last_name, street, city, state, zip_code, card_name, card_num, card_exp, card_code)
+
+        # Add promotion if one was applied
+        if promo_code != '':
+            promotion = Promotion.objects.get(code=promo_code)
+            order.promotion = promotion
+            order.save()
+
+        # Clear cart
+        CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id)).delete()
+
+        # TO-DO:
+        # Encrypt card details in admin view
+        # Generate confirmation number
+        # Send email
+        # Create order items
+        # Disable edit/delete for orders? 
+        # Add address2?
+
+        messages.success(request, "Your order has been placed!")
+        return redirect('bookstore-home')
+
 
 def getCartCount(request):
     if request.user.is_authenticated:

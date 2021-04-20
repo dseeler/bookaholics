@@ -8,7 +8,11 @@ window.onload = (event) => {
     // Add shipping fee to total
     $("#total").html((parseFloat($("#total").html()) + 5.99).toFixed(2));
 
+    // Add tax to total
     calculateTax();
+
+    // Update total value
+    $("#total-input").val((parseFloat($("#total").html()) + tax).toFixed(2));
 
     document.getElementById("redeem-button").onclick = (event) => {
         event.preventDefault();
@@ -64,6 +68,7 @@ function redeemCode(){
                     $("#total").html((parseFloat($("#total").html()) - discount).toFixed(2));
                     calculateTax();
                     appliedPromo = true;
+                    $("#promo-input").val(promo_code);
                 }
             },
         error:
@@ -81,4 +86,5 @@ function calculateTax(){
     const tax = (parseFloat($("#total").html()) * .04);
     $("#tax").html(tax.toFixed(2));
     $("#total").html((parseFloat($("#total").html()) + tax).toFixed(2));
+    $("#total-input").val((parseFloat($("#total").html()) + tax).toFixed(2));
 }

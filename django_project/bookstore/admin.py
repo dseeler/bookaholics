@@ -69,9 +69,29 @@ class PromotionAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ("id", "user", "date", "total")
 
+    # Disable delete permissions for Order
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    # Disable edit permissions for Order
+    def has_change_permission(self, request, obj=None):
+        return False
+
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ("id", "order", "book", "quantity")
+
+    # Disable delete permissions for OrderItem
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    # Disable edit permissions for OrderItem
+    def has_change_permission(self, request, obj=None):
+        return False
+
 admin.site.register(User, UserAdminConfig)
 admin.site.register(Book, BookAdmin)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(CartItem, CartItemAdmin)
 admin.site.register(Promotion, PromotionAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderItem, OrderItemAdmin)

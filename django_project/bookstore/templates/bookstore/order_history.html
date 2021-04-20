@@ -7,36 +7,51 @@
     {% endblock style %}
 
     <div class="container-fluid" id="content">
-        <h1 id="title">Thank you for your order(s)!</h1>
-
+        <h1 id="title">Order History</h1>
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Order #</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Products</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Promotion</th>
+                    <th scope="col">Total</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Harry Potter and the Sorcerer's Stone<br>The Catcher in the Rye</td>
-                    <td>$10.00<br>$10.00</td>
-                    <td><button>Reorder</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>The Great Gatsby</td>
-                    <td>$10.00</td>
-                    <td><button>Reorder</button></td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Harry Potter and the Sorcerer's Stone<br>The Moby Dick<br>The Great Gatsby (2)</td>
-                    <td>$10.00<br>$10.00<br>$20.00</td>
-                    <td><a href="/shopping_cart"><button>Reorder</button></a></td>
-                </tr>
+                {% for index in order_data.values reversed %}
+                    <tr>
+                        <form method="POST" action="reorder">
+                            {% csrf_token %}
+                            <td>{{ index.order.id }}</td>
+                            <td>{{ index.order.date }}</td>
+                            <td>
+                                {% for item in index.items %}
+                                    {{ item.book }} ({{ item.quantity }})<br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for item in index.items %}
+                                    ${{ item.book.price }}<br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if index.order.promotion %}
+                                    {{ index.order.promotion }} - {{ index.order.promotion.percentage }}% off
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </td>
+                            <td>${{ index.order.total }}</td>
+                            <input type="hidden" name="order" value="{{ index.order }}">                                                    
+                            <td>
+                                <button type="submit">Reorder</button>
+                            </td>
+                        </form>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

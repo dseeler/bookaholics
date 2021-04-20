@@ -1,5 +1,7 @@
 #content{
-    height: 90%;
+    min-height: 100%;
+    width: 1500px;
+    padding-bottom: 100px;
 }
 
 #title{
@@ -9,3 +11,4 @@
 #profile{
     color: white;
 }
+

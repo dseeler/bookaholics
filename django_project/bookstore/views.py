@@ -402,9 +402,22 @@ def checkout(request):
 
 
 def order_history(request):
+    order_data = {}
+    orders = Order.objects.filter(user=request.user)
+
+    index = 0
+    for order in orders:
+        order_items = OrderItem.objects.filter(order=order)
+        order_data[index] = {
+            'order': order,
+            'items': order_items
+        }
+        index += 1
+
     context = {
         'title': 'Order History',
         'cartCount': getCartCount(request),
+        'order_data': order_data,
     }
     return render(request, 'bookstore/order_history.html', context)
 
@@ -514,20 +527,49 @@ def place_order(request):
             promotion = Promotion.objects.get(code=promo_code)
             order.promotion = promotion
             order.save()
+    
 
-        # Clear cart
-        CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id)).delete()
+       # Add items to OrderItems and clear cart
+        cart_items = CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
+        for item in cart_items:        
+            order_item = OrderItem.objects.add_order_item(order, item.book, item.quantity)
+            item.delete()
+
+        # Send order confirmation email
+        send_mail(
+            'Bookaholics: Your order has been placed!',
+            'Confirmation number: ' + order.id,
+            'csci4050.bookstore.app@gmail.com',
+            [request.user.email],
+            fail_silently=False,
+        )
 
         # TO-DO:
         # Encrypt card details in admin view
-        # Generate confirmation number
         # Send email
-        # Create order items
         # Disable edit/delete for orders? 
         # Add address2?
+        # Order status?
 
-        messages.success(request, "Your order has been placed!")
+        messages.success(request, "Your order has been placed! Confirmation code: {}".format(order.id))
         return redirect('bookstore-home')
+
+def reorder(request):
+    if request.method == 'POST':
+        order = request.POST.get('order')
+
+        # Find the books using the extracted order ID
+        order_items = OrderItem.objects.filter(order=order)
+
+        # Find the User's cart and remove any existing items
+        cart = cart=Cart.objects.get(user=request.user.id)
+        CartItem.objects.filter(cart=cart).delete()
+
+        # Add the books from the order to the cart
+        for item in order_items:
+            cart_item = CartItem.objects.add_cart_item(cart, item.book, item.quantity)
+
+        return redirect('bookstore-checkout')
 
 
 def getCartCount(request):

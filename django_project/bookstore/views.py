@@ -391,6 +391,11 @@ def checkout(request):
         }
         subtotal += total
 
+    # Redirect to Home if cart is empty
+    if not bool(items):
+        messages.info(request, "You can't checkout with an empty cart")
+        return redirect('bookstore-home')
+
     context = {
         'title': 'Shopping Cart',
         'cartCount': getCartCount(request),

@@ -9,7 +9,7 @@ class UserAdminConfig(UserAdmin):
     fieldsets = (
         ('Account', {'fields': ('email', 'password', 'first_name', 'last_name', 'phone')}),
         ('Address', {'fields': ('street', 'city', 'state', 'zip_code')}),
-        ('Payment', {'fields': ('card_num', 'card_exp', 'card_code')}),
+        ('Payment', {'fields': ('card_name', 'card_num', 'card_exp', 'card_code')}),
         ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser')}),
         ('Promotions', {'fields': ('is_subscribed',)}),
         ('Status', {'fields': ('is_suspended',)})
@@ -76,6 +76,13 @@ class OrderAdmin(admin.ModelAdmin):
     # Disable edit permissions for Order
     def has_change_permission(self, request, obj=None):
         return False
+
+    # Add custom js to Order model in admin view
+    class Media:
+        js = (
+            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js',
+            'admin/js/order.js',
+            )
 
 class OrderItemAdmin(admin.ModelAdmin):
     list_display = ("id", "order", "book", "quantity")

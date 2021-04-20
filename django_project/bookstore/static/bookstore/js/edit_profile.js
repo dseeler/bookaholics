@@ -1,3 +1,7 @@
+window.onload = (event) => {
+    $("#state").val($("#user-state").val());
+}
+
 function validateName(){
     let valid = true;
 

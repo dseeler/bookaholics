@@ -59,18 +59,18 @@ def email_promotion(sender, instance, **kwargs):
 
 class UserAccountManager(BaseUserManager):
 
-    def create_user(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, is_subscribed, **other_feilds):
+    def create_user(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_name, card_num, card_exp, card_code, is_subscribed, **other_feilds):
 
         if not email:
             raise ValueError(_('You must provide an email address'))
 
         email = self.normalize_email(email)
         user = self.model(email=email, first_name=first_name, last_name=last_name, phone=phone, street=street, city=city, 
-        state=state, zip_code=zip_code, card_num=card_num, card_exp=card_exp, card_code=card_code, is_subscribed=is_subscribed, **other_feilds)
+        state=state, zip_code=zip_code, card_name=card_name, card_num=card_num, card_exp=card_exp, card_code=card_code, is_subscribed=is_subscribed, **other_feilds)
         user.set_password(password)
         user.save()
 
-    def create_superuser(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, is_subscribed, **other_fields):
+    def create_superuser(self, email, password, first_name, last_name, phone, street, city, state, zip_code, card_name, card_num, card_exp, card_code, is_subscribed, **other_fields):
         other_fields.setdefault('is_staff', True)
         other_fields.setdefault('is_superuser', True)
         other_fields.setdefault('is_active', True)
@@ -80,7 +80,7 @@ class UserAccountManager(BaseUserManager):
         if other_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must be assigned to is_superuser=True.')
 
-        return self.create_user(email, password, first_name, last_name, phone, street, city, state, zip_code, card_num, card_exp, card_code, is_subscribed, **other_fields)
+        return self.create_user(email, password, first_name, last_name, phone, street, city, state, zip_code, card_name, card_num, card_exp, card_code, is_subscribed, **other_fields)
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True)
@@ -91,6 +91,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(max_length=255, null=True, blank=True)
     state = models.CharField(max_length=255, null=True, blank=True)
     zip_code = models.CharField(max_length=5, null=True, blank=True)
+    card_name = encrypt(models.CharField(max_length=255, null=True, blank=True))
     card_num = encrypt(models.CharField(max_length=16, null=True, blank=True))
     card_exp = encrypt(models.CharField(max_length=5, null=True, blank=True))
     card_code = encrypt(models.CharField(max_length=3, null=True, blank=True))
@@ -102,7 +103,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserAccountManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'street', 'city', 'state', 'zip_code', 'card_num', 'card_exp', 'card_code', 'is_staff', 'is_active', 'is_suspended', 'is_subscribed']
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'phone', 'street', 'city', 'state', 'zip_code', 'card_name', 'card_num', 'card_exp', 'card_code', 'is_staff', 'is_active', 'is_suspended', 'is_subscribed']
 
     def __str__(self):
         return self.email

@@ -1,6 +1,6 @@
 #content{
     min-height: 100%;
-    width: 1500px;  
+    width: 1500px;
 }
 
 #cart-content{
@@ -13,8 +13,6 @@
     padding-top: 25px;
     margin-bottom: 25px;
 }
-
-
 
 #cart-title-empty-div{
     height: 100%;
@@ -87,6 +85,7 @@ td{
 #subtotal-container{
     margin: 0 100px 0 80px;
     font-size: 26px;
+    padding-bottom: 100px;
 }
 
 #keep-shopping-button, #checkout-button{

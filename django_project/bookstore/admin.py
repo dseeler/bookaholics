@@ -4,7 +4,7 @@ from .models import *
 from django.forms import TextInput, Textarea
 
 class UserAdminConfig(UserAdmin):
-    list_display = ('email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser')
+    list_display = ('id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'is_superuser')
 
     fieldsets = (
         ('Account', {'fields': ('email', 'password', 'first_name', 'last_name', 'phone')}),

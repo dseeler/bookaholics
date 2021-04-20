@@ -130,3 +130,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'csci4050.bookstore.app@gmail.com'
 EMAIL_HOST_PASSWORD = 'csci4050'
 EMAIL_PORT = 587
+
+LOGIN_URL='/signin'
+LOGIN_REDIRECT_URL='/signin'

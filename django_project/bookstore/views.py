@@ -343,9 +343,7 @@ def search(request):
     except:
         return redirect('bookstore-search')
 
-   
-
-
+@login_required
 def add_to_cart(request):
     try:
         if request.method == 'POST':
@@ -376,7 +374,7 @@ def add_to_cart(request):
         messages.error(request, "Something went wrong")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
+@login_required
 def checkout(request):
     cart = CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
 
@@ -401,7 +399,7 @@ def checkout(request):
     }
     return render(request, 'bookstore/checkout.html', context)
 
-
+@login_required
 def order_history(request):
     order_data = {}
     orders = Order.objects.filter(user=request.user)
@@ -430,7 +428,7 @@ def order_summary(request):
     }
     return render(request, 'bookstore/order_summary.html', context)
 
-
+@login_required
 def shopping_cart(request):
     cart = CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
 
@@ -456,8 +454,7 @@ def shopping_cart(request):
     return render(request, 'bookstore/cart.html', context)
 
 # Ajax quantity update request
-
-
+@login_required
 def change_quantity(request):
     try:
         if request.method == 'POST' and request.is_ajax():
@@ -481,6 +478,7 @@ def change_quantity(request):
         messages.error(request, "Something went wrong")
         return redirect('bookstore-shopping_cart')
 
+@login_required
 def redeem_promo(request):
     try:
         if request.method == 'POST' and request.is_ajax():
@@ -504,6 +502,7 @@ def redeem_promo(request):
     except:
         return redirect('bookstore-checkout')
 
+@login_required
 def place_order(request):
     if request.method == 'POST':
         user = request.user
@@ -555,6 +554,7 @@ def place_order(request):
         messages.success(request, "Your order has been placed! Confirmation code: {}".format(order.id))
         return redirect('bookstore-home')
 
+@login_required
 def reorder(request):
     if request.method == 'POST':
         order = request.POST.get('order')

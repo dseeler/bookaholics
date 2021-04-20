@@ -8,6 +8,7 @@ from django.dispatch import receiver
 from django.core.mail import send_mass_mail
 import datetime
 from django_cryptography.fields import encrypt
+import uuid
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
@@ -147,7 +148,7 @@ class OrderManager(models.Manager):
         return order
 
 class Order(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4, editable=False, max_length=10)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.DecimalField(decimal_places=2, max_digits=5)
     promotion = models.ForeignKey(Promotion, on_delete=models.CASCADE, null=True, blank=True)
@@ -168,3 +169,18 @@ class Order(models.Model):
     def __str__(self):
         return str(self.id)
     
+class OrderItemManager(models.Manager):
+    def add_order_item(self, order, book, quantity):
+        order_item = self.create(order=order, book=book, quantity=quantity)
+        return order_item
+
+class OrderItem(models.Model):
+    id = models.AutoField(primary_key=True)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+
+    objects = OrderItemManager()
+
+    def __str__(self):
+        return str(self.id)

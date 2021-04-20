@@ -288,7 +288,7 @@ def password_reset_complete(request):
 def search(request):
     try:
         # If accessing search page without providing query
-        books = Book.objects.all()
+        books = Book.objects.all().order_by('title')
         header = 'Select books to add to your cart'
 
         # If query is provided (or clicking a genre link on Home page)
@@ -329,6 +329,9 @@ def search(request):
                         books = books.filter(price__gte=10, price__lt=20)
                     elif price_range == '20>':
                         books = books.filter(price__gte=20)
+                
+                # Sort books alphabetically
+                books = books.order_by('title')
 
                 header = str(len(books)) + " results found for '" + input + "'"
 

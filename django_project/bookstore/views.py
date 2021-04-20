@@ -23,7 +23,8 @@ import json
 def home(request):
     context = {
         'title': 'Home',
-        'books': Book.objects.all(),
+        'best_sellers': Book.objects.filter(rating=5).order_by('?'),
+        'new_arrivals': Book.objects.all(),
         'cartCount': getCartCount(request),
     }
     return render(request, 'bookstore/home.html', context)

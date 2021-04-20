@@ -82,7 +82,7 @@
 		<div id="home-category">
 			<h3><b>Best Sellers</b></h3>
 			<ul>
-				{% for book in books %}
+				{% for book in best_sellers %}
 					<li>
 						<!-- Pass book key through URL -->
 						<div class="book">
@@ -102,7 +102,7 @@
 		<div id="home-category">
 			<h3><b>New Arrivals</b></h3>
 			<ul>
-				{% for book in books reversed %}
+				{% for book in new_arrivals reversed %}
 					<li>
 						<div class="book">
 							<a href={% url 'bookstore-book_detail' book.id %}>

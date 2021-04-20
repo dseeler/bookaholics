@@ -1,5 +1,6 @@
-#home-tab:hover, #explore-tab:hover, #profile-tab:hover, #cart-tab:hover{
-    color: rgb(218, 218, 218);
+#content{
+    min-height: 100%;
+    width: 1500px;
 }
 
 label{
@@ -12,4 +13,13 @@ label{
 
 #promo-error{
     color: red;
+}
+
+#place-order-link{
+    color: white;
+    text-decoration: none;
+}
+
+#home-tab:hover, #explore-tab:hover, #profile-tab:hover, #cart-tab:hover{
+    color: rgb(218, 218, 218);
 }

@@ -25,6 +25,7 @@ urlpatterns = [
     path('shopping_cart', views.shopping_cart, name='bookstore-shopping_cart'),
     path('change_quantity', views.change_quantity, name='bookstore-change_quantity'),
     path('redeem_promo', views.redeem_promo, name='bookstore-redeem_promo'),
+    path('place_order', views.place_order, name=('bookstore-place_order')),
     path('password-reset/',
          auth_views.PasswordResetView.as_view(
              template_name='bookstore/password-reset/password_reset.html',

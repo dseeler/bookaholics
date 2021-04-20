@@ -66,8 +66,12 @@ class PromotionAdmin(admin.ModelAdmin):
             )
         css = {'all': ('admin/css/promotion.css', )}  
 
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "date", "total")
+
 admin.site.register(User, UserAdminConfig)
 admin.site.register(Book, BookAdmin)
 admin.site.register(Cart, CartAdmin)
 admin.site.register(CartItem, CartItemAdmin)
 admin.site.register(Promotion, PromotionAdmin)
+admin.site.register(Order, OrderAdmin)

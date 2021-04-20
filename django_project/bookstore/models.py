@@ -139,3 +139,32 @@ class CartItem(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+class OrderManager(models.Manager):
+    def create_order(self, user, total, date, first_name, last_name, street, city, state, zip_code, card_name, card_num, card_exp, card_code):
+        order = self.create(user=user, total=total, date=date, first_name=first_name, last_name=last_name, street=street, city=city, 
+        state=state, zip_code=zip_code, card_name=card_name, card_num=card_num, card_exp=card_exp, card_code=card_code)
+        return order
+
+class Order(models.Model):
+    id = models.AutoField(primary_key=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total = models.DecimalField(decimal_places=2, max_digits=5)
+    promotion = models.ForeignKey(Promotion, on_delete=models.CASCADE, null=True, blank=True)
+    date = models.DateField()
+    first_name = models.CharField(max_length=20)
+    last_name = models.CharField(max_length=20)
+    street = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    zip_code = models.CharField(max_length=5)
+    card_name = encrypt(models.CharField(max_length=255))
+    card_num = encrypt(models.CharField(max_length=16))
+    card_exp = encrypt(models.CharField(max_length=5))
+    card_code = encrypt(models.CharField(max_length=3))
+
+    objects = OrderManager()
+
+    def __str__(self):
+        return str(self.id)
+    

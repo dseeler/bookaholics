@@ -184,6 +184,12 @@ function clearZipCode(){
 function validateCard(){
     let valid = true;
 
+    if ($("#card_name").val().length < 1){
+        $("#card_name").attr("style", "border: 1px solid red");
+        $("#card-name-error").html("Must enter a name");
+        valid = false;
+    }
+
     if ($("#card_num").val().length != 16){
         $("#card_num").attr("style", "border: 1px solid red");
         $("#card-num-error").html("Must be 16 characters");
@@ -217,6 +223,11 @@ function validateCard(){
     if (valid){
         $("#card-form").submit();
     }
+}
+
+function clearCardName(){
+    $("#card_name").attr("style", "border: 1px solid black");
+    $("#card-name-error").html("");
 }
 
 function clearCardNum(){
@@ -319,7 +330,7 @@ function editCard(){
     if ($("#edit-card-button").val() == 0){
         closeOtherTabs("card");
         $("#edit-card-option").animate({
-            height: "235px"
+            height: "270px"
         });
         $("#edit-card-form").show();
         $("#edit-card-button").html("Cancel");

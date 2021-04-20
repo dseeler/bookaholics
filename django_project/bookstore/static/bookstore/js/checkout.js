@@ -12,7 +12,8 @@ window.onload = (event) => {
     calculateTax();
 
     // Update total value
-    $("#total-input").val((parseFloat($("#total").html()) + tax).toFixed(2));
+    const total = (parseFloat($("#total").html()) + parseFloat($("#tax").html())).toFixed(2);
+    $("#total-input").val(total);
 
     document.getElementById("redeem-button").onclick = (event) => {
         event.preventDefault();

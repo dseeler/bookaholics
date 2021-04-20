@@ -16,7 +16,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponseRedirect
 from django.db.models import Sum
 from django.http import JsonResponse
-from datetime import date
+from datetime import date, datetime
 import json
 
 
@@ -517,6 +517,7 @@ def place_order(request):
         total = request.POST.get('total-input')
         promo_code = request.POST.get('promo-input')
         today = date.today()
+        time = datetime.now().strftime("%H:%M:%S")
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         street = request.POST.get('street')
@@ -528,7 +529,7 @@ def place_order(request):
         card_exp = request.POST.get('card_exp')
         card_code = request.POST.get('card_code')
 
-        order = Order.objects.create_order(user, total, today, first_name, last_name, street, city, state, zip_code, card_name, card_num, card_exp, card_code)
+        order = Order.objects.create_order(user, total, today, time, first_name, last_name, street, city, state, zip_code, card_name, card_num, card_exp, card_code)
 
         # Add promotion if one was applied
         if promo_code != '':
@@ -537,25 +538,35 @@ def place_order(request):
             order.save()
     
 
-       # Add items to OrderItems and clear cart
+       # Add items to OrderItems
         cart_items = CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id))
         for item in cart_items:        
             order_item = OrderItem.objects.add_order_item(order, item.book, item.quantity)
+
+        email_body = "Order ID: " + str(order.id)
+        email_body += "\nOrder date and time: " + str(order.date) + " at " + str(order.time)
+        email_body += "\nOrdered by: " + str(order.first_name) + " " + str(order.last_name)
+        email_body += "\n\nShipping information:\n" + str(order.street)
+        email_body += "\n" + str(order.city) + ", " + str(order.state) + " " + str(order.zip_code)
+        email_body += "\n\nOrdered items: "
+
+        # Add items to email body and clear cart
+        for item in cart_items:
+            email_body += "\n" + str(item.book.title) + " (" + str(item.quantity) + "): $" + str(item.book.price) 
             item.delete()
+
+        email_body += "\n\nTotal: $" + str(order.total)    
 
         # Send order confirmation email
         send_mail(
             'Your order has been placed!',
-            'Confirmation number: ' + str(order.id),
+            email_body,
             'csci4050.bookstore.app@gmail.com',
             [request.user.email],
             fail_silently=False,
         )
 
         # TO-DO:
-        # Encrypt card details in admin view
-        # Send email
-        # Disable edit/delete for orders? 
         # Add address2?
         # Order status?
 

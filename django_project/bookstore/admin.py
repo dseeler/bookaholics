@@ -67,7 +67,7 @@ class PromotionAdmin(admin.ModelAdmin):
         css = {'all': ('admin/css/promotion.css', )}  
 
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "date", "total")
+    list_display = ("id", "user", "date", "time", "total")
 
     # Disable delete permissions for Order
     def has_delete_permission(self, request, obj=None):

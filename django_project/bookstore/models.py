@@ -142,17 +142,19 @@ class CartItem(models.Model):
         return str(self.id)
 
 class OrderManager(models.Manager):
-    def create_order(self, user, total, date, first_name, last_name, street, city, state, zip_code, card_name, card_num, card_exp, card_code):
-        order = self.create(user=user, total=total, date=date, first_name=first_name, last_name=last_name, street=street, city=city, 
+    def create_order(self, user, total, date, time, first_name, last_name, street, city, state, zip_code, card_name, card_num, card_exp, card_code):
+        order = self.create(user=user, total=total, date=date, time=time, first_name=first_name, last_name=last_name, street=street, city=city, 
         state=state, zip_code=zip_code, card_name=card_name, card_num=card_num, card_exp=card_exp, card_code=card_code)
         return order
 
 class Order(models.Model):
     id = models.CharField(primary_key=True, unique=True, default=uuid.uuid4, editable=False, max_length=10)
+    status = models.CharField(max_length=255, default="Confirmed")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     total = models.DecimalField(decimal_places=2, max_digits=5)
     promotion = models.ForeignKey(Promotion, on_delete=models.CASCADE, null=True, blank=True)
     date = models.DateField()
+    time = models.TimeField()
     first_name = models.CharField(max_length=20)
     last_name = models.CharField(max_length=20)
     street = models.CharField(max_length=255)

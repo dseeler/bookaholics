@@ -538,8 +538,8 @@ def place_order(request):
 
         # Send order confirmation email
         send_mail(
-            'Bookaholics: Your order has been placed!',
-            'Confirmation number: ' + order.id,
+            'Your order has been placed!',
+            'Confirmation number: ' + str(order.id),
             'csci4050.bookstore.app@gmail.com',
             [request.user.email],
             fail_silently=False,

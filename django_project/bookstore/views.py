@@ -120,10 +120,10 @@ def signout(request):
     return redirect('bookstore-signin')
 
 
-def book_detail(request, id):
+def book_detail(request, title):
     context = {
-        'title': Book.objects.get(id=id).title,
-        'book': Book.objects.get(id=id),
+        'title': Book.objects.get(title=title).title,
+        'book': Book.objects.get(title=title),
         'books': Book.objects.all(),
         'cartCount': getCartCount(request),
     }

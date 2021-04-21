@@ -130,7 +130,7 @@
 
 			{% for book in books %}
 				<div id="book-container">
-					<a href={% url 'bookstore-book_detail' book.id %}>
+					<a href={% url 'bookstore-book_detail' book.title %}>
 						<img src="{{ book.image }}" id="book-image">
 						<p id="book-title">{{ book.title }}</p>
 						<p id="book-author">{{ book.author }}</p>

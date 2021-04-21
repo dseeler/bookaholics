@@ -21,7 +21,7 @@ window.onload = (event) => {
 
     document.getElementById("order-button").onclick = (event) => {
         event.preventDefault();
-        // Add validation function
+        validateAll();
     }
 }
 
@@ -127,6 +127,16 @@ function validateName(){
         valid = false;
     }
 
+    if ($("#last_name").val().length <= 20 && $("#last_name").val().length >= 1){
+        $("#last-name-error").html("");
+        if ($("#first_name").val().length <= 20 && $("#first_name").val().length >= 1){
+            $("#first-name-error").html("");
+            valid = true;
+        }
+    }
+
+
+
     return valid;
 }
 
@@ -215,6 +225,12 @@ function clearZipCode(){
 
 function validateCard(){
     let valid = true;
+
+    if ($("#card_name").val().length < 1){
+        $("#card_name").attr("style", "border: 1px solid red");
+        $("#card-name-error").html("Must enter a name");
+        valid = false;
+    }
 
     if ($("#card_num").val().length != 16){
         $("#card_num").attr("style", "border: 1px solid red");

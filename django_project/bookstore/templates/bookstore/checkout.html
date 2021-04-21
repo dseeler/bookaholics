@@ -86,13 +86,13 @@
 					<div class="row g-3">
 						<div class="col-sm-6">
 							<label for="firstName" class="form-label">First name</label>
-							<input type="text" class="form-control checkout-input" id="first_name" placeholder=""
+							<input type="text" class="form-control checkout-input" id="first_name" onclick="clearFirstName()"placeholder=""
 								value="{{ request.user.first_name }}" required name="first_name">
 								<span class="error-msg" id="first-name-error"></span><br>
 						</div>
 						<div class="col-sm-6">
 							<label for="lastName" class="form-label">Last name</label>
-							<input type="text" class="form-control checkout-input" id="last_name" placeholder=""
+							<input type="text" class="form-control checkout-input" id="last_name" onclick="clearLastName()" placeholder=""
 								value="{{ request.user.last_name }}" required name="last_name">
 								<span class="error-msg" id="last-name-error"></span><br>
 						</div>
@@ -101,10 +101,10 @@
 						<div class="col-12">
 							<label for="address" class="form-label">Street</label>
 							{% if request.user.street %}
-							<input type="text" class="form-control checkout-input" id="street"
+							<input type="text" class="form-control checkout-input" id="street" onclick="clearStreet()"
 								value="{{ request.user.street }}" required name="street">
 							{% else %}
-							<input type="text" class="form-control checkout-input" id="street"
+							<input type="text" class="form-control checkout-input" id="street" onclick="clearStreet()"
 								placeholder="Street address or P.O. Box" required name="street">
 								<span class="error-msg" id="street-error"></span><br>
 							{% endif %}
@@ -116,9 +116,11 @@
 							{% if request.user.address2 %}
 							<input type="text" class="form-control checkout-input" id="address2"
 								value="{{ request.user.address2 }}">
+								<span class="error-msg" id="street-error"></span><br>
 							{% else %}
 							<input type="text" class="form-control checkout-input" id="address2"
 								placeholder="Apt, suite, unit, building, floor, etc.">
+								<span class="error-msg" id="street-error"></span><br>
 							{% endif %}
 
 						</div>
@@ -126,11 +128,11 @@
 						<div class="col-md-5">
 							<label for="city" class="form-label">City</label>
 							{% if request.user.city %}
-							<input type="text" class="form-control checkout-input" id="city" value="{{ request.user.city }}"
+							<input type="text" class="form-control checkout-input" id="city" value="{{ request.user.city }}" onclick="clearCity()"
 								required name="city">
 								<span class="error-msg" id="city-error"></span><br>
 							{% else %}
-							<input type="text" class="form-control checkout-input" id="city" required name="city">
+							<input type="text" class="form-control checkout-input" id="city" onclick="clearCity()" required name="city">
 							{% endif %}
 						</div>
 
@@ -195,11 +197,11 @@
 						<div class="col-md-3">
 							<label for="zip" class="form-label">ZIP Code</label>
 							{% if request.user.zip_code %}
-							<input type="text" class="form-control checkout-input" id="zip_code"
+							<input type="text" class="form-control checkout-input" id="zip_code"  onclick="clearZipCode()"
 								value="{{ request.user.zip_code }}" required name="zip_code">
 								<span class="error-msg" id="zip-code-error"></span><br>
 							{% else %}
-							<input type="text" class="form-control checkout-input" id="zip_code" name="zip_code" required>
+							<input type="text" class="form-control checkout-input" id="zip_code"  onclick="clearZipCode()" name="zip_code" required>
 							{% endif %}
 						</div>
 					</div><br>
@@ -218,12 +220,12 @@
 						<div class="col-md-6">
 							<label for="cc-name" class="form-label">Name on card</label>
 							{% if request.user.card_name %}
-							<input type="text" class="form-control checkout-input" id="card_name"
+							<input type="text" class="form-control checkout-input" id="card_name" onclick="clearCardName()"
 								value="{{ request.user.card_name }}" name="card_name" required>
-								<span class="error-msg" id="card-num-error"></span><br>
+								<span class="error-msg" id="card-name-error"></span><br>
 							{% else %}
-							<input type="text" class="form-control checkout-input" name="card_name" id="card-name" required>
-                            <span class="error-msg" id="card-num-error"></span><br>
+							<input type="text" class="form-control checkout-input" name="card_name" id="card_name" onclick="clearCardName()" required>
+                            <span class="error-msg" id="card-name-error"></span><br>
 							{% endif %}
 							<small class="text-muted">Full name as displayed on card</small>
 						</div>
@@ -231,21 +233,23 @@
 						<div class="col-md-6">
 							<label for="cc-number" class="form-label">Card number</label>
 							{% if request.user.card_num %}
-							<input type="text" class="form-control checkout-input" name="card_num" id="card-num"
+							<input type="text" class="form-control checkout-input" name="card_num" id="card_num" onclick="clearCardNum()"
 								value="{{ request.user.card_num }}" required>
+								<span class="error-msg" id="card-num-error"></span><br>
 							{% else %}
-							<input type="text" class="form-control checkout-input" id="card-num" name="card_num" required>
+							<input type="text" class="form-control checkout-input" id="card_num" name="card_num" onclick="clearCardNum()" required>
+                            <span class="error-msg" id="card-num-error"></span><br>
 							{% endif %}
 						</div>
 
 						<div class="col-md-3">
 							<label for="cc-expiration" class="form-label">Expiration</label>
 							{% if request.user.card_exp %}
-							<input type="text" class="form-control checkout-input" id="card_exp" name="card_exp"
+							<input type="text" class="form-control checkout-input" id="card_exp" name="card_exp" onclick="clearCardExp()" 
 								value="{{ request.user.card_exp }}" required>
 								<span class="error-msg" id="card-exp-error"></span><br>
 							{% else %}
-							<input type="text" class="form-control checkout-input" id="card_exp" name="card_exp" required>
+							<input type="text" class="form-control checkout-input" id="card_exp" name="card_exp" onclick="clearCardExp()" required>
                             <span class="error-msg" id="card-exp-error"></span><br>
 							{% endif %}
 						</div>
@@ -253,11 +257,11 @@
 						<div class="col-md-3">
 							<label for="cc-cvv" class="form-label">CVV</label>
 							{% if request.user.card_code %}
-							<input type="text" class="form-control checkout-input" name="card_code" id="card_code"
+							<input type="text" class="form-control checkout-input" name="card_code" id="card_code" onclick="clearCardCode()"
 								value="{{ request.user.card_code }}" required>
 								<span class="error-msg" id="card-code-error"></span><br>
 							{% else %}
-							<input type="text" class="form-control checkout-input" name="card_code" id="card_code" required>
+							<input type="text" class="form-control checkout-input" name="card_code" id="card_code" onclick="clearCardCode()" required>
                             <span class="error-msg" id="card-code-error"></span><br>
 							{% endif %}
 						</div>

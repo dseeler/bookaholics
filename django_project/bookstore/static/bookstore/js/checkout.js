@@ -19,6 +19,11 @@ window.onload = (event) => {
         event.preventDefault();
         redeemCode();
     }
+
+    document.getElementById("order-button").onclick = (event) => {
+        event.preventDefault();
+        // Add validation function
+    }
 }
 
 function redeemCode(){

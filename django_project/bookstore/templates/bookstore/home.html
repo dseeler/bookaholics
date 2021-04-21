@@ -86,7 +86,7 @@
 					<li>
 						<!-- Pass book key through URL -->
 						<div class="book">
-							<a href={% url 'bookstore-book_detail' book.id %}>
+							<a href={% url 'bookstore-book_detail' book.title %}>
 								<img src="{{ book.image }}">
 								<p>{{ book.title }}</p>
 								<p>{{ book.author }}</p>
@@ -105,7 +105,7 @@
 				{% for book in new_arrivals reversed %}
 					<li>
 						<div class="book">
-							<a href={% url 'bookstore-book_detail' book.id %}>
+							<a href={% url 'bookstore-book_detail' book.title %}>
 								<img src="{{ book.image }}">
 								<p>{{ book.title }}</p>
 								<p>{{ book.author }}</p>
@@ -124,14 +124,14 @@
 				<h2 class="display-5">Harry Potter and the Sorcerer's Stone</h2>
 				<p class="lead">He is the boy who lived...</p>
 			</div>
-			<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.0.image }}" class="display-img"></div>
+			<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ new_arrivals.0.image }}" class="display-img"></div>
 			</div>
 			<div class="bg-light me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
 				<div class="my-3 p-3">
 					<h2 class="display-5">The Great Gatsby</h2>
 					<p class="lead">What's so great about him anyways?</p>
 				</div>
-				<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.1.image }}" class="display-img"></div>
+				<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ new_arrivals.1.image }}" class="display-img"></div>
 			</div>
 		</div>
 	
@@ -141,14 +141,14 @@
 					<h2 class="display-5">To Kill a Mockingbird</h2>
 					<p class="lead">A hunting book, or a book about racism in the south?</p>
 				</div>
-				<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.2.image }}" class="display-img"></div>
+				<div class="bg-dark shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ new_arrivals.2.image }}" class="display-img"></div>
 			</div>
 			<div class="bg-dark me-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
 				<div class="my-3 py-3">
 					<h2 class="display-5">The Catcher in the Rye</h2>
 					<p class="lead">I honestly do not know why this is the title of this book.</p>
 				</div>
-				<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ books.3.image }}" class="display-img"></div>
+				<div class="bg-light shadow-sm mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"><img src="{{ new_arrivals.3.image }}" class="display-img"></div>
 				</div>
 			</div>
 		</div>

@@ -116,7 +116,7 @@
                     {% for book in books %}
                         <li>
                             <div class="other-book">
-                                <a href={% url 'bookstore-book_detail' book.id %}>
+                                <a href={% url 'bookstore-book_detail' book.title %}>
                                     <img src="{{ book.image }}">
                                     <p>{{ book.title }}</p>
                                     <p>{{ book.author }}</p>

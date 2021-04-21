@@ -20,7 +20,9 @@ window.onload = (event) => {
 }
 
 function validateAll(){
-    return validateName() && validateAddress() && validateCard();
+    if(validateName() && validateAddress() && validateCard()){
+        $("#checkout-form").submit();
+    }
 }
 
 function redeemCode(){

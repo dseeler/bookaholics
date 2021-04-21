@@ -15,7 +15,7 @@
 			<h1>Checkout</h1>
 		</div>
 
-		<form method="POST" action="/place_order">
+		<form method="POST" action="/place_order" id="checkout-form">
 			{% csrf_token %}
 			<div class="row g-3">
 				<div class="col-md-5 col-lg-4 order-md-last">
@@ -88,11 +88,13 @@
 							<label for="firstName" class="form-label">First name</label>
 							<input type="text" class="form-control checkout-input" id="first_name" placeholder=""
 								value="{{ request.user.first_name }}" required name="first_name">
+								<span class="error-msg" id="first-name-error"></span><br>
 						</div>
 						<div class="col-sm-6">
 							<label for="lastName" class="form-label">Last name</label>
 							<input type="text" class="form-control checkout-input" id="last_name" placeholder=""
 								value="{{ request.user.last_name }}" required name="last_name">
+								<span class="error-msg" id="last-name-error"></span><br>
 						</div>
 
 
@@ -104,6 +106,7 @@
 							{% else %}
 							<input type="text" class="form-control checkout-input" id="street"
 								placeholder="Street address or P.O. Box" required name="street">
+								<span class="error-msg" id="street-error"></span><br>
 							{% endif %}
 						</div>
 
@@ -125,6 +128,7 @@
 							{% if request.user.city %}
 							<input type="text" class="form-control checkout-input" id="city" value="{{ request.user.city }}"
 								required name="city">
+								<span class="error-msg" id="city-error"></span><br>
 							{% else %}
 							<input type="text" class="form-control checkout-input" id="city" required name="city">
 							{% endif %}
@@ -193,6 +197,7 @@
 							{% if request.user.zip_code %}
 							<input type="text" class="form-control checkout-input" id="zip_code"
 								value="{{ request.user.zip_code }}" required name="zip_code">
+								<span class="error-msg" id="zip-code-error"></span><br>
 							{% else %}
 							<input type="text" class="form-control checkout-input" id="zip_code" name="zip_code" required>
 							{% endif %}
@@ -215,8 +220,10 @@
 							{% if request.user.card_name %}
 							<input type="text" class="form-control checkout-input" id="card_name"
 								value="{{ request.user.card_name }}" name="card_name" required>
+								<span class="error-msg" id="card-num-error"></span><br>
 							{% else %}
 							<input type="text" class="form-control checkout-input" name="card_name" id="card-name" required>
+                            <span class="error-msg" id="card-num-error"></span><br>
 							{% endif %}
 							<small class="text-muted">Full name as displayed on card</small>
 						</div>
@@ -236,8 +243,10 @@
 							{% if request.user.card_exp %}
 							<input type="text" class="form-control checkout-input" id="card_exp" name="card_exp"
 								value="{{ request.user.card_exp }}" required>
+								<span class="error-msg" id="card-exp-error"></span><br>
 							{% else %}
 							<input type="text" class="form-control checkout-input" id="card_exp" name="card_exp" required>
+                            <span class="error-msg" id="card-exp-error"></span><br>
 							{% endif %}
 						</div>
 
@@ -246,15 +255,17 @@
 							{% if request.user.card_code %}
 							<input type="text" class="form-control checkout-input" name="card_code" id="card_code"
 								value="{{ request.user.card_code }}" required>
+								<span class="error-msg" id="card-code-error"></span><br>
 							{% else %}
 							<input type="text" class="form-control checkout-input" name="card_code" id="card_code" required>
+                            <span class="error-msg" id="card-code-error"></span><br>
 							{% endif %}
 						</div>
 					</div>
 
 					<hr class="my-4">
 
-					<button class="w-100 btn btn-primary btn-lg bg-dark" onclick="return validateAll()" type="submit" id="order-button">Place Order</button>
+					<button class="w-100 btn btn-primary btn-lg bg-dark" id="order-button">Place Order</button>
 				</div>
 			</div>
 		</form>

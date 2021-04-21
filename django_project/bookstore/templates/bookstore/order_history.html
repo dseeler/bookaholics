@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th scope="col">Order ID</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Date</th>
                     <th scope="col">Products</th>
                     <th scope="col">Price</th>
@@ -26,6 +27,7 @@
                         <form method="POST" action="reorder">
                             {% csrf_token %}
                             <td>{{ index.order.id }}</td>
+                            <td>{{ index.order.status }}</td>
                             <td>{{ index.order.date }}</td>
                             <td>
                                 {% for item in index.items %}

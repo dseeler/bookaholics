@@ -59,7 +59,7 @@ class EditAddressForm(forms.ModelForm):
 class EditCardForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('card_num', 'card_exp', 'card_code')
+        fields = ('card_name', 'card_num', 'card_exp', 'card_code')
 
 class EditSubscribeForm(forms.ModelForm):
     class Meta:

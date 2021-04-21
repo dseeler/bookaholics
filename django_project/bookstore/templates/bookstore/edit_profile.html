@@ -33,10 +33,10 @@
                     <div class="edit-form" id="edit-name-form">
                         <form method="POST" action="/edit_name" enctype="multipart/form-data" id="name-form">
                             {% csrf_token %}
-                            <label>First Name:</label>
+                            <label>First name:</label>
                             <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" onclick="clearFirstName()">
                             <span class="error-msg" id="first-name-error"></span><br>
-                            <label>Last Name:</label>
+                            <label>Last name:</label>
                             <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" onclick="clearLastName()">
                             <span class="error-msg" id="last-name-error"></span><br>
                             <button type="button" class="submit-button" onclick="validateName()">Save Changes</button>
@@ -146,7 +146,7 @@
                                 <option value="WI">Wisconsin</option>
                                 <option value="WY">Wyoming</option>
                             </select><br>
-                            <label>Zip Code:</label>
+                            <label>Zip code:</label>
                             <input type="text" id="zip_code" name="zip_code" value="{{ user.zip_code }}" onclick="clearZipCode()">
                             <span class="error-msg" id="zip-code-error"></span><br>
                             <button type="button" class="submit-button" onclick="validateAddress()">Save Changes</button>
@@ -171,13 +171,16 @@
                     <div class="edit-form" id="edit-card-form">
                         <form method="POST" action="/edit_card" enctype="multipart/form-data" id="card-form">
                             {% csrf_token %}
-                            <label>Card Number:</label>
+                            <label>Name on card:</label>
+                            <input type="text" id="card_name" name="card_name" onclick="clearCardName()">
+                            <span class="error-msg" id="card-name-error"></span><br>
+                            <label>Card number:</label>
                             <input type="text" id="card_num" name="card_num" onclick="clearCardNum()">
                             <span class="error-msg" id="card-num-error"></span><br>
-                            <label>Expiration Date:</label>
+                            <label>Expiration date:</label>
                             <input type="text" id="card_exp" name="card_exp" onclick="clearCardExp()">
                             <span class="error-msg" id="card-exp-error"></span><br>
-                            <label>Security Code:</label>
+                            <label>Security code:</label>
                             <input type="text" id="card_code" name="card_code" onclick="clearCardCode()">
                             <span class="error-msg" id="card-code-error"></span><br>
                             <button type="button" class="submit-button" onclick="validateCard()">Save Changes</button>

@@ -29,12 +29,12 @@
                             <td>{{ index.order.date }}</td>
                             <td>
                                 {% for item in index.items %}
-                                    {{ item.book }} ({{ item.quantity }})<br>
+                                    <i>{{ item.book }}</i> ({{ item.quantity }})<br>
                                 {% endfor %}
                             </td>
                             <td>
                                 {% for item in index.items %}
-                                    ${{ item.book.price }}<br>
+                                    <b>${{ item.book.price }}</b><br>
                                 {% endfor %}
                             </td>
                             <td>
@@ -44,10 +44,10 @@
                                     None
                                 {% endif %}
                             </td>
-                            <td>${{ index.order.total }}</td>
+                            <td><b>${{ index.order.total }}</b></td>
                             <input type="hidden" name="order" value="{{ index.order }}">                                                    
-                            <td>
-                                <button type="submit">Reorder</button>
+                            <td valign="middle">
+                                <button class="btn btn-sm bg-dark text-white" type="submit" style="border-radius: 8px;">Reorder</button>
                             </td>
                         </form>
                     </tr>

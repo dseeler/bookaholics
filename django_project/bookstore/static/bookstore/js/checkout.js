@@ -88,3 +88,35 @@ function calculateTax(){
     $("#total").html((parseFloat($("#total").html()) + tax).toFixed(2));
     $("#total-input").val((parseFloat($("#total").html()) + tax).toFixed(2));
 }
+
+function validateName(){
+    let valid = true;
+
+    if ($("#first_name").val().length < 1){
+        $("#first_name").attr("style", "border: 1px solid red");
+        $("#first-name-error").html("Can't be empty!");
+        valid = false;
+    }
+
+    if ($("#last_name").val().length < 1){
+        $("#last_name").attr("style", "border: 1px solid red");
+        $("#last-name-error").html("Can't be empty!");
+        valid = false;
+    }
+
+    if ($("#first_name").val().length > 20){
+        $("#first_name").attr("style", "border: 1px solid red");
+        $("#first-name-error").html("Must be <=20 characters");
+        valid = false;
+    }
+
+    if ($("#last_name").val().length > 20){
+        $("#last_name").attr("style", "border: 1px solid red");
+        $("#last-name-error").html("Must be <=20 characters");
+        valid = false;
+    }
+
+    if (valid){
+        $("#name-form").submit();
+    }
+}

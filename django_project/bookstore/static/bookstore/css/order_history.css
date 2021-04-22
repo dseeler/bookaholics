@@ -5,19 +5,25 @@
 }
 
 #title{
+    padding: 10px 0px 7px 0;
     text-align: center;
+    font-weight: normal;
 }
 
 #profile{
     color: white;
 }
 
-#add-to-cart{
-    padding: 1px;
-    margin: 1px;
+#reorder-book{
+    padding: 0px 2px 0px 2px;
     font-size: 15px;
+    margin-bottom: 1px;
 }
 
 #rows{
     margin-top: 10px;
+}
+
+#book-title{
+    color: black;
 }

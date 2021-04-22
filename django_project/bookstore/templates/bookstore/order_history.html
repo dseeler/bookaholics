@@ -7,45 +7,42 @@
     {% endblock style %}
 
     <div class="container-fluid" id="content">
-        <h1 id="title">Order History</h1>
+        <h1 id="title">Your Order History</h1>
         <table class="table">
             <thead>
                 <tr><u>
-                    <th scope="col"><u>Order ID</u></th>
-                    <th scope="col"><u>Status</u></th>
-                    <th scope="col"><u>Date</u></th>
-                    <th scope="col"><u>Products</u></th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Products</th>
                     <th scope="col"></th>
-                    <th scope="col"><u>Price</u></th>
-                    <th scope="col"><u>Promotion</u></th>
-                    <th scope="col"><u>Total</u></th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Promotion</th>
+                    <th scope="col">Total</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
                 {% for index in order_data.values reversed %}
                     <tr>
-                        <form method="POST" action="reorder">
+                        <form method="POST" action="/reorder_all">
                             {% csrf_token %}
                             <td>{{ index.order.id }}</td>
                             <td>{{ index.order.status }}</td>
                             <td>{{ index.order.date }}</td>
                             <td>
                                 {% for item in index.items %}
-                                    <i>{{ item.book }}</i>({{ item.quantity }})<br>
+                                <a id="book-title" href={% url 'bookstore-book_detail' item.book.title %}><i>{{ item.book }}</i> </a> ({{ item.quantity }})<br>
                                 {% endfor %}
                             </td>
                             <td>
                                 {% for item in index.items %}
-                                    <form method="POST" action='../../add_to_cart' id="add-to-cart-form">
-                                        <input type="hidden" name="book-id" value='{{ item.id }}'>
-                                        <button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Reorder Book</button>
-                                    </form>
+                                    <button id="reorder-book" onclick="reorderBook(event, {{ item.book.id }})" class="btn btn-outline-secondary btn-xs text-grey">Reorder</button><br>
                                 {% endfor %}
                             </td>
                             <td>
                                 {% for item in index.items %}
-                                    <b>${{ item.book.price }}</b><br>
+                                    ${{ item.book.price }}<br>
                                 {% endfor %}
                             </td>
                             <td>
@@ -58,13 +55,20 @@
                             <td><b>${{ index.order.total }}</b></td>
                             <input type="hidden" name="order" value="{{ index.order }}">                                                    
                             <td>
-                                <button class="btn btn-sm bg-dark text-white" type="submit">Place Order Again</button>
+                                <button class="btn btn-sm bg-dark text-white" type="submit">Reorder All</button>
                             </td>
                         </form>
+                        {% for item in index.items %}
+                            <form method="POST" action="/reorder_book" id="reorder-book-form-{{ item.book.id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="book-id" value="{{ item.book.id }}">
+                            </form>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <script src="../../static/bookstore/js/order_history.js"></script>
     </div>
 
 {% endblock content %}

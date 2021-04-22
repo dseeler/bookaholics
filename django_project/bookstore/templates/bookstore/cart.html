@@ -54,18 +54,19 @@
                 </table>
 
                 <div id="total-row">
-                    <button class="btn btn-sm bg-dark text-white" id="keep-shopping-button">
-                        <a href="/search" style="color: white">Keep Shopping</a>
-                    </button>
+                    <a href="/search" id="keep-shopping-link">
+                        <button class="btn btn-sm bg-dark text-white" id="keep-shopping-button">Keep Shopping</button>
+                    </a>
+                    
 
                     <b class="pl-md-4" id="subtotal-container">
                         Subtotal:<span class="pl-md-4">$<span id="subtotal" value="{{ subtotal }}">{{ subtotal }}</span>
                         </span>
                     </b>
 
-                    <button class="btn btn-sm bg-dark text-white" id="checkout-button">
-                        <a href="/checkout" style="color: white">Checkout</a>
-                    </button>
+                    <a href="/checkout" id="checkout-link">
+                        <button class="btn btn-sm bg-dark text-white" id="checkout-button">Checkout</button>
+                    </a>
                 </div>
             {% endif %}
 

@@ -121,9 +121,11 @@ def signout(request):
 
 
 def book_detail(request, title):
+    book = Book.objects.get(title=title)
     context = {
-        'title': Book.objects.get(title=title).title,
-        'book': Book.objects.get(title=title),
+        'title': book.title,
+        'book': book,
+        'other_books': Book.objects.filter(genre=book.genre).order_by('?'),
         'books': Book.objects.all(),
         'cartCount': getCartCount(request),
     }
@@ -351,10 +353,10 @@ def add_to_cart(request):
     try:
         if request.method == 'POST':
             if request.user.is_authenticated:
+
                 cart_id = Cart.objects.get(user=request.user.id)
                 book = Book.objects.get(id=request.POST.get('book-id'))
                 quantity = request.POST.get('quantity')
-
                 # Update the quantity if the item is already in the cart
                 if (CartItem.objects.filter(cart=Cart.objects.get(user=request.user.id), book=book)):
                     newQuantity = CartItem.objects.get(cart=Cart.objects.get(
@@ -367,14 +369,16 @@ def add_to_cart(request):
 
                 messages.success(
                     request, "{} ({}) added to cart".format(book.title, quantity))
+                    
                 return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
             else:
                 messages.info(request, "Sign in to add books to your cart")
                 return redirect('bookstore-signin')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    except:
-        messages.error(request, "Something went wrong")
+    except Exception as e:
+        print(e)
+        messages.info(request, "Something went wrong")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
@@ -483,7 +487,7 @@ def change_quantity(request):
                      'cartCount': getCartCount(request)}]
             return JsonResponse(data, safe=False)
     except:
-        messages.error(request, "Something went wrong")
+        messages.info(request, "Something went wrong")
         return redirect('bookstore-shopping_cart')
 
 @login_required
@@ -574,7 +578,22 @@ def place_order(request):
         return redirect('bookstore-home')
 
 @login_required
-def reorder(request):
+def reorder_book(request):
+    if request.method == 'POST':
+        book = Book.objects.get(id=request.POST.get('book-id'))
+
+        # Find the User's cart and remove any existing items
+        cart = cart=Cart.objects.get(user=request.user.id)
+        CartItem.objects.filter(cart=cart).delete()
+
+        # Add the book to the cart
+        cart_item = CartItem.objects.add_cart_item(cart, book, 1)
+
+        messages.success(request, "{} (1) added to cart".format(book.title))
+        return redirect('bookstore-checkout')
+
+@login_required
+def reorder_all(request):
     if request.method == 'POST':
         order = request.POST.get('order')
 
@@ -589,6 +608,7 @@ def reorder(request):
         for item in order_items:
             cart_item = CartItem.objects.add_cart_item(cart, item.book, item.quantity)
 
+        messages.success(request, "Books added to cart")
         return redirect('bookstore-checkout')
 
 

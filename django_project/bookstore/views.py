@@ -121,9 +121,11 @@ def signout(request):
 
 
 def book_detail(request, title):
+    book = Book.objects.get(title=title)
     context = {
-        'title': Book.objects.get(title=title).title,
-        'book': Book.objects.get(title=title),
+        'title': book.title,
+        'book': book,
+        'other_books': Book.objects.filter(genre=book.genre).order_by('?'),
         'books': Book.objects.all(),
         'cartCount': getCartCount(request),
     }

@@ -13,18 +13,11 @@
 }
 
 #add-to-cart{
-    float:right;
-    padding-top: 0px;
-    padding-bottom: 0px;
-    margin:auto;
+    padding: 1px;
+    margin: 1px;
+    font-size: 15px;
 }
 
 #rows{
     margin-top: 10px;
-    padding-right: 10px;
 }
-
-td {
-    height: 50px;
-    vertical-align: bottom;
-  }

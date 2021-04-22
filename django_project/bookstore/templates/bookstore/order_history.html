@@ -15,6 +15,7 @@
                     <th scope="col"><u>Status</u></th>
                     <th scope="col"><u>Date</u></th>
                     <th scope="col"><u>Products</u></th>
+                    <th scope="col"></th>
                     <th scope="col"><u>Price</u></th>
                     <th scope="col"><u>Promotion</u></th>
                     <th scope="col"><u>Total</u></th>
@@ -31,11 +32,15 @@
                             <td>{{ index.order.date }}</td>
                             <td>
                                 {% for item in index.items %}
-                                    <i>{{ item.book }}</i>({{ item.quantity }})
+                                    <i>{{ item.book }}</i>({{ item.quantity }})<br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for item in index.items %}
                                     <form method="POST" action='../../add_to_cart' id="add-to-cart-form">
                                         <input type="hidden" name="book-id" value='{{ item.id }}'>
                                         <button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Reorder Book</button>
-                                    </form><br>
+                                    </form>
                                 {% endfor %}
                             </td>
                             <td>

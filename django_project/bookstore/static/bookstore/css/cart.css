@@ -97,6 +97,10 @@ td{
     cursor: pointer;
 }
 
+#checkout-link:hover, #keep-shopping-link:hover{
+    text-decoration: none;
+}
+
 #home-tab, #explore-tab, #profile-tab{
     color: rgb(175, 175, 175);
 }

@@ -4,6 +4,7 @@
 
 	{% block style %}
 		<link rel="stylesheet" href="{% static 'bookstore/css/search.css' %}">
+		<script src="../../static/bookstore/js/home.js"></script>
 	{% endblock style %}
 	
 	<div class="container-fluid" id="content">
@@ -135,41 +136,8 @@
 							<img src="{{ book.image }}" id="book-image">
 							<p id="book-title">{{ book.title }}</p>
 							<p id="book-author">{{ book.author }}</p>
-							{% if book.rating == 1 %}
-								<span class="fa fa-star checked" id="star1"></span>
-								<span class="fa fa-star" id="star2"></span>
-								<span class="fa fa-star" id="star3"></span>
-								<span class="fa fa-star" id="star4"></span>
-								<span class="fa fa-star" id="star5"></span>
-							{% endif %}
-							{% if book.rating == 2 %}
-								<span class="fa fa-star checked" id="star1"></span>
-								<span class="fa fa-star checked" id="star2"></span>
-								<span class="fa fa-star" id="star3"></span>
-								<span class="fa fa-star" id="star4"></span>
-								<span class="fa fa-star" id="star5"></span>
-							{% endif %}
-							{% if book.rating == 3 %}
-								<span class="fa fa-star checked" id="star1"></span>
-								<span class="fa fa-star checked" id="star2"></span>
-								<span class="fa fa-star checked" id="star3"></span>
-								<span class="fa fa-star" id="star4"></span>
-								<span class="fa fa-star" id="star5"></span>
-							{% endif %}
-							{% if book.rating == 4 %}
-								<span class="fa fa-star checked" id="star1"></span>
-								<span class="fa fa-star checked" id="star2"></span>
-								<span class="fa fa-star checked" id="star3"></span>
-								<span class="fa fa-star checked" id="star4"></span>
-								<span class="fa fa-star" id="star5"></span>
-							{% endif %}
-							{% if book.rating == 5 %}
-								<span class="fa fa-star checked" id="star1"></span>
-								<span class="fa fa-star checked" id="star2"></span>
-								<span class="fa fa-star checked" id="star3"></span>
-								<span class="fa fa-star checked" id="star4"></span>
-								<span class="fa fa-star checked" id="star5"></span>
-							{% endif %}
+							<span id="rating-{{ book.id }}"></span>
+							<script>setStars({{ book.id}}, {{ book.rating }});</script>
 							<p id="book-price"><b>${{ book.price }}</b></p>
 						</a>
 					</div>					
@@ -177,7 +145,7 @@
 	
 			</div>
 		</div>
-		
+	
 		<script src="../../static/bookstore/js/search.js"></script>
 	</div>
 {% endblock content %}

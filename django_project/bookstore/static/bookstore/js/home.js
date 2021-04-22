@@ -1,11 +1,3 @@
-window.onload = (event) => {
-    $("#genre-option").remove(0);
-}
-
-function reset(){
-    location.reload();
-}
-
 function setStars(id, rating){
     let stars = "";
     for (let i = 0; i < 5; i++){

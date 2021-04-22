@@ -4,6 +4,13 @@
     padding-bottom: 100px;
 }
 
+#title{
+    padding: 13px 0px 7px 0;
+    text-align: center;
+    font-weight: normal;
+    font-size: 45px;
+}
+
 label{
     margin-bottom: -3px;
 }

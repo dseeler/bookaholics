@@ -11,9 +11,7 @@
 	<input type="hidden" id="user-state" value="{{ request.user.state }}">
 
 	<div class="container-fluid" id="content">
-		<div class="py-5 text-center">
-			<h1>Checkout</h1>
-		</div>
+		<h1 id="title">Checkout</h1>
 
 		<form method="POST" action="/place_order" id="checkout-form">
 			{% csrf_token %}

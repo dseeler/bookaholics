@@ -35,7 +35,7 @@ class UserAdminConfig(UserAdmin):
         css = {'all': ('admin/css/user.css', )}  
 
 class BookAdmin(admin.ModelAdmin):
-    list_display = ("title", "author", "genre", "year", "rating", "price")
+    list_display = ("id", "title", "author", "genre", "year", "rating", "price")
 
 class CartAdmin(admin.ModelAdmin):
     list_display = ("id", "user")

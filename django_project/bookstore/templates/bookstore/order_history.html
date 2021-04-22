@@ -25,7 +25,7 @@
             <tbody>
                 {% for index in order_data.values reversed %}
                     <tr>
-                        <form method="POST" action="reorder">
+                        <form method="POST" action="/reorder_all">
                             {% csrf_token %}
                             <td>{{ index.order.id }}</td>
                             <td>{{ index.order.status }}</td>
@@ -37,10 +37,7 @@
                             </td>
                             <td>
                                 {% for item in index.items %}
-                                    <form method="POST" action='../../add_to_cart' id="add-to-cart-form">
-                                        <input type="hidden" name="book-id" value='{{ item.id }}'>
-                                        <button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Reorder</button>
-                                    </form>
+                                    <button id="reorder-book" onclick="reorderBook(event, {{ item.book.id }})" class="btn btn-outline-secondary btn-xs text-grey">Reorder</button><br>
                                 {% endfor %}
                             </td>
                             <td>
@@ -61,10 +58,17 @@
                                 <button class="btn btn-sm bg-dark text-white" type="submit">Reorder All</button>
                             </td>
                         </form>
+                        {% for item in index.items %}
+                            <form method="POST" action="/reorder_book" id="reorder-book-form-{{ item.book.id }}">
+                                {% csrf_token %}
+                                <input type="hidden" name="book-id" value="{{ item.book.id }}">
+                            </form>
+                        {% endfor %}
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+        <script src="../../static/bookstore/js/order_history.js"></script>
     </div>
 
 {% endblock content %}

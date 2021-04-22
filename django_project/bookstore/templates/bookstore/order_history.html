@@ -12,6 +12,7 @@
             <thead>
                 <tr><u>
                     <th scope="col"><u>Order ID</u></th>
+                    <th scope="col"><u>Status</u></th>
                     <th scope="col"><u>Date</u></th>
                     <th scope="col"><u>Products</u></th>
                     <th scope="col"><u>Price</u></th>
@@ -26,10 +27,15 @@
                         <form method="POST" action="reorder">
                             {% csrf_token %}
                             <td>{{ index.order.id }}</td>
+                            <td>{{ index.order.status }}</td>
                             <td>{{ index.order.date }}</td>
                             <td>
                                 {% for item in index.items %}
-                                    <i>{{ item.book }}</i> ({{ item.quantity }})<br>
+                                    <i>{{ item.book }}</i>({{ item.quantity }})
+                                    <form method="POST" action='../../add_to_cart' id="add-to-cart-form">
+                                        <input type="hidden" name="book-id" value='{{ item.id }}'>
+                                        <button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Reorder Book</button>
+                                    </form><br>
                                 {% endfor %}
                             </td>
                             <td>
@@ -46,8 +52,8 @@
                             </td>
                             <td><b>${{ index.order.total }}</b></td>
                             <input type="hidden" name="order" value="{{ index.order }}">                                                    
-                            <td valign="middle">
-                                <button class="btn btn-sm bg-dark text-white" type="submit" onclick="validateAll()">Reorder</button>
+                            <td>
+                                <button class="btn btn-sm bg-dark text-white" type="submit">Place Order Again</button>
                             </td>
                         </form>
                     </tr>

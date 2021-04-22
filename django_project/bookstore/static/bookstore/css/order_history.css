@@ -1,6 +1,6 @@
 #content{
     min-height: 100%;
-    width: 1500px;
+    width: 2000px;
     padding-bottom: 100px;
 }
 
@@ -12,3 +12,19 @@
     color: white;
 }
 
+#add-to-cart{
+    float:right;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin:auto;
+}
+
+#rows{
+    margin-top: 10px;
+    padding-right: 10px;
+}
+
+td {
+    height: 50px;
+    vertical-align: bottom;
+  }

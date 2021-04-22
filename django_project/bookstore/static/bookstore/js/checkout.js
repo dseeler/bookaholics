@@ -4,7 +4,6 @@ window.onload = (event) => {
     if ($("#user-state").val() !== 'None') {
         $("#state").val($("#user-state").val());
     }
-
     // Add shipping fee to total
     $("#total").html((parseFloat($("#total").html()) + 5.99).toFixed(2));
 
@@ -22,7 +21,13 @@ window.onload = (event) => {
 
     document.getElementById("order-button").onclick = (event) => {
         event.preventDefault();
-        // Add validation function
+        validateAll();
+    }
+}
+
+function validateAll(){
+    if(validateName() && validateAddress() && validateCard()){
+        $("#checkout-form").submit();
     }
 }
 
@@ -93,4 +98,185 @@ function calculateTax(){
     $("#tax").html(tax.toFixed(2));
     $("#total").html((parseFloat($("#total").html()) + tax).toFixed(2));
     $("#total-input").val((parseFloat($("#total").html()) + tax).toFixed(2));
+}
+
+function validateName(){
+    let valid = true;
+
+    if ($("#first_name").val().length < 1){
+        $("#first_name").attr("style", "border: 1px solid red");
+        $("#first-name-error").html("Can't be empty!");
+        valid = false;
+    }
+
+    if ($("#last_name").val().length < 1){
+        $("#last_name").attr("style", "border: 1px solid red");
+        $("#last-name-error").html("Can't be empty!");
+        valid = false;
+    }
+
+    if ($("#first_name").val().length > 20){
+        $("#first_name").attr("style", "border: 1px solid red");
+        $("#first-name-error").html("Must be <=20 characters");
+        valid = false;
+    }
+
+    if ($("#last_name").val().length > 20){
+        $("#last_name").attr("style", "border: 1px solid red");
+        $("#last-name-error").html("Must be <=20 characters");
+        valid = false;
+    }
+
+    if ($("#last_name").val().length <= 20 && $("#last_name").val().length >= 1){
+        $("#last-name-error").html("");
+        if ($("#first_name").val().length <= 20 && $("#first_name").val().length >= 1){
+            $("#first-name-error").html("");
+            valid = true;
+        }
+    }
+
+
+
+    return valid;
+}
+
+
+function clearFirstName(){
+    $("#first_name").attr("style", "border: 1px solid black");
+    $("#first-name-error").html("");
+}
+
+
+function clearLastName(){
+    $("#last_name").attr("style", "border: 1px solid black");
+    $("#last-name-error").html("");
+}
+
+
+function validateAddress(){
+    let valid = true;
+
+    if ($("#street").val().length < 1){
+        $("#street").attr("style", "border: 1px solid red");
+        $("#street-error").html("Can't be empty");
+        valid = false;
+    }
+
+    if ($("#city").val().length < 1){
+        $("#city").attr("style", "border: 1px solid red");
+        $("#city-error").html("Can't be empty");
+        valid = false;
+    }
+
+    if ($("#state").val().length != 2){
+        $("#state").attr("style", "border: 1px solid red");
+        $("#state-error").html("Must be an abbreviation");
+        valid = false;
+    }
+
+    if ($("#zip_code").val().length != 5){
+        $("#zip_code").attr("style", "border: 1px solid red");
+        $("#zip-code-error").html("Must be 5 characters");
+        valid = false;
+    }
+
+    if (/[^a-zA-Z]/.test($("#city").val())){
+        $("#city").attr("style", "border: 1px solid red");
+        $("#city-error").html("Only letters allowed");
+        valid = false;
+    }
+
+
+    if (/[^a-zA-Z]/.test($("#state").val())){
+        $("#state").attr("style", "border: 1px solid red");
+        $("#state-error").html("Only letters allowed");
+        valid = false;
+    }
+
+    if (/\D/.test($("#zip_code").val())){
+        $("#zip_code").attr("style", "border: 1px solid red");
+        $("#zip-code-error").html("Only digits allowed");
+        valid = false;
+    }
+
+    return valid;
+}
+
+function clearStreet(){
+    $("#street").attr("style", "border: 1px solid black");
+    $("#street-error").html("");
+}
+
+function clearCity(){
+    $("#city").attr("style", "border: 1px solid black");
+    $("#city-error").html("");
+}
+
+function clearState(){
+    $("#state").attr("style", "border: 1px solid black");
+    $("#state-error").html("");
+}
+
+function clearZipCode(){
+    $("#zip_code").attr("style", "border: 1px solid black");
+    $("#zip-code-error").html("");
+}
+
+
+function validateCard(){
+    let valid = true;
+
+    if ($("#card_name").val().length < 1){
+        $("#card_name").attr("style", "border: 1px solid red");
+        $("#card-name-error").html("Must enter a name");
+        valid = false;
+    }
+
+    if ($("#card_num").val().length != 16){
+        $("#card_num").attr("style", "border: 1px solid red");
+        $("#card-num-error").html("Must be 16 characters");
+        valid = false;
+    }
+
+    if ($("#card_exp").val().length != 5){
+        $("#card_exp").attr("style", "border: 1px solid red");
+        $("#card-exp-error").html("Must be in MM/YY format");
+        valid = false;
+    }
+
+    if ($("#card_code").val().length != 3){
+        $("#card_code").attr("style", "border: 1px solid red");
+        $("#card-code-error").html("Must be 3 characters");
+        valid = false;
+    }
+
+    if (/\D/.test($("#card_num").val())){
+        $("#card_num").attr("style", "border: 1px solid red");
+        $("#card-num-error").html("Only digits allowed");
+        valid = false;
+    }
+
+    if (/\D/.test($("#card_code").val())){
+        $("#card_code").attr("style", "border: 1px solid red");
+        $("#card-code-error").html("Only digits allowed");
+        valid = false;
+    }
+
+    return valid;
+}
+
+function clearCardNum(){
+    $("#card_num").attr("style", "border: 1px solid black");
+    $("#card-num-error").html("");
+}
+
+
+function clearCardExp(){
+    $("#card_exp").attr("style", "border: 1px solid black");
+    $("#card-exp-error").html("");
+}
+
+function clearCardCode(){
+    $("#card_code").attr("style", "border: 1px solid black");
+    $("#card-code-error").html("");
 }

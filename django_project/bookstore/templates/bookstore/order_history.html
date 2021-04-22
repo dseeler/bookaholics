@@ -10,14 +10,15 @@
         <h1 id="title">Order History</h1>
         <table class="table">
             <thead>
-                <tr>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Products</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Promotion</th>
-                    <th scope="col">Total</th>
+                <tr><u>
+                    <th scope="col"><u>Order ID</u></th>
+                    <th scope="col"><u>Status</u></th>
+                    <th scope="col"><u>Date</u></th>
+                    <th scope="col"><u>Products</u></th>
+                    <th scope="col"></th>
+                    <th scope="col"><u>Price</u></th>
+                    <th scope="col"><u>Promotion</u></th>
+                    <th scope="col"><u>Total</u></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -31,12 +32,20 @@
                             <td>{{ index.order.date }}</td>
                             <td>
                                 {% for item in index.items %}
-                                    {{ item.book }} ({{ item.quantity }})<br>
+                                    <i>{{ item.book }}</i>({{ item.quantity }})<br>
                                 {% endfor %}
                             </td>
                             <td>
                                 {% for item in index.items %}
-                                    ${{ item.book.price }}<br>
+                                    <form method="POST" action='../../add_to_cart' id="add-to-cart-form">
+                                        <input type="hidden" name="book-id" value='{{ item.id }}'>
+                                        <button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Reorder Book</button>
+                                    </form>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for item in index.items %}
+                                    <b>${{ item.book.price }}</b><br>
                                 {% endfor %}
                             </td>
                             <td>
@@ -46,10 +55,10 @@
                                     None
                                 {% endif %}
                             </td>
-                            <td>${{ index.order.total }}</td>
+                            <td><b>${{ index.order.total }}</b></td>
                             <input type="hidden" name="order" value="{{ index.order }}">                                                    
                             <td>
-                                <button type="submit">Reorder</button>
+                                <button class="btn btn-sm bg-dark text-white" type="submit">Place Order Again</button>
                             </td>
                         </form>
                     </tr>

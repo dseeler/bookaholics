@@ -22,8 +22,8 @@
                 <h5>By <a href="#">{{ book.author }}</a></h5>               
 
                 <div id="ratings">
-                    <span id="rating-{{ book.id }}"></span>
-					<script>setStars({{ book.id}}, {{ book.rating }});</script>
+                    <span id="book-rating-{{ book.id }}"></span>
+					<script>setStars({{ book.id}}, {{ book.rating }}, "book");</script>
                     <span id="num-ratings"></span>
                 </div>
 
@@ -117,8 +117,8 @@
                                     <img src="{{ book.image }}">
                                     <p>{{ book.title }}</p>
                                     <p>{{ book.author }}</p>
-                                    <span id="rating-{{ book.id }}"></span>
-							        <script>setStars({{ book.id}}, {{ book.rating }});</script>
+                                    <span id="other-book-rating-{{ book.id }}"></span>
+                                    <script>setStars({{ book.id}}, {{ book.rating }}, "other-book");</script>
                                     <p><b>${{ book.price }}</b></p>
                                     <button id="other-add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Add to Cart <i class="fa fa-shopping-cart"></i></button>
                                   </a>

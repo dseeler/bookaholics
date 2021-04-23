@@ -136,8 +136,8 @@
 							<img src="{{ book.image }}" id="book-image">
 							<p id="book-title">{{ book.title }}</p>
 							<p id="book-author">{{ book.author }}</p>
-							<span id="rating-{{ book.id }}"></span>
-							<script>setStars({{ book.id}}, {{ book.rating }});</script>
+							<span id="book-rating-{{ book.id }}"></span>
+							<script>setStars({{ book.id}}, {{ book.rating }}, "book");</script>
 							<p id="book-price"><b>${{ book.price }}</b></p>
 						</a>
 					</div>					

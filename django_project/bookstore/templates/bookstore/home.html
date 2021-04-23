@@ -91,8 +91,8 @@
 								<img src="{{ book.image }}">
 								<p>{{ book.title }}</p>
 								<p>{{ book.author }}</p>
-								<span id="rating-{{ book.id }}"></span>
-								<script>setStars({{ book.id}}, {{ book.rating }});</script>
+								<span id="best-sellers-rating-{{ book.id }}"></span>
+								<script>setStars({{ book.id}}, {{ book.rating }}, "best-sellers");</script>
 								<p><b>${{ book.price }}</b></p>
 								<button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Add to Cart <i class="fa fa-shopping-cart"></i></button>
 							</a>
@@ -112,8 +112,8 @@
 								<img src="{{ book.image }}">
 								<p>{{ book.title }}</p>
 								<p>{{ book.author }}</p>
-								<span id="rating-{{ book.id }}"></span>
-								<script>setStars({{ book.id}}, {{ book.rating }});</script>
+								<span id="new-arrivals-rating-{{ book.id }}"></span>
+								<script>setStars({{ book.id}}, {{ book.rating }}, "new-arrivals");</script>
 								<p><b>${{ book.price }}</b></p>
 								<button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Add to Cart <i class="fa fa-shopping-cart"></i></button>
 							</a>

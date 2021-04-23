@@ -1,4 +1,4 @@
-function setStars(id, rating){
+function setStars(id, rating, type){
     let stars = "";
     for (let i = 0; i < 5; i++){
         if (i < rating){
@@ -9,5 +9,5 @@ function setStars(id, rating){
         }
     }
 
-    document.getElementById("rating-" + id).innerHTML = stars;    
+    document.getElementById(type + "-rating-" + id).innerHTML = stars;    
 }

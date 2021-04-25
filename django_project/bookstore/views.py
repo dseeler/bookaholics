@@ -376,7 +376,8 @@ def add_to_cart(request):
                 messages.info(request, "Sign in to add books to your cart")
                 return redirect('bookstore-signin')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    except:        
+    except Exception as e:
+        print(e)        
         messages.info(request, "Something went wrong")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

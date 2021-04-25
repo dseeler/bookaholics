@@ -94,7 +94,13 @@
 								<span id="best-sellers-rating-{{ book.id }}"></span>
 								<script>setStars({{ book.id}}, {{ book.rating }}, "best-sellers");</script>
 								<p><b>${{ book.price }}</b></p>
-								<button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+								<form method="POST" action='/add_to_cart'>
+									{% csrf_token %}
+									<input type="hidden" name="book-id" value='{{ book.id }}'>
+									<input type="hidden" name="quantity" value="1">
+									<button id="add-to-cart" class="btn btn-outline-secondary btn-xs text-grey">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+								</form>
+								
 							</a>
 						</div>
 					</li>

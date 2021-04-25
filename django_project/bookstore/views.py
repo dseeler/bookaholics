@@ -316,15 +316,15 @@ def search(request):
                     books = Book.objects.filter(year=input)
 
                 # Filter genre
-                if genre is not None:            
+                if genre is not None and genre != "Any":            
                     books = books.filter(genre=genre)
                     
                 # Filter rating
-                if rating is not None:
+                if rating is not None and rating != "Any":
                     books = books.filter(rating=rating)
 
                 # Filter price
-                if price_range is not None:
+                if price_range is not None and price_range != "None":
                     if price_range == '<10':
                         books = books.filter(price__lt=10)
                     elif price_range == '10-20':
@@ -345,7 +345,7 @@ def search(request):
         }
         return render(request, 'bookstore/search.html', context)
 
-    except:
+    except:        
         return redirect('bookstore-search')
 
 @login_required
@@ -376,8 +376,7 @@ def add_to_cart(request):
                 messages.info(request, "Sign in to add books to your cart")
                 return redirect('bookstore-signin')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    except Exception as e:
-        print(e)
+    except:        
         messages.info(request, "Something went wrong")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -535,8 +534,7 @@ def filter_search(request):
 
             data = [json_books]
             return JsonResponse(data, safe=False)
-    except Exception as e:
-        print(e)
+    except:        
         messages.info(request, "Something went wrong")
         return redirect('bookstore-shopping_cart')
 

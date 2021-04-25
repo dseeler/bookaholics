@@ -28,6 +28,7 @@ urlpatterns = [
     path('place_order', views.place_order, name=('bookstore-place_order')),
     path('reorder_book', views.reorder_book, name='bookstore-reorder_book'),
     path('reorder_all', views.reorder_all, name='bookstore-reorder_all'),
+    path('filter_search', views.filter_search, name='bookstore-filter_search'),
     path('password-reset/',
          auth_views.PasswordResetView.as_view(
              template_name='bookstore/password-reset/password_reset.html',

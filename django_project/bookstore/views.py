@@ -490,6 +490,56 @@ def change_quantity(request):
         messages.info(request, "Something went wrong")
         return redirect('bookstore-shopping_cart')
 
+# Ajax search filtering
+def filter_search(request):
+    try:
+        if request.method == 'POST' and request.is_ajax():
+            genre = request.POST.get('genre')
+            price_range = request.POST.get('price_range')
+            rating = request.POST.get('rating')
+
+            books = Book.objects.all()
+
+            # Filter genre
+            if genre is not None:
+                genre = genre.replace("\"", "")
+                if genre != "Any":
+                    books = books.filter(genre=genre)
+
+            # Filter price
+            if price_range is not None:
+                price_range = price_range.replace("\"", "")
+                if price_range == '<10':
+                    books = books.filter(price__lt=10)
+                elif price_range == '10-20':
+                    books = books.filter(price__gte=10, price__lt=20)
+                elif price_range == '20>':
+                    books = books.filter(price__gte=20)
+
+            # Filter rating
+            if rating is not None:
+                rating = rating.replace("\"", "")
+                if rating != "Any":
+                    books = books.filter(rating=rating)
+
+            # Send JsonResponse with filtered books
+            json_books = {}
+            for book in books:
+                json_books[book.id] = {
+                    'title': book.title,
+                    'author': book.author,
+                    'image': book.image,
+                    'price': book.price,
+                    'rating': book.rating
+                }
+
+            data = [json_books]
+            return JsonResponse(data, safe=False)
+    except Exception as e:
+        print(e)
+        messages.info(request, "Something went wrong")
+        return redirect('bookstore-shopping_cart')
+
 @login_required
 def redeem_promo(request):
     try:

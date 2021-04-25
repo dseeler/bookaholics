@@ -5,6 +5,7 @@
 	{% block style %}
 		<link rel="stylesheet" href="{% static 'bookstore/css/search.css' %}">
 		<script src="../../static/bookstore/js/home.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2.2.1/src/js.cookie.min.js"></script>
 	{% endblock style %}
 	
 	<div class="container-fluid" id="content">
@@ -17,56 +18,68 @@
 					<p class="filter-category">Genre</p>
 					<ul class="filter-list">
 						<li>
-							<input type="radio" value="Fiction" name="genre">
-							<label>Fiction</label>
+							<input type="radio" value="Any" name="genre" id="genre-any" onclick="filter()" checked>
+							<label for="genre-any">Any</label>
 						</li>
 						<li>
-							<input type="radio" value="Sci-Fi" name="genre">
-							<label>Sci-Fi</label>
+							<input type="radio" value="Fiction" name="genre" id="genre-fiction" onclick="filter()">
+							<label for="genre-fiction">Fiction</label>
 						</li>
 						<li>
-							<input type="radio" value="Horror" name="genre">
-							<label>Horror</label>
+							<input type="radio" value="Sci-Fi" name="genre" id="genre-sci-fi" onclick="filter()">
+							<label for="genre-sci-fi">Sci-Fi</label>
 						</li>
 						<li>
-							<input type="radio" value="Manga" name="genre">
-							<label>Manga</label>
+							<input type="radio" value="Horror" name="genre" id="genre-horror" onclick="filter()">
+							<label for="genre-horror">Horror</label>
 						</li>
 						<li>
-							<input type="radio" value="Fantasy" name="genre">
-							<label>Fantasy</label>
+							<input type="radio" value="Manga" name="genre" id="genre-manga" onclick="filter()">
+							<label for="genre-manga">Manga</label>
 						</li>
 						<li>
-							<input type="radio" value="Mystery" name="genre">
-							<label>Mystery</label>
+							<input type="radio" value="Fantasy" name="genre" id="genre-fantasy" onclick="filter()">
+							<label for="genre-fantasy">Fantasy</label>
 						</li>
 						<li>
-							<input type="radio" value="Novel" name="genre">
-							<label>Novel</label>
+							<input type="radio" value="Mystery" name="genre" id="genre-mystery" onclick="filter()">
+							<label for="genre-mystery">Mystery</label>
+						</li>
+						<li>
+							<input type="radio" value="Novel" name="genre" id="genre-novel" onclick="filter()">
+							<label for="genre-novel">Novel</label>
 						</li>
 					</ul>
 					<p class="separator">______________________________________</p>
 					<p class="filter-category">Price Range</p>
 					<ul class="filter-list">
 						<li>
-							<input type="radio" value="<10" name="price-range">
-							<label>Less than $10</label>
+							<input type="radio" value="None" name="price-range" id="price-none" onclick="filter()" checked>
+							<label for="price-none">None</label>
 						</li>
 						<li>
-							<input type="radio" value="10-20" name="price-range">
-							<label>$10 - $20</label>
+							<input type="radio" value="<10" name="price-range" id="price-lt-10" onclick="filter()">
+							<label for="price-lt-10">Less than $10</label>
 						</li>
 						<li>
-							<input type="radio" value="20>" name="price-range">
-							<label>$20+</label>
+							<input type="radio" value="10-20" name="price-range" id="price-10-20" onclick="filter()">
+							<label for="price-10-20">$10 - $20</label>
+						</li>
+						<li>
+							<input type="radio" value="20>" name="price-range" id="price-gt-20" onclick="filter()">
+							<label for="price-gt-20">$20+</label>
 						</li>
 					</ul>
 					<p class="separator">______________________________________</p>
 					<p class="filter-category">Rating</p>
 					<ul class="filter-list">
 						<li>
-							<input type="radio" value="1" name="rating">
-							<label>
+							<input type="radio" value="Any" name="rating" id="rating-any" onclick="filter()" checked>
+							<label for="rating-any">Any</label>
+						</li>
+						<li>
+							<input type="radio" value="1" name="rating" id="rating-1" onclick="filter()">
+							<label for="rating-1">
 								<span class="fa fa-star checked" id="star1"></span>
 								<span class="fa fa-star" id="star2"></span>
 								<span class="fa fa-star" id="star3"></span>
@@ -75,8 +88,8 @@
 							</label>
 						</li>
 						<li>
-							<input type="radio" value="2" name="rating">
-							<label>
+							<input type="radio" value="2" name="rating" id="rating-2" onclick="filter()">
+							<label for="rating-2">
 								<span class="fa fa-star checked" id="star1"></span>
 								<span class="fa fa-star checked" id="star2"></span>
 								<span class="fa fa-star" id="star3"></span>
@@ -85,8 +98,8 @@
 							</label>
 						</li>
 						<li>
-							<input type="radio" value="3" name="rating">
-							<label>
+							<input type="radio" value="3" name="rating" id="rating-3" onclick="filter()">
+							<label for="rating-3">
 								<span class="fa fa-star checked" id="star1"></span>
 								<span class="fa fa-star checked" id="star2"></span>
 								<span class="fa fa-star checked" id="star3"></span>
@@ -95,8 +108,8 @@
 							</label>
 						</li>
 						<li>
-							<input type="radio" value="4" name="rating">
-							<label>
+							<input type="radio" value="4" name="rating" id="rating-4" onclick="filter()">
+							<label for="rating-4">
 								<span class="fa fa-star checked" id="star1"></span>
 								<span class="fa fa-star checked" id="star2"></span>
 								<span class="fa fa-star checked" id="star3"></span>
@@ -105,8 +118,8 @@
 							</label>
 						</li>
 						<li>
-							<input type="radio" value="5" name="rating">
-							<label>
+							<input type="radio" value="5" name="rating" id="rating-5" onclick="filter()">
+							<label for="rating-5">
 								<span class="fa fa-star checked" id="star1"></span>
 								<span class="fa fa-star checked" id="star2"></span>
 								<span class="fa fa-star checked" id="star3"></span>
@@ -116,13 +129,6 @@
 						</li>
 					</ul>
 					<p class="separator">______________________________________</p>
-					<p class="filter-category">Other</p>
-					<ul class="filter-list">
-						<li>
-							<input type="checkbox" value="on-sale" name="other">
-							<label>On-Sale</label>
-						</li>
-					</ul>
 				</form>
 				<button onclick=reset()>Reset</button>
 			</div>
@@ -130,18 +136,20 @@
 			<div class="container-fluid" id="content-right">
 				<h2 id="content-right-title">{{ header }}</h2>
 	
-				{% for book in books %}
-					<div id="book-container">
-						<a href={% url 'bookstore-book_detail' book.title %}>
-							<img src="{{ book.image }}" id="book-image">
-							<p id="book-title">{{ book.title }}</p>
-							<p id="book-author">{{ book.author }}</p>
-							<span id="book-rating-{{ book.id }}"></span>
-							<script>setStars({{ book.id}}, {{ book.rating }}, "book");</script>
-							<p id="book-price"><b>${{ book.price }}</b></p>
-						</a>
-					</div>					
-				{% endfor %}
+				<div id="search-results">
+					{% for book in books %}
+						<div id="book-container">
+							<a href={% url 'bookstore-book_detail' book.title %}>
+								<img src="{{ book.image }}" id="book-image">
+								<p id="book-title">{{ book.title }}</p>
+								<p id="book-author">{{ book.author }}</p>
+								<span id="book-rating-{{ book.id }}"></span>
+								<script>setStars({{ book.id}}, {{ book.rating }}, "book");</script>
+								<p id="book-price"><b>${{ book.price }}</b></p>
+							</a>
+						</div>					
+					{% endfor %}
+				</div>
 	
 			</div>
 		</div>

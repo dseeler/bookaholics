@@ -220,12 +220,13 @@
 							{% if request.user.card_name %}
 							<input type="text" class="form-control checkout-input" id="card_name" onclick="clearCardName()"
 								value="{{ request.user.card_name }}" name="card_name" required>
+								<small class="text-muted credit-name" style="margin-top:-10px;">Full name as displayed on card</small><br>
 								<span class="error-msg" id="card-name-error"></span><br>
 							{% else %}
 							<input type="text" class="form-control checkout-input" name="card_name" id="card_name" onclick="clearCardName()" required>
+							<small class="text-muted credit-name" style="margin-top:-10px;">Full name as displayed on card</small><br>
                             <span class="error-msg" id="card-name-error"></span><br>
 							{% endif %}
-							<small class="text-muted">Full name as displayed on card</small>
 						</div>
 
 						<div class="col-md-6">
